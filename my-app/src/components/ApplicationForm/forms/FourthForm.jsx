@@ -1,13 +1,16 @@
 import { UploadOutlined } from "@mui/icons-material";
 import { Button, Select, Upload } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import { toast } from "react-toastify";
+import CrudProvider from "../../../provider/CrudProvider";
 
 const FourthForm = (props) => {
   let options = [
     { value: true, label: "Po" },
     { value: false, label: "Jo" },
   ];
+  
+
   function handleNextForm() {
     const { Konference, NjesiAkademike, SqaroMenyrenPrezantimit } =
       props.applicationDTO.AplikuesiPrezantimi;
@@ -26,7 +29,7 @@ const FourthForm = (props) => {
     }
   }
   return (
-    <div className='rbt-card  col-xxl-8 col-lg-12 col-sm-12 mt-2'>
+    <div className='rbt-card  col-xxl-12 col-lg-12 col-sm-12 mt-2'>
       <h3 className='text-center'>Prezantimi ne njesine akademike</h3>
       <div className='row mt-2'>
         <div className='col-lg-12 col-xxl-12 cl-md-10 col-sm-12'>

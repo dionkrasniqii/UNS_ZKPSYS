@@ -9709,7 +9709,7 @@ input[type=radio]~label::after {
 }
 
 .form-group input:focus {
-    border-color: var(--color-primary);
+    border-color: var(--color-sems);
 }
 
 .form-group textarea {
@@ -9724,7 +9724,7 @@ input[type=radio]~label::after {
 }
 
 .form-group textarea:focus {
-    border-color: var(--color-primary);
+border-color: var(--color-sems);
 }
 
 textarea {

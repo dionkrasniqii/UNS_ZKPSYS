@@ -5,16 +5,19 @@ import CrudProvider from "../../../provider/CrudProvider";
 
 const ThirdForm = (props) => {
   const [magazines, setMagazines] = useState([]);
+
   useEffect(() => {
     CrudProvider.getAll("RevistaAPI").then((res) => {
       setMagazines(res.result);
     });
   }, []);
+
   let options =
     magazines.length > 0 &&
     magazines.map((obj) => {
       return { value: `${obj.revistaId}`, label: `${obj.revistaPershkrimi}` };
     });
+
   function DataEpranimit(date, dateString) {
     props.setApplicationDTO({
       ...props.applicationDTO,
@@ -33,6 +36,27 @@ const ThirdForm = (props) => {
       },
     });
   }
+
+  useEffect(() => {
+    CrudProvider.getMagazinesPrice(
+      props.applicationDTO.Aplikimi.FormulariId,
+      props.applicationDTO.AplikimiDetajetPublikimi.RevistaId,
+      props.applicationDTO.Aplikimi.FakultetiId
+    ).then((res) => {
+      if (res) {
+        if (res.statusCode === 200) {
+          props.setApplicationDTO({
+            ...props.applicationDTO,
+            Aplikimi: {
+              ...props.applicationDTO.Aplikimi,
+              ShumaKerkuar: res.result?.shuma,
+            },
+          });
+        }
+      }
+    });
+  }, [props.applicationDTO.AplikimiDetajetPublikimi.RevistaId]);
+
   function handleNextForm() {
     const {
       PerkatesiaAutorit,
@@ -65,11 +89,11 @@ const ThirdForm = (props) => {
     }
   }
   return (
-    <div className='rbt-card rbt-card-body col-xxl-8  col-xxl-8 col-lg-12 col-sm-12 mt-2'>
+    <div className='rbt-card rbt-card-body col-xxl-12  col-lg-12 col-sm-12 mt-2'>
       <h3 className='text-center'>Detajet e publikimit</h3>
       <div className='row mt-3'>
         <div className='col-lg-12 col-sm-12 col-md-10 '>
-          <div className='col-lg-6 col-sm-12 col-md-10'>
+          <div className='col-lg-7 col-sm-12 col-md-10'>
             <div className='form-group'>
               <label>Perkatesia e autorit</label>
               <textarea
@@ -89,7 +113,7 @@ const ThirdForm = (props) => {
           </div>
         </div>
         <div className='col-lg-12 col-sm-12 col-md-10 '>
-          <div className='col-lg-6 col-sm-12 col-md-10'>
+          <div className='col-lg-7 col-sm-12 col-md-10'>
             <div className='form-group'>
               <label>Titulli punimit</label>
               <input
@@ -108,7 +132,7 @@ const ThirdForm = (props) => {
           </div>
         </div>
         <div className='col-lg-12 col-sm-12 col-md-10 '>
-          <div className='col-lg-6 col-sm-12 col-md-10'>
+          <div className='col-lg-7 col-sm-12 col-md-10'>
             <div className='form-group'>
               <label>DOI</label>
               <input
@@ -153,7 +177,7 @@ const ThirdForm = (props) => {
           </div>
         </div>
         <div className='col-lg-12 col-sm-12 col-md-10 mt-2'>
-          <div className='col-lg-6 col-sm-12 col-md-10'>
+          <div className='col-lg-7 col-sm-12 col-md-10'>
             <div className='form-group'>
               <label>Shtepia botuese</label>
               <input
@@ -174,7 +198,7 @@ const ThirdForm = (props) => {
         <div className='col-lg-12 col-sm-12 col-md-10 '>
           <div className='col-lg-12 col-xxl-12 col-sm-12 col-md-10'>
             <div className='row'>
-              <div className=' col-lg-2 col-sm-12'>
+              <div className=' col-lg-1 col-xxl-1 col-sm-12'>
                 <label className='fs-4'>Impakt faktori</label>
               </div>
               <div className='col-xxl-4 col-lg-4 col-sm-12'>
@@ -211,7 +235,7 @@ const ThirdForm = (props) => {
             </div>
           </div>
           <div className='col-lg-12 col-sm-12 col-md-10 mt-2'>
-            <div className='col-lg-6 col-sm-12 col-md-10'>
+            <div className='col-lg-7 col-sm-12 col-md-10'>
               <div className='form-group'>
                 <label>Linku i publikimit</label>
                 <input

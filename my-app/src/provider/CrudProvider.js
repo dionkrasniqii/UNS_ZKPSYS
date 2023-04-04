@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL_LOCAL;
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL_STAGING;
 let token = localStorage.getItem("token");
 async function login(login) {
   const loginDTO = JSON.stringify(login);
@@ -171,7 +171,16 @@ async function getProfessorApplications(FormulariId, ProfesorId) {
     handleRequestError(error);
   }
 }
-
+async function getBankSMC(personalNumber) {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_SMC_LOCAL}${personalNumber}`
+    );
+    return response.data;
+  } catch (error) {
+    handleRequestError(error);
+  }
+}
 async function handleRequestError(error) {
   if (error.response) {
     console.log(error.response.data);
@@ -195,4 +204,5 @@ export default {
   createItemWithFile,
   getProfessorApplications,
   updateItemWithFile,
+  getBankSMC,
 };

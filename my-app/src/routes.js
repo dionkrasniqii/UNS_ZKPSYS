@@ -44,7 +44,10 @@ const AppRoutes = (props) => {
           }
         />
 
-        <Route path='/application/create' element={<CreateApplications />} />
+        <Route
+          path='/application/create/:id'
+          element={<CreateApplications />}
+        />
         <Route path='/application/edit/:id' element={<EditApplications />} />
         {/* APLIKIMET E PROFESORIT */}
         <Route

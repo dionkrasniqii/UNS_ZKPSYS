@@ -5,17 +5,6 @@ import { toast } from "react-toastify";
 import CrudProvider from "../../../provider/CrudProvider";
 
 const FifthForm = (props) => {
-  const [price, setPrice] = useState("");
-
-  // useEffect(() => {
-  //   CrudProvider.getMagazinesPrice(
-  //     props.applicationDTO.Aplikimi.FormulariId,
-  //     props.applicationDTO.AplikimiDetajetPublikimi.RevistaId,
-  //     props.applicationDTO.Aplikimi.FakultetiId
-  //   ).then((res) => {
-  //     setPrice(res.result);
-  //   });
-  // }, []);
   function handleNextForm() {
     const { NumriLlogarisBankare, Vendi, ShumaKerkuar } =
       props.applicationDTO.Aplikimi;
@@ -30,27 +19,30 @@ const FifthForm = (props) => {
     }
   }
   return (
-    <div className='rbt-card col-xxl-8 col-lg-12 col-sm-12 mt-2'>
+    <div className='rbt-card col-xxl-12 col-lg-12 col-sm-12 mt-2'>
       <h3 className='text-center'>Te dhenat bankare te perfituesit</h3>
       <div className='row'>
+        <div className='col-lg-2 col-sm-12 col-xxl-2'>
+          <div className='form-group'>
+            <label>Banka</label>
+            <input
+              type='text'
+              readOnly
+              defaultValue={props.applicationDTO.Aplikimi.BankName}
+            />
+          </div>
+        </div>
         <div className='col-lg-3 col-sm-12 col-xxl-4'>
           <div className='form-group'>
             <label>Numri i llogarise bankare</label>
             <input
               type='text'
-              onChange={(e) => {
-                props.setApplicationDTO({
-                  ...props.applicationDTO,
-                  Aplikimi: {
-                    ...props.applicationDTO.Aplikimi,
-                    NumriLlogarisBankare: e.target.value,
-                  },
-                });
-              }}
+              readOnly
+              defaultValue={props.applicationDTO.Aplikimi.NumriLlogarisBankare}
             />
           </div>
         </div>
-        <div className='col-lg-3 col-sm-12 col-xxl-4'>
+        <div className='col-lg-3 col-sm-12 col-xxl-3'>
           <div className='form-group'>
             <label>Vendi</label>
             <input
@@ -67,25 +59,14 @@ const FifthForm = (props) => {
             />
           </div>
         </div>
-        <div className='col-lg-3 col-sm-12 col-xxl-4'>
+        <div className='col-lg-2 col-sm-12 col-xxl-2'>
           <div className='form-group'>
             <label>Shuma e kerkuar</label>
-            {price !== "" ? (
-              <input type='text' value={price} />
-            ) : (
-              <input
-                type='text'
-                onChange={(e) => {
-                  props.setApplicationDTO({
-                    ...props.applicationDTO,
-                    AplikuesiPrezantimi: {
-                      ...props.applicationDTO.AplikuesiPrezantimi,
-                      Shuma: e.target.value,
-                    },
-                  });
-                }}
-              />
-            )}
+            <input
+              type='text'
+              readOnly
+              defaultValue={`${props.applicationDTO.Aplikimi.ShumaKerkuar}€`}
+            />
           </div>
         </div>
         <div className='col-xxl-12 col-lg-12 col-sm-12 text-end'>

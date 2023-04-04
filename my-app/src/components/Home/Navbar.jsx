@@ -1,8 +1,22 @@
+import axios from "axios";
 import jwtDecode from "jwt-decode";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import CrudProvider from "../../provider/CrudProvider";
 
 const Navbar = (props) => {
+  const [forms, setForms] = useState([]);
+
+  useEffect(() => {
+    CrudProvider.getAll("FormulariAPI").then((res) => {
+      if (res) {
+        if (res.statusCode === 200) {
+          setForms(res.result);
+        }
+      }
+    });
+  }, []);
+
   const myDiv = document.querySelector < HTMLElement > ".sidebarmobile";
   const toggleBtn = document.querySelector < HTMLElement > ".reportsMobile";
   if (toggleBtn) {
@@ -138,13 +152,24 @@ const Navbar = (props) => {
                         {user?.role == 5 && (
                           <>
                             <li className=' position-static'>
-                              <Link to={"/application/create"}>Aplikoni</Link>
-                            </li>
-                            <li className=' position-static'>
                               <Link to={"/myapplications/search"}>
-                                Aplikimet e mija
+                                Aplikimet
                               </Link>
                             </li>
+                            {forms.length > 0 &&
+                              forms.map((obj, index) => {
+                                return (
+                                  <li key={index} className=' position-static'>
+                                    <Link
+                                      to={`/application/create/${btoa(
+                                        obj.formulariId
+                                      )}`}
+                                    >
+                                      {obj.pershkrimi}
+                                    </Link>
+                                  </li>
+                                );
+                              })}
                           </>
                         )}
                       </>

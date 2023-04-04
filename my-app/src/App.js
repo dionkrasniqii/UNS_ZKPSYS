@@ -2,13 +2,19 @@ import logo from "./logo.svg";
 import "./style.css";
 import { Router, useNavigate } from "react-router";
 import AppRoutes from "./routes";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Navbar from "./components/Home/Navbar.jsx";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Encryption from "./Auth/Encryption";
 import jwtDecode from "jwt-decode";
+import CrudProvider from "./provider/CrudProvider";
+import { Provider, useDispatch, useSelector } from "react-redux";
+import { setProfessors } from "./store/actions";
+import store from "./store/store";
+
 function App() {
+  const dispatch = useDispatch();
   const [authState, setAuthState] = useState({
     isAuthenticated: false,
     token: null,
@@ -31,6 +37,15 @@ function App() {
       setAuthState({ isAuthenticated: false, token: null });
     }
   }, [oldSession]);
+
+  useEffect(() => {
+    CrudProvider.getAll("GeneralAPIController/GetProfesoret").then((res) => {
+      if (res) {
+        dispatch(setProfessors(res));
+      }
+    });
+  }, []);
+
   function handleLogin(res) {
     localStorage.setItem("token", res.token);
     let profesor = Encryption.Encrypt(JSON.stringify(res.result));

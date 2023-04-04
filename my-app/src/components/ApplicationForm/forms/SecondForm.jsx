@@ -1,21 +1,18 @@
 import { Select } from "antd";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import CrudProvider from "../../../provider/CrudProvider";
 
 const SecondForm = (props) => {
-  const options = [
-    { label: "Grapes 🍇", value: "10" },
-    { label: "Mango 🥭", value: "9" },
-    { label: "Strawberry 🍓", value: "8" },
-    { label: "Strawberry 🍓", value: "2" },
-    { label: "Strawberry 🍓", value: "3" },
-    { label: "Strawberry 🍓", value: "4" },
-    { label: "Strawberry 🍓", value: "5" },
-    { label: "Strawberry 🍓", value: "6" },
-    { label: "Strawberry 🍓", value: "7" },
-  ];
+  const professors = useSelector((state) => state.professorList.professors);
+
+  let professorsList =
+    professors.length > 0 &&
+    professors.map((obj) => {
+      return { value: `${obj.ProfesoriID}`, label: `${obj.EmriDheMbiemri}` };
+    });
+
   function handleNextForm() {
     const {
       Aplikimi,
@@ -25,8 +22,6 @@ const SecondForm = (props) => {
     } = props.applicationDTO;
 
     if (
-      Aplikimi?.Emri &&
-      Aplikimi?.Mbiemri &&
       AutoriKryesorId &&
       AutoriKorrespodentId?.length &&
       AplikimiBashkeAutorId?.length
@@ -40,7 +35,7 @@ const SecondForm = (props) => {
   }
 
   return (
-    <div className='rbt-card col-xxl-8  col-xxl-8 col-lg-12 col-sm-12 mt-2'>
+    <div className='rbt-card col-xxl-12 col-lg-12 col-sm-12 mt-2'>
       <h3 className='text-center'>Parashtruesi i kerkeses</h3>
       <div className='row'>
         <div className='col-xxl-12 col-lg-10 col-sm-12'>
@@ -50,15 +45,8 @@ const SecondForm = (props) => {
                 <label>Emri</label>
                 <input
                   type='text'
-                  onChange={(e) => {
-                    props.setApplicationDTO({
-                      ...props.applicationDTO,
-                      Aplikimi: {
-                        ...props.applicationDTO.Aplikimi,
-                        Emri: e.target.value,
-                      },
-                    });
-                  }}
+                  defaultValue={props.applicationDTO.Aplikimi.Emri}
+                  readOnly
                 />
               </div>
             </div>
@@ -67,15 +55,28 @@ const SecondForm = (props) => {
                 <label>Mbiemri</label>
                 <input
                   type='text'
-                  onChange={(e) => {
-                    props.setApplicationDTO({
-                      ...props.applicationDTO,
-                      Aplikimi: {
-                        ...props.applicationDTO.Aplikimi,
-                        Mbiemri: e.target.value,
-                      },
-                    });
-                  }}
+                  defaultValue={props.applicationDTO.Aplikimi.Mbiemri}
+                  readOnly
+                />
+              </div>
+            </div>
+            <div className='col-lg-2 col-sm-12 col-md-10'>
+              <div className='form-group'>
+                <label>Thirrja Shkencore</label>
+                <input
+                  type='text'
+                  defaultValue={props.applicationDTO.ThirrjaShkencoreEmri}
+                  readOnly
+                />
+              </div>
+            </div>
+            <div className='col-lg-3 col-sm-12 col-md-10'>
+              <div className='form-group'>
+                <label>Thirrja akademike</label>
+                <input
+                  type='text'
+                  defaultValue={props.applicationDTO.ThirrjaAkademikeEmri}
+                  readOnly
                 />
               </div>
             </div>
@@ -106,7 +107,7 @@ const SecondForm = (props) => {
                       AutoriKryesorId: e,
                     });
                   }}
-                  options={options}
+                  options={professorsList}
                 />
               </div>
             </div>
@@ -142,7 +143,7 @@ const SecondForm = (props) => {
                       AutoriKorrespodentId: newArray,
                     });
                   }}
-                  options={options}
+                  options={professorsList}
                 />
               </div>
             </div>
@@ -179,7 +180,7 @@ const SecondForm = (props) => {
                       AplikimiBashkeAutorId: e,
                     });
                   }}
-                  options={options}
+                  options={professorsList}
                 />
               </div>
             </div>
