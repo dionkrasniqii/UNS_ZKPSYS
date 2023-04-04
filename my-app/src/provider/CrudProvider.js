@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL_STAGING;
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL_LOCAL;
 let token = localStorage.getItem("token");
 async function login(login) {
   const loginDTO = JSON.stringify(login);

@@ -458,7 +458,6 @@ const ApplicationEditProfessor = () => {
                               <input
                                 name='impaktFaktori'
                                 type='number'
-                                max='7000'
                                 onChange={(e) => {
                                   setModel({
                                     ...newModel,

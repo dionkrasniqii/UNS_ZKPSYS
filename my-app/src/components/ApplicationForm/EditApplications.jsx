@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Triangle } from "react-loader-spinner";
+import jwtDecode from "jwt-decode";
 
 const EditApplications = () => {
   const { id } = useParams();
@@ -15,6 +16,9 @@ const EditApplications = () => {
   const [applicant, setApplicant] = useState({});
   const [status, setStatus] = useState([]);
   const user = JSON.parse(Encryption.Decrypt(localStorage.getItem("profesor")));
+  const userRole = localStorage.getItem("token")
+    ? jwtDecode(localStorage.getItem("token"))
+    : null;
   const navigate = useNavigate();
   const [model, setModel] = useState({
     AplikimiShqyrtimiId: "",
@@ -84,9 +88,19 @@ const EditApplications = () => {
     }
   }
 
-  let statusList = status.map((obj) => {
-    return { label: `${obj.pershkrimi}`, value: `${obj.statusiKerkesesId}` };
-  });
+  let statusList = status
+    .map((obj) => {
+      return (userRole?.role === "61" &&
+        (obj.statusiKerkesesId === 5 || obj.statusiKerkesesId === 4)) ||
+        (userRole?.role === "35" &&
+          (obj.statusiKerkesesId === 2 || obj.statusiKerkesesId === 3))
+        ? {
+            label: `${obj.pershkrimi}`,
+            value: `${obj.statusiKerkesesId}`,
+          }
+        : null;
+    })
+    .filter((obj) => obj !== null);
 
   function isModelValid(model) {
     if (model.StatusiKerkesesId === "") {

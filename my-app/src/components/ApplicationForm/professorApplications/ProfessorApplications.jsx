@@ -59,10 +59,9 @@ export default function ProfessorApplications() {
     <div className='container mt-5'>
       <div className='rbt-card '>
         <div className='rbt-card-body'>
-          <h4 className='rbt-card-title'>Zgjedhni formularin: </h4>
           <div className='col-xxl-2 col-md-3 col-lg-2 col-sm-12'>
             <Select
-              placeholder='Zgjedhni'
+              placeholder='Zgjedhni formularin'
               options={formularsList}
               style={{ width: "100%" }}
               onChange={(e) => {

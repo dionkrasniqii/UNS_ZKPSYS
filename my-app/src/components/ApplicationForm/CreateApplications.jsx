@@ -62,7 +62,6 @@ const CreateApplications = () => {
   const [showForm3, setShowForm3] = useState(false);
   const [showForm4, setShowForm4] = useState(false);
   const [showForm5, setShowForm5] = useState(false);
-
   useEffect(() => {
     Promise.all([
       CrudProvider.getBankSMC(`${profesor.numriPersonal}`),

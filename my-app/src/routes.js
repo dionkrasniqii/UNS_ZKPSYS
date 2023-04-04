@@ -19,6 +19,7 @@ const AppRoutes = (props) => {
   const ROLES = {
     ZKPS: "35",
     PROFESOR: "5",
+    ZKPSADMIN: "61",
   };
   return (
     <>
@@ -28,17 +29,49 @@ const AppRoutes = (props) => {
         <Route path='/login' element={<Login login={props.login} />} />
 
         {/* REVISTAT */}
-        <Route path='/magazine/index' element={<Magazine />} />
-        <Route path='/magazine/create' element={<CreateMagazine />} />
-        <Route path='/magazine/edit/:id' element={<EditMagazine />} />
-        <Route path='/magazine/search' element={<SearchMagazine />} />
+        <Route
+          path='/magazine/index'
+          element={
+            <PrivateRoute
+              allowedRoles={[ROLES.ZKPSADMIN]}
+              component={Magazine}
+            />
+          }
+        />
+        <Route
+          path='/magazine/create'
+          element={
+            <PrivateRoute
+              allowedRoles={[ROLES.ZKPSADMIN]}
+              component={CreateMagazine}
+            />
+          }
+        />
+        <Route
+          path='/magazine/edit/:id'
+          element={
+            <PrivateRoute
+              allowedRoles={[ROLES.ZKPSADMIN]}
+              component={EditMagazine}
+            />
+          }
+        />
+        <Route
+          path='/magazine/search'
+          element={
+            <PrivateRoute
+              allowedRoles={[ROLES.ZKPSADMIN]}
+              component={SearchMagazine}
+            />
+          }
+        />
 
         {/* APLIKIMET */}
         <Route
           path='/application/index'
           element={
             <PrivateRoute
-              allowedRoles={[ROLES.ZKPS]}
+              allowedRoles={[ROLES.ZKPS, ROLES.ZKPSADMIN]}
               component={Applications}
             />
           }
@@ -46,27 +79,79 @@ const AppRoutes = (props) => {
 
         <Route
           path='/application/create/:id'
-          element={<CreateApplications />}
+          element={
+            <PrivateRoute
+              allowedRoles={[ROLES.PROFESOR]}
+              component={CreateApplications}
+            />
+          }
         />
-        <Route path='/application/edit/:id' element={<EditApplications />} />
+        <Route
+          path='/application/edit/:id'
+          element={
+            <PrivateRoute
+              allowedRoles={[ROLES.ZKPS, ROLES.ZKPSADMIN]}
+              component={EditApplications}
+            />
+          }
+        />
         {/* APLIKIMET E PROFESORIT */}
         <Route
           path='/myapplications/search'
-          element={<ProfessorApplications />}
+          element={
+            <PrivateRoute
+              allowedRoles={[ROLES.PROFESOR]}
+              component={ProfessorApplications}
+            />
+          }
         />
         <Route
           path='/application/editprofessor/:id'
-          element={<ApplicationEditProfessor />}
+          element={
+            <PrivateRoute
+              allowedRoles={[ROLES.PROFESOR]}
+              component={ApplicationEditProfessor}
+            />
+          }
         />
         <Route
           path='/myapplications/list'
-          element={<ProfessorApplications />}
+          element={
+            <PrivateRoute
+              allowedRoles={[ROLES.PROFESOR]}
+              component={ProfessorApplications}
+            />
+          }
         />
 
         {/* FORMULARET */}
-        <Route path='/formular/index' element={<Formulars />} />
-        <Route path='/formular/create' element={<CreateFormular />} />
-        <Route path='/formular/edit/:id' element={<EditFormular />} />
+        <Route
+          path='/formular/index'
+          element={
+            <PrivateRoute
+              allowedRoles={[ROLES.ZKPSADMIN]}
+              component={Formulars}
+            />
+          }
+        />
+        <Route
+          path='/formular/create'
+          element={
+            <PrivateRoute
+              allowedRoles={[ROLES.ZKPSADMIN]}
+              component={CreateFormular}
+            />
+          }
+        />
+        <Route
+          path='/formular/edit/:id'
+          element={
+            <PrivateRoute
+              allowedRoles={[ROLES.ZKPSADMIN]}
+              component={EditFormular}
+            />
+          }
+        />
       </Routes>
     </>
   );

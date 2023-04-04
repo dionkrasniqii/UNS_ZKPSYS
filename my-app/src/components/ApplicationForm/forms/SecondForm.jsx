@@ -190,7 +190,7 @@ const SecondForm = (props) => {
       <div className='col-xxl-12 col-lg-10 col-sm-12 mt-5'>
         <ul className='social-icon social-default '>
           <li>
-            <a onClick={handleNextForm}>
+            <a onClick={handleNextForm} type='button'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 width='30'

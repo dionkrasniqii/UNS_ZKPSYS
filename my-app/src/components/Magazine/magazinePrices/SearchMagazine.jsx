@@ -108,7 +108,7 @@ const SearchMagazine = () => {
     });
   }
   return (
-    <div className='container'>
+    <div className='container mt-2'>
       <div className='rbt-card rbt-card-body'>
         <form onSubmit={handleSubmit}>
           <div className='row'>

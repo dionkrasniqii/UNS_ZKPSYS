@@ -1,5 +1,6 @@
 import { width } from "@mui/system";
 import { Select } from "antd";
+import jwtDecode from "jwt-decode";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CrudProvider from "../../provider/CrudProvider";
@@ -8,6 +9,9 @@ import ApplicationsList from "./ApplicationsList";
 const Applications = () => {
   const [faculties, setFaculties] = useState([]);
   const [data, setData] = useState([]);
+  const user = localStorage.getItem("token")
+    ? jwtDecode(localStorage.getItem("token"))
+    : null;
   let selectVal = sessionStorage.getItem("selectVal");
 
   useEffect(() => {
@@ -38,32 +42,42 @@ const Applications = () => {
   function saveSelectValueOnSessionStorage(value) {
     sessionStorage.setItem("selectVal", value);
   }
-
   async function Submit(data) {
-    await CrudProvider.getItemById(
-      "AplikimiShqyrtimiAPI/GetAplikimet",
-      data
-    ).then((res) => {
-      if (res) {
-        if (res.statusCode === 200) {
-          setData(res.result);
-        }
-      }
-    });
+    {
+      user?.role === "61"
+        ? await CrudProvider.getItemById(
+            "AplikimiShqyrtimiAPI/GetAplikimetFinal",
+            data
+          ).then((res) => {
+            if (res) {
+              if (res.statusCode === 200) {
+                setData(res.result);
+              }
+            }
+          })
+        : await CrudProvider.getItemById(
+            "AplikimiShqyrtimiAPI/GetAplikimet",
+            data
+          ).then((res) => {
+            if (res) {
+              if (res.statusCode === 200) {
+                setData(res.result);
+              }
+            }
+          });
+    }
   }
   return (
     <div className='container mt-5'>
       <div className='rbt-card rbt-card-body'>
-        <label className='fs-4'>Zgjedhni fakultetin</label>
         <div className='col-lg-3 col-sm-12 d-flex justify-content-end'>
           <Select
-            placeholder='Zgjedhni'
+            placeholder='Zgjedhni fakultetin'
             style={{ width: "100%" }}
             mode='single'
             options={facultiesList}
             defaultValue={selectVal}
             onChange={(e) => {
-              console.log(e);
               Submit(e);
               saveSelectValueOnSessionStorage(e);
             }}
