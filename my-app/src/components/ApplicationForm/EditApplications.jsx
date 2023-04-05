@@ -468,7 +468,7 @@ const EditApplications = () => {
                               {checkIsPDf(applicant.raportiDekanitPath) ==
                               true ? (
                                 <iframe
-                                  src={`${process.env.REACT_APP_API_BASE_URL_LOCAL_DOCS}/${applicant.raportiDekanitPath}`}
+                                  src={`${process.env.REACT_APP_API_BASE_URL_STAGING_DOCS}/${applicant.raportiDekanitPath}`}
                                   width='800px'
                                   height='800px'
                                 ></iframe>
@@ -476,7 +476,7 @@ const EditApplications = () => {
                                 <img
                                   width='800px'
                                   height='800px'
-                                  src={`${process.env.REACT_APP_API_BASE_URL_LOCAL_DOCS}/${applicant.raportiDekanitPath}`}
+                                  src={`${process.env.REACT_APP_API_BASE_URL_STAGING_DOCS}/${applicant.raportiDekanitPath}`}
                                 ></img>
                               )}
                             </div>
@@ -531,7 +531,7 @@ const EditApplications = () => {
                                   {checkIsPDf(applicant.konferencDoc) ==
                                   true ? (
                                     <iframe
-                                      src={`${process.env.REACT_APP_API_BASE_URL_LOCAL_DOCS}/${applicant.konferencDoc}`}
+                                      src={`${process.env.REACT_APP_API_BASE_URL_STAGING_DOCS}/${applicant.konferencDoc}`}
                                       width='1000px'
                                       height='1000px'
                                     ></iframe>
@@ -539,7 +539,7 @@ const EditApplications = () => {
                                     <img
                                       width='1000px'
                                       height='1000px'
-                                      src={`${process.env.REACT_APP_API_BASE_URL_LOCAL_DOCS}/${applicant.konferencDoc}`}
+                                      src={`${process.env.REACT_APP_API_BASE_URL_STAGING_DOCS}/${applicant.konferencDoc}`}
                                     ></img>
                                   )}
                                 </div>
@@ -596,7 +596,7 @@ const EditApplications = () => {
                                   {checkIsPDf(applicant.njesiaAkademikeDoc) ==
                                   true ? (
                                     <iframe
-                                      src={`${process.env.REACT_APP_API_BASE_URL_LOCAL_DOCS}/${applicant.njesiaAkademikeDoc}`}
+                                      src={`${process.env.REACT_APP_API_BASE_URL_STAGING_DOCS}/${applicant.njesiaAkademikeDoc}`}
                                       width='800px'
                                       height='800px'
                                     ></iframe>
@@ -604,7 +604,7 @@ const EditApplications = () => {
                                     <img
                                       width='800px'
                                       height='800px'
-                                      src={`${process.env.REACT_APP_API_BASE_URL_LOCAL_DOCS}/${applicant.njesiaAkademikeDoc}`}
+                                      src={`${process.env.REACT_APP_API_BASE_URL_STAGING_DOCS}/${applicant.njesiaAkademikeDoc}`}
                                     ></img>
                                   )}
                                 </div>
