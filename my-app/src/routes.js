@@ -15,6 +15,10 @@ import Login from "./components/Login/Login";
 import PrivateRoute from "./Auth/PrivateRoute";
 import ProfessorApplications from "./components/ApplicationForm/professorApplications/ProfessorApplications";
 import ApplicationEditProfessor from "./components/ApplicationForm/professorApplications/ApplicationEditProfessor";
+import News from "./components/News/News";
+import CreateNews from "./components/News/CreateNews";
+import EditNews from "./components/News/EditNews";
+import NewsDetails from "./components/News/NewsDetails";
 const AppRoutes = (props) => {
   const ROLES = {
     ZKPS: "35",
@@ -152,6 +156,33 @@ const AppRoutes = (props) => {
             />
           }
         />
+
+        {/* NEWS */}
+        <Route
+          path='/news/index'
+          element={
+            <PrivateRoute allowedRoles={[ROLES.ZKPSADMIN]} component={News} />
+          }
+        />
+        <Route
+          path='/news/create'
+          element={
+            <PrivateRoute
+              allowedRoles={[ROLES.ZKPSADMIN]}
+              component={CreateNews}
+            />
+          }
+        />
+        <Route
+          path='/news/edit/:id'
+          element={
+            <PrivateRoute
+              allowedRoles={[ROLES.ZKPSADMIN]}
+              component={EditNews}
+            />
+          }
+        />
+        <Route path='/news/details/:id' element={<NewsDetails />} />
       </Routes>
     </>
   );

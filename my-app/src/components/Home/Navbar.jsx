@@ -14,7 +14,8 @@ const sidebarItems = [
   { label: "Formularet", path: "/formular/index", roles: ["61"] },
   { label: "Revistat", path: "/magazine/index", roles: ["61"] },
   { label: "Revistat Shuma", path: "/magazine/search", roles: ["61"] },
-  //ZKPS profesor
+  { label: "Lajmet", path: "/news/index", roles: ["61"] },
+  //ZKPS zurtar
   { label: "Aplikimet", path: "/myapplications/search", roles: ["5"] },
 ];
 

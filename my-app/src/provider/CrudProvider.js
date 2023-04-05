@@ -1,10 +1,10 @@
 import axios from "axios";
-
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL_STAGING;
-let token = localStorage.getItem("token");
+
 async function login(login) {
   const loginDTO = JSON.stringify(login);
   try {
+    let token = localStorage.getItem("token");
     const response = await axios.post(
       `${API_BASE_URL}/LoginAPI/login`,
       loginDTO,
@@ -22,6 +22,8 @@ async function login(login) {
 // Get all items
 async function getAll(controller) {
   try {
+    let token = localStorage.getItem("token");
+
     const response = await axios.get(`${API_BASE_URL}/${controller}`, {
       headers: {
         Authorization: "Bearer " + token,
@@ -36,6 +38,8 @@ async function getAll(controller) {
 // Get a single item by ID
 async function getItemById(controller, itemId) {
   try {
+    let token = localStorage.getItem("token");
+
     const response = await axios.get(
       `${API_BASE_URL}/${controller}/${itemId}`,
       {
@@ -54,12 +58,14 @@ async function getItemById(controller, itemId) {
 // Create a new item
 async function createItem(controller, itemData) {
   try {
+    let token = localStorage.getItem("token");
+
     const response = await axios.post(
       `${API_BASE_URL}/${controller}`,
       itemData,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: "Bearer" + token,
           "Content-Type": "application/json",
         },
       }
@@ -72,6 +78,8 @@ async function createItem(controller, itemData) {
 // CREATE OBJECT WITH FORM FILE
 async function createItemWithFile(controller, itemData) {
   try {
+    let token = localStorage.getItem("token");
+
     const response = await axios.post(
       `${API_BASE_URL}/${controller}`,
       itemData,
@@ -90,6 +98,8 @@ async function createItemWithFile(controller, itemData) {
 // Update an existing item by ID
 async function updateItem(controller, itemData) {
   try {
+    let token = localStorage.getItem("token");
+
     const response = await axios.put(
       `${API_BASE_URL}/${controller}`,
       itemData,
@@ -108,6 +118,8 @@ async function updateItem(controller, itemData) {
 
 async function updateItemWithFile(controller, itemData) {
   try {
+    let token = localStorage.getItem("token");
+
     const response = await axios.put(
       `${API_BASE_URL}/${controller}`,
       itemData,
@@ -126,6 +138,8 @@ async function updateItemWithFile(controller, itemData) {
 
 async function deleteItemById(controller, itemId) {
   try {
+    let token = localStorage.getItem("token");
+
     const response = await axios.delete(
       `${API_BASE_URL}/${controller}/${itemId}`,
       {
@@ -141,6 +155,8 @@ async function deleteItemById(controller, itemId) {
 }
 async function getMagazinesPrice(formId, magazineId, facultyId) {
   try {
+    let token = localStorage.getItem("token");
+
     const response = await axios.get(
       `${API_BASE_URL}/RevistaShumaAPI/GetRevistaShuma/${formId}/${magazineId}/${facultyId}`,
       {
@@ -157,6 +173,8 @@ async function getMagazinesPrice(formId, magazineId, facultyId) {
 }
 async function getProfessorApplications(FormulariId, ProfesorId) {
   try {
+    let token = localStorage.getItem("token");
+
     const response = await axios.get(
       `${API_BASE_URL}/AplikimiAPI/GetAplikimetProfesori/${FormulariId}/${ProfesorId}`,
       {
@@ -173,6 +191,8 @@ async function getProfessorApplications(FormulariId, ProfesorId) {
 }
 async function getBankSMC(personalNumber) {
   try {
+    let token = localStorage.getItem("token");
+
     const response = await axios.get(
       `${process.env.REACT_APP_API_SMC_LOCAL}${personalNumber}`
     );
