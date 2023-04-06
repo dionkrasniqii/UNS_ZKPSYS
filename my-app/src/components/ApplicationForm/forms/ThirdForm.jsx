@@ -89,16 +89,23 @@ const ThirdForm = (props) => {
     }
   }
   return (
-    <div className='rbt-card rbt-card-body col-xxl-12  col-lg-12 col-sm-12 mt-2'>
-      <h3 className='text-center'>Detajet e publikimit</h3>
-      <div className='row mt-3'>
-        <div className='col-lg-12 col-sm-12 col-md-10 '>
-          <div className='col-lg-7 col-sm-12 col-md-10'>
-            <div className='form-group'>
+    <div className="rbt-card rbt-card-body mt-5 pt--50">
+      <div className="col-xxl-12 col-lg-10 col-sm-12 rbt-border-dashed rbt-radius border-1 px-5 pt-5 position-relative">
+        <div className="box">
+          <span>2</span>
+        </div>
+        <div className="row">
+          <div class="col-lg-12 mb-4">
+            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
+              Detajët e publikimit
+            </h1>
+          </div>
+          <div className="col-lg-12 col-sm-12 col-md-10">
+            <div className="form-group">
               <label>Perkatesia e autorit (Affilation)</label>
               <textarea
-                type='text'
-                className='mt-3'
+                type="text"
+                className="mt-3"
                 onChange={(e) => {
                   props.setApplicationDTO({
                     ...props.applicationDTO,
@@ -111,13 +118,12 @@ const ThirdForm = (props) => {
               />
             </div>
           </div>
-        </div>
-        <div className='col-lg-12 col-sm-12 col-md-10 '>
-          <div className='col-lg-7 col-sm-12 col-md-10'>
-            <div className='form-group'>
-              <label>Titulli punimit</label>
+          <div className="col-lg-4 col-sm-12">
+            <div className="form-group">
+              <label className="pb-5">Titulli punimit</label>
               <input
-                type='text'
+                className="mt-3"
+                type="text"
                 onChange={(e) => {
                   props.setApplicationDTO({
                     ...props.applicationDTO,
@@ -130,13 +136,13 @@ const ThirdForm = (props) => {
               />
             </div>
           </div>
-        </div>
-        <div className='col-lg-12 col-sm-12 col-md-10 '>
-          <div className='col-lg-7 col-sm-12 col-md-10'>
-            <div className='form-group'>
-              <label>DOI</label>
+
+          <div className="col-lg-4 col-sm-12">
+            <div className="form-group">
+              <label className="pb-5">DOI</label>
               <input
-                type='text'
+                className="mt-3"
+                type="text"
                 onChange={(e) => {
                   props.setApplicationDTO({
                     ...props.applicationDTO,
@@ -149,19 +155,15 @@ const ThirdForm = (props) => {
               />
             </div>
           </div>
-        </div>
-        <div className='col-lg-12 col-sm-12 col-md-10 mt-2'>
-          <div className='row'>
-            <div className='col-lg-1 col-sm-12'>
-              <label className='fs-4'>Revista</label>
-            </div>
-            <div className='col-xxl-4 col-lg-4 col-sm-12'>
-              <div className='rbt-modern-select bootstrap-select  bg-transparent height-45'>
+          <div className="col-lg-4 col-sm-12">
+            <div className="form-group">
+              <label>Revista</label>
+              <div className="rbt-modern-select bootstrap-select pt-2">
                 <Select
-                  type='text'
+                  type="text"
                   options={options}
                   style={{ width: "100%" }}
-                  placeholder='Zgjedhni'
+                  placeholder="Zgjedhni"
                   onChange={(e) => {
                     props.setApplicationDTO({
                       ...props.applicationDTO,
@@ -175,13 +177,13 @@ const ThirdForm = (props) => {
               </div>
             </div>
           </div>
-        </div>
-        <div className='col-lg-12 col-sm-12 col-md-10 mt-2'>
-          <div className='col-lg-7 col-sm-12 col-md-10'>
-            <div className='form-group'>
+
+          <div className="col-lg-4 col-sm-12 col-md-10">
+            <div className="form-group">
               <label>Shtepia botuese</label>
               <input
-                type='text'
+                type="text"
+                className="mt-3"
                 onChange={(e) => {
                   props.setApplicationDTO({
                     ...props.applicationDTO,
@@ -194,78 +196,38 @@ const ThirdForm = (props) => {
               />
             </div>
           </div>
-        </div>
-        <div className='col-lg-12 col-sm-12 col-md-10 '>
-          <div className='col-lg-12 col-xxl-12 col-sm-12 col-md-10'>
-            <div className='row'>
-              <div className='col-lg-7 col-sm-12 col-md-10'>
-                <div className='form-group'>
-                  <label>Indeksimi në platformën</label>
-                  <input
-                    type='text'
-                    // onChange={(e) => {
-                    //   props.setApplicationDTO({
-                    //     ...props.applicationDTO,
-                    //     AplikimiDetajetPublikimi: {
-                    //       ...props.applicationDTO.AplikimiDetajetPublikimi,
-                    //       DOI: e.target.value,
-                    //     },
-                    //   });
-                    // }}
-                  />
-                </div>
-              </div>
-              <div className='col-xxl-8 col-lg-8 col-sm-12'>
-                <div className=' col-lg-2 col-xxl-2 col-sm-12'>
-                  <label className='fs-4'>Impakt faktori (IF)</label>
-                </div>
-                <div className='col-xxl-4 col-lg-4 col-sm-12'>
-                  <InputNumber
-                    min={1}
-                    step='.01'
-                    style={{ width: "100%" }}
-                    onChange={(e) => {
-                      props.setApplicationDTO({
-                        ...props.applicationDTO,
-                        AplikimiDetajetPublikimi: {
-                          ...props.applicationDTO.AplikimiDetajetPublikimi,
-                          ImpaktFaktori: e,
-                        },
-                      });
-                    }}
-                  />
-                </div>
-              </div>
+          <div className="col-lg-4 col-sm-12 col-md-10">
+            <div className="form-group">
+              <label>Indeksimi në platformën</label>
+              <input
+                className="mt-3"
+                type="text"
+                // onChange={(e) => {
+                //   props.setApplicationDTO({
+                //     ...props.applicationDTO,
+                //     AplikimiDetajetPublikimi: {
+                //       ...props.applicationDTO.AplikimiDetajetPublikimi,
+                //       DOI: e.target.value,
+                //     },
+                //   });
+                // }}
+              />
             </div>
           </div>
-        </div>
-        <div className='col-xxl-12 col-lg-10 col-sm-12 mt-4'>
-          <div className='row'>
-            <div className='col-lg-3 col-sm-12 col-md-10'>
-              <div className='col-xxl-12 col-lg-10 col-sm-12'>
-                <label className='fs-4'>Data e pranimit</label>
-              </div>
-              <DatePicker onChange={DataEpranimit} />
-            </div>
-            <div className='col-lg-3 col-sm-12 col-md-10'>
-              <div className='col-xxl-12 col-lg-10 col-sm-12'>
-                <label className='fs-4'>Data e publikimit</label>
-              </div>
-              <DatePicker onChange={DataEpublikimit} />
-            </div>
-          </div>
-          <div className='col-lg-12 col-sm-12 col-md-10 mt-2'>
-            <div className='col-lg-7 col-sm-12 col-md-10'>
-              <div className='form-group'>
-                <label>Linku i publikimit</label>
-                <input
-                  type='text'
+          <div className="col-lg-4 col-sm-12">
+            <div className="form-group">
+              <label>Impakt faktori (IF)</label>
+              <div className="pt-5">
+                <InputNumber
+                  min={1}
+                  step=".01"
+                  style={{ width: "100%" }}
                   onChange={(e) => {
                     props.setApplicationDTO({
                       ...props.applicationDTO,
                       AplikimiDetajetPublikimi: {
                         ...props.applicationDTO.AplikimiDetajetPublikimi,
-                        LinkuPublikimit: e.target.value,
+                        ImpaktFaktori: e,
                       },
                     });
                   }}
@@ -273,28 +235,47 @@ const ThirdForm = (props) => {
               </div>
             </div>
           </div>
+          <div className="col-lg-3 col-sm-12 col-md-10">
+            <div className="form-group">
+              <label className="">Data e pranimit</label>
+              <DatePicker className="w-100 mt-5" onChange={DataEpranimit} />
+            </div>
+          </div>
+          <div className="col-lg-3 col-sm-12 col-md-10">
+            <div className="form-group">
+              <label className="">Data e publikimit</label>
+              <DatePicker className="w-100 mt-5" onChange={DataEpublikimit} />
+            </div>
+          </div>
+
+          <div className="col-lg-6 col-sm-12 col-md-10 mt-2">
+            <div className="form-group">
+              <label>Linku i publikimit</label>
+              <input
+                type="text"
+                className="mt-2"
+                onChange={(e) => {
+                  props.setApplicationDTO({
+                    ...props.applicationDTO,
+                    AplikimiDetajetPublikimi: {
+                      ...props.applicationDTO.AplikimiDetajetPublikimi,
+                      LinkuPublikimit: e.target.value,
+                    },
+                  });
+                }}
+              />
+            </div>
+          </div>
         </div>
       </div>
-      <div className='col-xxl-12 col-lg-10 col-sm-12'>
-        <ul className='social-icon social-default '>
-          <li>
-            <a onClick={handleNextForm}>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                width='30'
-                height='30'
-                fill='currentColor'
-                className='bi bi-arrow-down '
-                viewBox='0 0 16 16'
-              >
-                <path
-                  fillRule='evenodd'
-                  d='M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z'
-                />
-              </svg>
-            </a>
-          </li>
-        </ul>
+      <div className="col-xxl-12 col-lg-12 col-sm-12 mt-5 text-end">
+        <a
+          className="btn btn-danger fs-5 px-5 py-4"
+          onClick={handleNextForm}
+          type="button"
+        >
+          Prezantimi në njesinë akademike
+        </a>
       </div>
     </div>
   );

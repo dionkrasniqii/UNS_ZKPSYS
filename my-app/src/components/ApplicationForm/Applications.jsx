@@ -68,13 +68,13 @@ const Applications = () => {
     }
   }
   return (
-    <div className='container mt-5'>
-      <div className='rbt-card rbt-card-body'>
-        <div className='col-lg-3 col-sm-12 d-flex justify-content-end'>
+    <div className="container mt-5">
+      <div className="rbt-card rbt-card-body">
+        <div className="col-lg-3 col-sm-12 d-flex justify-content-end">
           <Select
-            placeholder='Zgjedhni fakultetin'
+            placeholder="Zgjedhni fakultetin"
             style={{ width: "100%" }}
-            mode='single'
+            mode="single"
             options={facultiesList}
             defaultValue={selectVal}
             onChange={(e) => {
@@ -84,7 +84,7 @@ const Applications = () => {
           />
         </div>
       </div>
-      <div className='rbt-card rbt-card-body  mt-3'>
+      <div className="rbt-card rbt-card-body  mt-3">
         <ApplicationsList data={data} />
       </div>
     </div>

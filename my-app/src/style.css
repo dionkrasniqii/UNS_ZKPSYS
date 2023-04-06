@@ -2751,6 +2751,40 @@ textarea:-ms-input-placeholder {
     Contact Form 
 ----------------------*/
 
+.box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    border-style: dotted;
+    border-width: 2px;
+    border-color: #e6e3f1;
+    width: 59.5px;
+    border-radius: 5px;
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    left: 6px;
+    top: -19px;
+}
+
+.btn-danger {
+    background: linear-gradient(90deg, #C70202, #1814143a);
+    color: #fff;
+    box-shadow: 0 4px 9px -4px #C70202;
+    cursor: pointer !important;
+}
+
+.btn-danger:hover {
+    background: #C70202 !important;
+    box-shadow: 0 4px 15px -4px #C70202 !important;
+}
+
+.box span {
+    font-size: 19px;
+    color: black;
+}
+
 .form-message {
     margin-bottom: 0;
     text-align: center;
@@ -15272,6 +15306,69 @@ span.transparent-button:hover i {
     margin: 5px;
 }
 
+.btn-raporti:last-child {
+    width: 100% !important;
+    box-shadow: none !important;
+    font-size: 15px !important;
+    text-transform: uppercase !important;
+}
+
+:where(.css-dev-only-do-not-override-1vtf12y).ant-btn-text:not(:disabled) {
+    color: white !important;
+    background-color: transparent !important;
+    text-transform: uppercase !important;
+}
+
+:where(.css-dev-only-do-not-override-1vtf12y).ant-btn-text:not(:disabled):hover {
+    color: white !important;
+    background-color: transparent !important;
+    text-transform: uppercase !important;
+}
+
+.ant-select-focused:where(.css-dev-only-do-not-override-1vtf12y).ant-select:not(.ant-select-disable):not(.ant-select-costomize-input):not(.ant-pagination-size-changer) .ant-select-selector {
+    border-color: #c90000 !important;
+    cursor: pointer;
+}
+
+.ant-select-show-search:where(.css-dev-only-do-not-override-1vtf12y).ant-select:not(.ant-select-customize-input) .ant-select-selector input:hover {
+    border-color: #c90000 !important;
+    cursor: pointer;
+}
+
+.ant-select-selection-search:hover {
+    border-color: #c90000 !important;
+    cursor: pointer;
+}
+
+.css-dev-only-do-not-override-1vtf12y:hover {
+    border-color: #c90000 !important;
+    cursor: pointer;
+}
+
+.ant-upload-list-item-name {
+    color: white !important;
+}
+
+:where(.css-dev-only-do-not-override-1vtf12y).ant-upload-wrapper .ant-upload-list .ant-upload-list-item-error .ant-upload-list-item-name,
+ :where(.css-dev-only-do-not-override-1vtf12y).ant-upload-wrapper .ant-upload-list .ant-upload-list-item-error .ant-upload-icon .anticon {
+    color: white !important;
+}
+
+:where(.css-dev-only-do-not-override-1vtf12y).ant-upload-wrapper .ant-upload-list .ant-upload-list-item-error .ant-upload-list-item-actions .anticon,
+ :where(.css-dev-only-do-not-override-1vtf12y).ant-upload-wrapper .ant-upload-list .ant-upload-list-item-error .ant-upload-list-item-actions .anticon:hover {
+    color: white !important;
+}
+
+.ant-select input:hover,
+.css-dev-only-do-not-override-1vtf12y input:hover,
+.ant-select-single input:hover,
+.ant-select-allow-clear input:hover,
+.ant-select-show-arrow input:hover,
+.ant-select-show-search input:hover {
+    border-color: #c90000 !important;
+    cursor: pointer;
+}
+
 
 /*----------------------------- 
     Edu Course Style 
@@ -15284,7 +15381,6 @@ span.transparent-button:hover i {
     border-radius: 15px;
     background: var(--color-white);
     position: relative;
-    height: 100%;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
