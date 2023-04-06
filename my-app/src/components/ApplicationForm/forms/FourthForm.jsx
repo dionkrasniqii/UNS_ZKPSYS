@@ -9,7 +9,6 @@ const FourthForm = (props) => {
     { value: true, label: "Po" },
     { value: false, label: "Jo" },
   ];
-  
 
   function handleNextForm() {
     const { Konference, NjesiAkademike, SqaroMenyrenPrezantimit } =
@@ -30,7 +29,9 @@ const FourthForm = (props) => {
   }
   return (
     <div className='rbt-card  col-xxl-12 col-lg-12 col-sm-12 mt-2'>
-      <h3 className='text-center'>Prezantimi ne njesine akademike</h3>
+      <h3 className='text-center'>
+        Prezantimi ne njesine akademike (Bashkangjitë dëshminë)
+      </h3>
       <div className='row mt-2'>
         <div className='col-lg-12 col-xxl-12 cl-md-10 col-sm-12'>
           <div className='row'>
@@ -57,18 +58,17 @@ const FourthForm = (props) => {
             </div>
             {props.applicationDTO.AplikuesiPrezantimi.Konference === true ? (
               <div className='col-xxl-3 col-lg-4 col-sm-10 mt--20'>
-                <label className='fs-4 pe-2'>Dokumenti Konferences</label>
+                {/* <label className='fs-4 pe-2'>Dokumenti Konferences</label> */}
                 <Upload
                   onChange={(e) => {
-                    console.log(e.file.originFileObj);
                     props.setApplicationDTO({
                       ...props.applicationDTO,
                       KonferenceDokumentiId: e.file.originFileObj,
                     });
                   }}
                 >
-                  <Button type='text' icon={<UploadOutlined />}>
-                    Ngarko
+                  <Button type='button' icon={<UploadOutlined />}>
+                    Ngarko dokumentin e konferences
                   </Button>
                 </Upload>
               </div>
@@ -103,7 +103,7 @@ const FourthForm = (props) => {
             {props.applicationDTO.AplikuesiPrezantimi.NjesiAkademike ===
             true ? (
               <div className='col-xxl-3 col-lg-4 col-sm-10 mt--20'>
-                <label className='fs-4 pe-2'>Njesia akademike</label>
+                {/* <label className='fs-4 pe-2'>Njesia akademike</label> */}
                 <Upload
                   onChange={(e) => {
                     props.setApplicationDTO({
@@ -113,7 +113,7 @@ const FourthForm = (props) => {
                   }}
                 >
                   <Button type='text' icon={<UploadOutlined />}>
-                    Ngarko
+                    Ngarko dokumentin e njësisë akademike
                   </Button>
                 </Upload>
               </div>
@@ -123,8 +123,9 @@ const FourthForm = (props) => {
           </div>
         </div>
         <div className='col-xxl-12 col-lg-12 col-sm-10 d-flex align-items-center mt-4'>
-          <label className='fs-4 pe-2'>Raporti Dekanit</label>
+          {/* <label className='fs-4 pe-2'>Raporti Dekanit</label> */}
           <Upload
+            className='rbt-border-dashed'
             multiple={false}
             onChange={(e) => {
               props.setApplicationDTO({
@@ -134,7 +135,7 @@ const FourthForm = (props) => {
             }}
           >
             <Button type='text' icon={<UploadOutlined />}>
-              Ngarko
+              Raporti Dekanit
             </Button>
           </Upload>
         </div>

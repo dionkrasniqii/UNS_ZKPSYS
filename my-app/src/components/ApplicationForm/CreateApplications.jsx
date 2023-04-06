@@ -2,7 +2,7 @@ import { Select } from "antd";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";
 import Encryption from "../../Auth/Encryption";
 import CrudProvider from "../../provider/CrudProvider";
@@ -17,6 +17,7 @@ const CreateApplications = () => {
   const profesor = JSON.parse(
     Encryption.Decrypt(localStorage.getItem("profesor"))
   );
+  const navigate = useNavigate();
   const [applicationDTO, setApplicationDTO] = useState({
     Aplikimi: {
       FormulariId: decryptedId,
@@ -64,7 +65,10 @@ const CreateApplications = () => {
   const [showForm5, setShowForm5] = useState(false);
   useEffect(() => {
     Promise.all([
-      CrudProvider.getBankSMC(`${profesor.numriPersonal}`),
+      CrudProvider.getItemById(
+        "GeneralAPIController/GetBankaDetajet",
+        profesor.numriPersonal
+      ),
       CrudProvider.getItemById(
         "GeneralAPIController/GetProfesoriGrade",
         profesor.profesoriID
@@ -115,6 +119,7 @@ const CreateApplications = () => {
         if (res !== undefined) {
           if (res.statusCode === 200) {
             toast.success("Aplikimi u regjistrua me sukses");
+            navigate("/myapplications/search");
           } else if (res.statusCode === 0) {
             toast.error("Probleme ne server ju lutemi provoni perseri");
           } else if (res.statusCode === 409) {

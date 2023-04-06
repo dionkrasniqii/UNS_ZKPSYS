@@ -1,10 +1,16 @@
 import axios from "axios";
+
+//const API_BASE_URL = process.env.REACT_APP_API_BASE_URL_LOCAL;
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL_STAGING;
+//const API_BASE_URL = process.env.REACT_APP_API_BASE_URL_PRODUCTION;
+
+//const API_BASE_URL_DOC = process.env.REACT_APP_API_BASE_URL_LOCAL_DOCS;
+const API_BASE_URL_DOC = process.env.REACT_APP_API_BASE_URL_STAGING_DOCS;
+//const API_BASE_URL_DOC = process.env.REACT_APP_API_BASE_URL_PRODUCTION_DOCS;
 
 async function login(login) {
   const loginDTO = JSON.stringify(login);
   try {
-    let token = localStorage.getItem("token");
     const response = await axios.post(
       `${API_BASE_URL}/LoginAPI/login`,
       loginDTO,
@@ -119,7 +125,6 @@ async function updateItem(controller, itemData) {
 async function updateItemWithFile(controller, itemData) {
   try {
     let token = localStorage.getItem("token");
-
     const response = await axios.put(
       `${API_BASE_URL}/${controller}`,
       itemData,
@@ -189,18 +194,21 @@ async function getProfessorApplications(FormulariId, ProfesorId) {
     handleRequestError(error);
   }
 }
-async function getBankSMC(personalNumber) {
-  try {
-    let token = localStorage.getItem("token");
-
-    const response = await axios.get(
-      `${process.env.REACT_APP_API_SMC_LOCAL}${personalNumber}`
-    );
-    return response.data;
-  } catch (error) {
-    handleRequestError(error);
-  }
+function documentPath(filePath) {
+  return `${API_BASE_URL_DOC}/${filePath}`;
 }
+// async function getBankSMC(personalNumber) {
+//   try {
+//     let token = localStorage.getItem("token");
+
+//     const response = await axios.get(
+//       `${process.env.REACT_APP_API_PERSONEL_PRODUCTION}${personalNumber}`
+//     );
+//     return response.data;
+//   } catch (error) {
+//     handleRequestError(error);
+//   }
+// }
 async function handleRequestError(error) {
   if (error.response) {
     console.log(error.response.data);
@@ -224,5 +232,6 @@ export default {
   createItemWithFile,
   getProfessorApplications,
   updateItemWithFile,
-  getBankSMC,
+  documentPath,
+  // getBankSMC,
 };

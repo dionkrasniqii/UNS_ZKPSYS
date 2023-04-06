@@ -11,11 +11,11 @@ const sidebarItems = [
   //ZKPS staf
   { label: "Aplikimet", path: "/application/index", roles: ["35", "61"] },
   //ZKPS admin
-  { label: "Formularet", path: "/formular/index", roles: ["61"] },
-  { label: "Revistat", path: "/magazine/index", roles: ["61"] },
-  { label: "Revistat Shuma", path: "/magazine/search", roles: ["61"] },
-  { label: "Lajmet", path: "/news/index", roles: ["61"] },
-  //ZKPS zurtar
+  //{ label: "Formularet", path: "/formular/index", roles: ["35"] },
+  { label: "Revistat", path: "/magazine/index", roles: ["35"] },
+  { label: "Revistat Shuma", path: "/magazine/search", roles: ["35"] },
+  { label: "Lajmet", path: "/news/index", roles: ["35"] },
+  //ZKPS zyrtar
   { label: "Aplikimet", path: "/myapplications/search", roles: ["5"] },
 ];
 

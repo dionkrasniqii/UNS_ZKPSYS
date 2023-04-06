@@ -95,7 +95,7 @@ const ThirdForm = (props) => {
         <div className='col-lg-12 col-sm-12 col-md-10 '>
           <div className='col-lg-7 col-sm-12 col-md-10'>
             <div className='form-group'>
-              <label>Perkatesia e autorit</label>
+              <label>Perkatesia e autorit (Affilation)</label>
               <textarea
                 type='text'
                 className='mt-3'
@@ -198,23 +198,43 @@ const ThirdForm = (props) => {
         <div className='col-lg-12 col-sm-12 col-md-10 '>
           <div className='col-lg-12 col-xxl-12 col-sm-12 col-md-10'>
             <div className='row'>
-              <div className=' col-lg-1 col-xxl-1 col-sm-12'>
-                <label className='fs-4'>Impakt faktori</label>
+              <div className='col-lg-7 col-sm-12 col-md-10'>
+                <div className='form-group'>
+                  <label>Indeksimi në platformën</label>
+                  <input
+                    type='text'
+                    // onChange={(e) => {
+                    //   props.setApplicationDTO({
+                    //     ...props.applicationDTO,
+                    //     AplikimiDetajetPublikimi: {
+                    //       ...props.applicationDTO.AplikimiDetajetPublikimi,
+                    //       DOI: e.target.value,
+                    //     },
+                    //   });
+                    // }}
+                  />
+                </div>
               </div>
-              <div className='col-xxl-4 col-lg-4 col-sm-12'>
-                <InputNumber
-                  min={1}
-                  style={{ width: "100%" }}
-                  onChange={(e) => {
-                    props.setApplicationDTO({
-                      ...props.applicationDTO,
-                      AplikimiDetajetPublikimi: {
-                        ...props.applicationDTO.AplikimiDetajetPublikimi,
-                        ImpaktFaktori: e,
-                      },
-                    });
-                  }}
-                />
+              <div className='col-xxl-8 col-lg-8 col-sm-12'>
+                <div className=' col-lg-2 col-xxl-2 col-sm-12'>
+                  <label className='fs-4'>Impakt faktori (IF)</label>
+                </div>
+                <div className='col-xxl-4 col-lg-4 col-sm-12'>
+                  <InputNumber
+                    min={1}
+                    step='.01'
+                    style={{ width: "100%" }}
+                    onChange={(e) => {
+                      props.setApplicationDTO({
+                        ...props.applicationDTO,
+                        AplikimiDetajetPublikimi: {
+                          ...props.applicationDTO.AplikimiDetajetPublikimi,
+                          ImpaktFaktori: e,
+                        },
+                      });
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </div>

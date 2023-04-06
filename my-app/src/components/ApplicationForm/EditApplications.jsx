@@ -37,7 +37,6 @@ const EditApplications = () => {
         decryptedId
       ).then((res) => {
         if (res) {
-          let date = new Date().toLocaleDateString("en-GB");
           if (res.statusCode === 200) {
             setApplicant(res.result[0]);
             setModel({
@@ -325,7 +324,7 @@ const EditApplications = () => {
                         </div>
                       </div>
                     </div>
-                    <div className='col-xxl-2 col-lg-2'>
+                    <div className='col-xxl-4 col-lg-4'>
                       <div className='form-group'>
                         <label>Shtepia botuese</label>
                         <input
@@ -335,7 +334,7 @@ const EditApplications = () => {
                         />
                       </div>
                     </div>
-                    <div className='col-xxl-2 col-lg-2'>
+                    <div className='col-xxl-4 col-lg-4'>
                       <div className='form-group'>
                         <label>Data pranimit</label>
                         <input
@@ -349,7 +348,7 @@ const EditApplications = () => {
                         />
                       </div>
                     </div>
-                    <div className='col-xxl-2 col-lg-2'>
+                    <div className='col-xxl-4 col-lg-4'>
                       <div className='form-group'>
                         <label>Data publikimit</label>
                         <input
@@ -363,14 +362,31 @@ const EditApplications = () => {
                         />
                       </div>
                     </div>
-                    <div className='col-xxl-6 col-lg-6'>
-                      <div className='form-group'>
-                        <label>Linku i publikimit</label>
-                        <input
-                          type='text'
-                          readOnly
-                          defaultValue={applicant.linkuPublikimit || ""}
-                        />
+                    <div className='col-xxl-12'>
+                      <div className='row'>
+                        <div className='col-xxl-6 col-lg-6'>
+                          <div className='form-group'>
+                            <label>Indeksimi ne platformen</label>
+                            <input
+                              type='text'
+                              readOnly
+                              defaultValue={
+                                applicant.aplikimiDetajetPublikimi
+                                  .indeksimNePlateformen || ""
+                              }
+                            />
+                          </div>
+                        </div>
+                        <div className='col-xxl-6 col-lg-6'>
+                          <div className='form-group'>
+                            <label>Linku i publikimit</label>
+                            <input
+                              type='text'
+                              readOnly
+                              defaultValue={applicant.linkuPublikimit || ""}
+                            />
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -468,7 +484,9 @@ const EditApplications = () => {
                               {checkIsPDf(applicant.raportiDekanitPath) ==
                               true ? (
                                 <iframe
-                                  src={`${process.env.REACT_APP_API_BASE_URL_STAGING_DOCS}/${applicant.raportiDekanitPath}`}
+                                  src={CrudProvider.documentPath(
+                                    applicant.raportiDekanitPath
+                                  )}
                                   width='800px'
                                   height='800px'
                                 ></iframe>
@@ -476,7 +494,9 @@ const EditApplications = () => {
                                 <img
                                   width='800px'
                                   height='800px'
-                                  src={`${process.env.REACT_APP_API_BASE_URL_STAGING_DOCS}/${applicant.raportiDekanitPath}`}
+                                  src={CrudProvider.documentPath(
+                                    applicant.raportiDekanitPath
+                                  )}
                                 ></img>
                               )}
                             </div>
@@ -531,7 +551,9 @@ const EditApplications = () => {
                                   {checkIsPDf(applicant.konferencDoc) ==
                                   true ? (
                                     <iframe
-                                      src={`${process.env.REACT_APP_API_BASE_URL_STAGING_DOCS}/${applicant.konferencDoc}`}
+                                      src={CrudProvider.documentPath(
+                                        applicant.konferencDoc
+                                      )}
                                       width='1000px'
                                       height='1000px'
                                     ></iframe>
@@ -539,7 +561,9 @@ const EditApplications = () => {
                                     <img
                                       width='1000px'
                                       height='1000px'
-                                      src={`${process.env.REACT_APP_API_BASE_URL_STAGING_DOCS}/${applicant.konferencDoc}`}
+                                      src={CrudProvider.documentPath(
+                                        applicant.konferencDoc
+                                      )}
                                     ></img>
                                   )}
                                 </div>
@@ -596,7 +620,9 @@ const EditApplications = () => {
                                   {checkIsPDf(applicant.njesiaAkademikeDoc) ==
                                   true ? (
                                     <iframe
-                                      src={`${process.env.REACT_APP_API_BASE_URL_STAGING_DOCS}/${applicant.njesiaAkademikeDoc}`}
+                                      src={CrudProvider.documentPath(
+                                        applicant.njesiaAkademikeDoc
+                                      )}
                                       width='800px'
                                       height='800px'
                                     ></iframe>
@@ -604,7 +630,9 @@ const EditApplications = () => {
                                     <img
                                       width='800px'
                                       height='800px'
-                                      src={`${process.env.REACT_APP_API_BASE_URL_STAGING_DOCS}/${applicant.njesiaAkademikeDoc}`}
+                                      src={CrudProvider.documentPath(
+                                        applicant.njesiaAkademikeDoc
+                                      )}
                                     ></img>
                                   )}
                                 </div>

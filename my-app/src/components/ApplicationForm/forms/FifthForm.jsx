@@ -20,7 +20,10 @@ const FifthForm = (props) => {
   }
   return (
     <div className='rbt-card col-xxl-12 col-lg-12 col-sm-12 mt-2'>
-      <h3 className='text-center'>Te dhenat bankare te perfituesit</h3>
+      <h3 className='title'>
+        Te dhenat bankare te perfituesit - autorit të parë ose autorit
+        korrespodent
+      </h3>
       <div className='row'>
         <div className='col-lg-2 col-sm-12 col-xxl-2'>
           <div className='form-group'>

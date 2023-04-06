@@ -64,7 +64,7 @@ const AppRoutes = (props) => {
           path='/magazine/search'
           element={
             <PrivateRoute
-              allowedRoles={[ROLES.ZKPSADMIN]}
+              allowedRoles={[ROLES.ZKPS]}
               component={SearchMagazine}
             />
           }
@@ -132,17 +132,14 @@ const AppRoutes = (props) => {
         <Route
           path='/formular/index'
           element={
-            <PrivateRoute
-              allowedRoles={[ROLES.ZKPSADMIN]}
-              component={Formulars}
-            />
+            <PrivateRoute allowedRoles={[ROLES.ZKPS]} component={Formulars} />
           }
         />
         <Route
           path='/formular/create'
           element={
             <PrivateRoute
-              allowedRoles={[ROLES.ZKPSADMIN]}
+              allowedRoles={[ROLES.ZKPS]}
               component={CreateFormular}
             />
           }
@@ -151,7 +148,7 @@ const AppRoutes = (props) => {
           path='/formular/edit/:id'
           element={
             <PrivateRoute
-              allowedRoles={[ROLES.ZKPSADMIN]}
+              allowedRoles={[ROLES.ZKPS]}
               component={EditFormular}
             />
           }
@@ -161,25 +158,19 @@ const AppRoutes = (props) => {
         <Route
           path='/news/index'
           element={
-            <PrivateRoute allowedRoles={[ROLES.ZKPSADMIN]} component={News} />
+            <PrivateRoute allowedRoles={[ROLES.ZKPS]} component={News} />
           }
         />
         <Route
           path='/news/create'
           element={
-            <PrivateRoute
-              allowedRoles={[ROLES.ZKPSADMIN]}
-              component={CreateNews}
-            />
+            <PrivateRoute allowedRoles={[ROLES.ZKPS]} component={CreateNews} />
           }
         />
         <Route
           path='/news/edit/:id'
           element={
-            <PrivateRoute
-              allowedRoles={[ROLES.ZKPSADMIN]}
-              component={EditNews}
-            />
+            <PrivateRoute allowedRoles={[ROLES.ZKPS]} component={EditNews} />
           }
         />
         <Route path='/news/details/:id' element={<NewsDetails />} />

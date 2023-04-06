@@ -6,6 +6,20 @@ import CrudProvider from "../../../provider/CrudProvider";
 
 const SecondForm = (props) => {
   const professors = useSelector((state) => state.professorList.professors);
+  const [faculty, setFaculty] = useState({});
+
+  useEffect(() => {
+    CrudProvider.getItemById(
+      "GeneralAPIController/GetFakultetiId",
+      props.applicationDTO.Aplikimi.FakultetiId
+    ).then((res) => {
+      if (res) {
+        if (res.statusCode === 200) {
+          setFaculty(res.result);
+        }
+      }
+    });
+  }, []);
 
   let professorsList =
     professors.length > 0 &&
@@ -60,6 +74,19 @@ const SecondForm = (props) => {
                 />
               </div>
             </div>
+            {Object.keys(faculty).length > 0 && (
+              <div className='col-lg-5 col-xxl-3 col-sm-12 col-md-10'>
+                <div className='form-group'>
+                  <label>Njesia akademike</label>
+                  <input
+                    type='text'
+                    defaultValue={faculty.fakultetiPershkrimi}
+                    readOnly
+                  />
+                </div>
+              </div>
+            )}
+
             <div className='col-lg-2 col-sm-12 col-md-10'>
               <div className='form-group'>
                 <label>Thirrja Shkencore</label>

@@ -19,7 +19,6 @@ export default function News() {
   async function handleDelete(e) {
     await CrudProvider.deleteItemById("FormulariAPI", e).then((res) => {
       if (res !== undefined) {
-        console.log(res);
         if (res.statusCode === 200) {
           CrudProvider.getAll("FormulariAPI").then((res) => {
             setNews(res.result);
@@ -59,14 +58,13 @@ export default function News() {
               className='col-lg-4 col-md-6 mt--20 px-2 col-sm-6 col-12'
               key={index}
             >
-              {console.log(obj)}
               <div className='rbt-cat-box rbt-cat-box-1 variation-2 text-center'>
                 <div className='inner'>
                   <div className='row'>
                     <div className='col-lg-10'>
                       <div className='icons'>
                         <img
-                          src={`${process.env.REACT_APP_API_BASE_URL_STAGING_DOCS}/${obj.document.docPath}`}
+                          src={CrudProvider.documentPath(obj.document.docPath)}
                           alt='Icons Images'
                         />
                       </div>

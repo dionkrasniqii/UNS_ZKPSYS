@@ -177,9 +177,9 @@ const SearchMagazine = () => {
                 </div>
               </div>
             </div>
-            <div className='col-lg-2 col-sm-12 mt-4 text-end'>
+            <div className='col-lg-2 col-sm-12 mt-5 text-end'>
               <button
-                className='rbt-btn btn-sm btn-border radius-round '
+                className='rbt-btn btn-sm btn-border radius-round mt-2'
                 type='submit'
                 onClick={(e) => {
                   setShowCreate(false);
