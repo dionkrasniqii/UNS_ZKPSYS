@@ -28,21 +28,27 @@ const FourthForm = (props) => {
     }
   }
   return (
-    <div className='rbt-card  col-xxl-12 col-lg-12 col-sm-12 mt-2'>
-      <h3 className='text-center'>
-        Prezantimi ne njesine akademike (Bashkangjitë dëshminë)
-      </h3>
-      <div className='row mt-2'>
-        <div className='col-lg-12 col-xxl-12 cl-md-10 col-sm-12'>
-          <div className='row'>
-            <div className='col-lg-5 col-xxl-5 cl-md-10 col-sm-12'>
-              <label className='fs-4'>
+    <div className="rbt-card rbt-card-body mt-5 w-100 pt--50">
+      <div className="col-xxl-12 col-lg-10 col-sm-12 rbt-border-dashed rbt-radius border-1 px-5 pt-5 position-relative">
+        <div className="box">
+          <span>3</span>
+        </div>
+        <div className="row mb-5">
+          <div class="col-lg-12 mb-4">
+            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
+              Prezantimi ne njesine akademike (Bashkangjitë dëshminë)
+            </h1>
+          </div>
+
+          <div className="col-lg-3 col-sm-12 col-md-10">
+            <div className="form-group">
+              <label className="">
                 Eshte prezantuar si aktivitet ne konference?
               </label>
-              <div className='rbt-modern-select bootstrap-select  bg-transparent height-45'>
+              <div className="rbt-modern-select bootstrap-select pt-2">
                 <Select
                   style={{ width: "100%" }}
-                  placeholder='Zgjedhni'
+                  placeholder="Zgjedhni"
                   options={options}
                   onChange={(e) => {
                     props.setApplicationDTO({
@@ -56,37 +62,16 @@ const FourthForm = (props) => {
                 />
               </div>
             </div>
-            {props.applicationDTO.AplikuesiPrezantimi.Konference === true ? (
-              <div className='col-xxl-3 col-lg-4 col-sm-10 mt--20'>
-                {/* <label className='fs-4 pe-2'>Dokumenti Konferences</label> */}
-                <Upload
-                  onChange={(e) => {
-                    props.setApplicationDTO({
-                      ...props.applicationDTO,
-                      KonferenceDokumentiId: e.file.originFileObj,
-                    });
-                  }}
-                >
-                  <Button type='button' icon={<UploadOutlined />}>
-                    Ngarko dokumentin e konferences
-                  </Button>
-                </Upload>
-              </div>
-            ) : (
-              <p></p>
-            )}
           </div>
-        </div>
-        <div className='col-lg-12 col-xxl-12 cl-md-10 col-sm-12'>
-          <div className='row'>
-            <div className='col-lg-5 col-xxl-5 cl-md-10 col-sm-12'>
-              <label className='fs-4'>
+          <div className="col-lg-3 col-sm-12 col-md-10">
+            <div className="form-group">
+              <label className="">
                 Eshte prezantuar si aktivitet ne njesine akademike?
               </label>
-              <div className='rbt-modern-select bootstrap-select  bg-transparent height-45'>
+              <div className="rbt-modern-select bootstrap-select pt-2">
                 <Select
                   style={{ width: "100%" }}
-                  placeholder='Zgjedhni'
+                  placeholder="Zgjedhni"
                   options={options}
                   onChange={(e) => {
                     props.setApplicationDTO({
@@ -100,83 +85,74 @@ const FourthForm = (props) => {
                 />
               </div>
             </div>
-            {props.applicationDTO.AplikuesiPrezantimi.NjesiAkademike ===
-            true ? (
-              <div className='col-xxl-3 col-lg-4 col-sm-10 mt--20'>
-                {/* <label className='fs-4 pe-2'>Njesia akademike</label> */}
-                <Upload
+          </div>
+          <div className="col-lg-3 col-sm-12 col-md-10">
+            <div className="form-group">
+              <label className="">
+                Eshte prezantuar si aktivitet ne njesine akademike?
+              </label>
+              <div className="rbt-modern-select bootstrap-select pt-2">
+                <Select
+                  style={{ width: "100%" }}
+                  placeholder="Zgjedhni"
+                  options={options}
                   onChange={(e) => {
                     props.setApplicationDTO({
                       ...props.applicationDTO,
-                      NjesiAkademikeDokumentiId: e.file.originFileObj,
+                      AplikuesiPrezantimi: {
+                        ...props.applicationDTO.AplikuesiPrezantimi,
+                        NjesiAkademike: e,
+                      },
                     });
                   }}
-                >
-                  <Button type='text' icon={<UploadOutlined />}>
-                    Ngarko dokumentin e njësisë akademike
-                  </Button>
-                </Upload>
+                />
               </div>
-            ) : (
-              <p></p>
-            )}
+            </div>
           </div>
-        </div>
-        <div className='col-xxl-12 col-lg-12 col-sm-10 d-flex align-items-center mt-4'>
-          {/* <label className='fs-4 pe-2'>Raporti Dekanit</label> */}
-          <Upload
-            className='rbt-border-dashed'
-            multiple={false}
-            onChange={(e) => {
-              props.setApplicationDTO({
-                ...props.applicationDTO,
-                AplikimiDekaniRaportiDocumentId: e.file.originFileObj,
-              });
-            }}
-          >
-            <Button type='text' icon={<UploadOutlined />}>
-              Raporti Dekanit
-            </Button>
-          </Upload>
-        </div>
-        <div className='col-xxl-10 col-lg-10 cl-md-10 col-sm-12'>
-          <div className='form-group'>
-            <label>Sqaro menyren e prezantimit:</label>
-            <textarea
-              className='mt-5'
+          <div className="col-xxl-12 col-lg-10 cl-md-10 col-sm-12">
+            <div className="form-group">
+              <label>Sqaro menyren e prezantimit:</label>
+              <textarea
+                className="mt-5"
+                onChange={(e) => {
+                  props.setApplicationDTO({
+                    ...props.applicationDTO,
+                    AplikuesiPrezantimi: {
+                      ...props.applicationDTO.AplikuesiPrezantimi,
+                      SqaroMenyrenPrezantimit: e.target.value,
+                    },
+                  });
+                }}
+              />
+            </div>
+          </div>
+          <div className="col-xxl-3 col-sm-12 pb-5">
+            {/* <label className='fs-4 pe-2'>Raporti Dekanit</label> */}
+            <Upload
+              className="btn btn-danger btn-raporti w-100"
+              multiple={false}
               onChange={(e) => {
                 props.setApplicationDTO({
                   ...props.applicationDTO,
-                  AplikuesiPrezantimi: {
-                    ...props.applicationDTO.AplikuesiPrezantimi,
-                    SqaroMenyrenPrezantimit: e.target.value,
-                  },
+                  AplikimiDekaniRaportiDocumentId: e.file.originFileObj,
                 });
               }}
-            />
+            >
+              <Button type="text" icon={<UploadOutlined />}>
+                Ngarkoni Raporti e Dekanit
+              </Button>
+            </Upload>
           </div>
         </div>
       </div>
-      <div className='col-xxl-12 col-lg-10 col-sm-12'>
-        <ul className='social-icon social-default '>
-          <li>
-            <a onClick={handleNextForm}>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                width='30'
-                height='30'
-                fill='currentColor'
-                className='bi bi-arrow-down '
-                viewBox='0 0 16 16'
-              >
-                <path
-                  fillRule='evenodd'
-                  d='M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z'
-                />
-              </svg>
-            </a>
-          </li>
-        </ul>
+      <div className="col-xxl-12 col-lg-12 col-sm-12 mt-5 text-end">
+        <a
+          className="btn btn-danger fs-5 px-5 py-4"
+          onClick={handleNextForm}
+          type="button"
+        >
+          Të dhënat bankare
+        </a>
       </div>
     </div>
   );
