@@ -154,7 +154,7 @@ const Landing = () => {
                                 <div className='thumb'>
                                   <img
                                     src={CrudProvider.documentPath(
-                                      obj.document.docPath
+                                      obj.document?.docPath
                                     )}
                                     // src={`${process.env.REACT_APP_API_BASE_URL_PRODUCTION_DOCS}/${obj.document.docPath}`}
                                     alt='Clint Images'

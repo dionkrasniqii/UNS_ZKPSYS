@@ -36,17 +36,14 @@ const AppRoutes = (props) => {
         <Route
           path='/magazine/index'
           element={
-            <PrivateRoute
-              allowedRoles={[ROLES.ZKPSADMIN]}
-              component={Magazine}
-            />
+            <PrivateRoute allowedRoles={[ROLES.ZKPS]} component={Magazine} />
           }
         />
         <Route
           path='/magazine/create'
           element={
             <PrivateRoute
-              allowedRoles={[ROLES.ZKPSADMIN]}
+              allowedRoles={[ROLES.ZKPS]}
               component={CreateMagazine}
             />
           }
@@ -55,7 +52,7 @@ const AppRoutes = (props) => {
           path='/magazine/edit/:id'
           element={
             <PrivateRoute
-              allowedRoles={[ROLES.ZKPSADMIN]}
+              allowedRoles={[ROLES.ZKPS]}
               component={EditMagazine}
             />
           }

@@ -45,26 +45,29 @@ const SearchMagazine = () => {
       CrudProvider.getAll("RevistaAPI"),
     ]).then((res) => {
       setData({
-        Form: res[0].result,
-        Faculties: res[1].result,
-        Magazines: res[2].result,
+        Form: res[0]?.result,
+        Faculties: res[1]?.result,
+        Magazines: res[2]?.result,
       });
     });
   }, []);
 
   let formList =
+    data.Form &&
     data.Form.length > 1 &&
     data.Form.map((obj) => {
       return { label: `${obj.pershkrimi}`, value: `${obj.formulariId}` };
     });
 
   let magazineList =
+    data.Magazines &&
     data.Magazines.length > 1 &&
     data.Magazines.map((obj) => {
       return { label: `${obj.revistaPershkrimi}`, value: `${obj.revistaId}` };
     }, this);
 
   let facultiesList =
+    data.Faculties &&
     data.Faculties.length > 1 &&
     data.Faculties.map((obj) => {
       return {

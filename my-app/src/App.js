@@ -26,14 +26,14 @@ function App() {
       const decodedToken = jwtDecode(oldSession);
       const currentTime = Date.now() / 1000;
       if (decodedToken.exp < currentTime) {
-        navigate("/login");
+        navigate("/");
         setAuthState({ isAuthenticated: false, token: null });
         toast.info("Sessioni juaj ka mbaruar qasuni perseri");
         return;
       }
       setAuthState({ isAuthenticated: true, token: oldSession });
     } else {
-      navigate("/login");
+      navigate("/");
       setAuthState({ isAuthenticated: false, token: null });
     }
   }, [oldSession]);

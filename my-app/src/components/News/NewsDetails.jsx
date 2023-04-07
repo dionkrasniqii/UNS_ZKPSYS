@@ -28,7 +28,7 @@ export default function NewsDetails() {
               <div className='thumbnail'>
                 <img
                   className='w-100 radius-10'
-                  src={CrudProvider.documentPath(news.document.docPath)}
+                  src={CrudProvider.documentPath(news.document?.docPath)}
                   alt='Product Images'
                 />
               </div>

@@ -17,10 +17,10 @@ export default function News() {
   }, []);
 
   async function handleDelete(e) {
-    await CrudProvider.deleteItemById("FormulariAPI", e).then((res) => {
-      if (res !== undefined) {
+    await CrudProvider.deleteItemById("NjoftimetAPI", e).then((res) => {
+      if (res) {
         if (res.statusCode === 200) {
-          CrudProvider.getAll("FormulariAPI").then((res) => {
+          CrudProvider.getAll("NjoftimetAPI").then((res) => {
             setNews(res.result);
           });
           toast.success("Te dhenat u fshin me sukses");
@@ -91,7 +91,7 @@ export default function News() {
                         )}
                       </div>
                     </div>
-                    {/* <div className='col-md-2'>
+                    <div className='col-md-2'>
                       <div className='row'>
                         <div className='d-flex justify-content-center align-items-center'>
                           <div className='col-md-1 text-end text-danger pe-4'>
@@ -116,9 +116,6 @@ export default function News() {
                           <div className='col-md-1'>
                             <Link
                               className='transparent-button ps-1'
-                              // to={`/formular/edit/${Encryption.Encrypt(
-                              //   JSON.parse(obj.formulariId).toString()
-                              // )}`}
                               to={`/news/edit/${btoa(obj.njoftimiId)}`}
                             >
                               <svg
@@ -142,7 +139,7 @@ export default function News() {
                           </div>
                         </div>
                       </div>
-                    </div> */}
+                    </div>
                   </div>
                 </div>
               </div>

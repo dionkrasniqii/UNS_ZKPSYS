@@ -1,11 +1,11 @@
 import axios from "axios";
 
-//const API_BASE_URL = process.env.REACT_APP_API_BASE_URL_LOCAL;
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL_STAGING;
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL_LOCAL;
+//const API_BASE_URL = process.env.REACT_APP_API_BASE_URL_STAGING;
 //const API_BASE_URL = process.env.REACT_APP_API_BASE_URL_PRODUCTION;
 
-//const API_BASE_URL_DOC = process.env.REACT_APP_API_BASE_URL_LOCAL_DOCS;
-const API_BASE_URL_DOC = process.env.REACT_APP_API_BASE_URL_STAGING_DOCS;
+const API_BASE_URL_DOC = process.env.REACT_APP_API_BASE_URL_LOCAL_DOCS;
+//const API_BASE_URL_DOC = process.env.REACT_APP_API_BASE_URL_STAGING_DOCS;
 //const API_BASE_URL_DOC = process.env.REACT_APP_API_BASE_URL_PRODUCTION_DOCS;
 
 async function login(login) {
@@ -29,10 +29,10 @@ async function login(login) {
 async function getAll(controller) {
   try {
     let token = localStorage.getItem("token");
-
     const response = await axios.get(`${API_BASE_URL}/${controller}`, {
       headers: {
-        Authorization: "Bearer " + token,
+        Authorization: `Bearer ${token}`,
+        //Authorization: "Bearer" + token,
         "Content-Type": "application/json",
       },
     });
@@ -50,7 +50,7 @@ async function getItemById(controller, itemId) {
       `${API_BASE_URL}/${controller}/${itemId}`,
       {
         headers: {
-          Authorization: "Bearer " + token,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       }
@@ -71,7 +71,8 @@ async function createItem(controller, itemData) {
       itemData,
       {
         headers: {
-          Authorization: "Bearer" + token,
+          Authorization: `Bearer ${token}`,
+
           "Content-Type": "application/json",
         },
       }
@@ -91,7 +92,8 @@ async function createItemWithFile(controller, itemData) {
       itemData,
       {
         headers: {
-          Authorization: "Bearer " + token,
+          Authorization: `Bearer ${token}`,
+
           "Content-Type": "Multipart/form-data",
         },
       }
@@ -101,17 +103,17 @@ async function createItemWithFile(controller, itemData) {
     handleRequestError(error);
   }
 }
-// Update an existing item by ID
+// Update an existing item
 async function updateItem(controller, itemData) {
   try {
     let token = localStorage.getItem("token");
-
     const response = await axios.put(
       `${API_BASE_URL}/${controller}`,
       itemData,
       {
         headers: {
-          Authorization: "Bearer " + token,
+          Authorization: `Bearer ${token}`,
+          // "Access-Control-Allow-Origin": "http://localhost:3000",
           "Content-Type": "application/json",
         },
       }
@@ -130,7 +132,8 @@ async function updateItemWithFile(controller, itemData) {
       itemData,
       {
         headers: {
-          Authorization: "Bearer " + token,
+          // Authorization: "Bearer " + token,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "Multipart/form-data",
         },
       }
@@ -149,7 +152,7 @@ async function deleteItemById(controller, itemId) {
       `${API_BASE_URL}/${controller}/${itemId}`,
       {
         headers: {
-          Authorization: "Bearer " + token,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -167,7 +170,7 @@ async function getMagazinesPrice(formId, magazineId, facultyId) {
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -185,7 +188,7 @@ async function getProfessorApplications(FormulariId, ProfesorId) {
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
