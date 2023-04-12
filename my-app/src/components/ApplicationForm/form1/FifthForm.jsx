@@ -25,8 +25,8 @@ const FifthForm = (props) => {
           <span>4</span>
         </div>
         <div className="row">
-          <div class="col-lg-12 mb-5">
-            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
+          <div className="col-lg-12 mb-5">
+            <h1 className="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
               Të dhënat bankare të përfituesit - Autorit të parë ose autorit
               korrespodent
             </h1>

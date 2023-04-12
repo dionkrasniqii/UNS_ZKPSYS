@@ -859,6 +859,8 @@ const ApplicationEditProfessor = () => {
                             <div className='form-group'>
                               {/* <label>Raporti i dekanit i ri</label> */}
                               <Upload
+                                maxCount='1'
+                                accept='.png, .jpeg, . jpg ,.pdf'
                                 onChange={(e) => {
                                   setModel({
                                     ...newModel,

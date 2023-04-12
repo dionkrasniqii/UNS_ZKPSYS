@@ -86,7 +86,6 @@ const EditApplications = () => {
       }
     }
   }
-
   let statusList = status
     .map((obj) => {
       return (userRole?.role === "61" &&

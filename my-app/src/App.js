@@ -29,6 +29,8 @@ function App() {
         navigate("/");
         setAuthState({ isAuthenticated: false, token: null });
         toast.info("Sessioni juaj ka mbaruar qasuni perseri");
+        localStorage.removeItem("token");
+        localStorage.removeItem("profesor");
         return;
       }
       setAuthState({ isAuthenticated: true, token: oldSession });

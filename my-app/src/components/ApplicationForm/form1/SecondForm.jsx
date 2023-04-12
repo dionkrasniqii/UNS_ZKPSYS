@@ -50,13 +50,13 @@ const SecondForm = (props) => {
 
   return (
     <div className="mt-5">
-      <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0 text-uppercase">
+      <h1 className="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0 text-uppercase">
         Aneksi i parë
       </h1>
       <div className="d-flex mt-1">
-        <a class="fs-5 fw-bold text-danger">Ballina</a>
+        <a className="fs-5 fw-bold text-danger">Ballina</a>
         <div className="mx-1 fs-5 fw-bold text-dark">/</div>
-        <div class="breadcrumb-item text-muted fs-5">Formulari i parë</div>
+        <div className="breadcrumb-item text-muted fs-5">Formulari i parë</div>
       </div>
 
       <div className="rbt-card col-xxl-12 col-lg-12 col-sm-12 mt-5">
@@ -70,7 +70,7 @@ const SecondForm = (props) => {
             </div>
             <div className="row mt-4 mb-4">
               <div className="col-lg-12 mb-4">
-                <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
+                <h1 className="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
                   Parashtruesi i kerkeses
                 </h1>
               </div>
@@ -228,7 +228,7 @@ const SecondForm = (props) => {
             onClick={handleNextForm}
             type="button"
           >
-            Detajët e publikimit
+            Detajet e publikimit
           </a>
         </div>
       </div>

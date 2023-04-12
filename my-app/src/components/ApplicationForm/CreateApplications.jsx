@@ -6,10 +6,11 @@ import { useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";
 import Encryption from "../../Auth/Encryption";
 import CrudProvider from "../../provider/CrudProvider";
-import FifthForm from "./forms/FifthForm";
-import FourthForm from "./forms/FourthForm";
-import SecondForm from "./forms/SecondForm";
-import ThirdForm from "./forms/ThirdForm";
+import FifthForm from "./form1/FifthForm";
+import FourthForm from "./form1/FourthForm";
+import SecondForm from "./form1/SecondForm";
+import ThirdForm from "./form1/ThirdForm";
+import SecondForm2 from "./form2/SecondForm2";
 
 const CreateApplications = () => {
   const { id } = useParams();
@@ -30,8 +31,7 @@ const CreateApplications = () => {
       ThirrjaAkademikeId: "",
       BankaId: "",
       NumriLlogarisBankare: "",
-      // ME KALU  NE DINAMIKE MASNEJ
-      ShumaKerkuar: "250",
+      ShumaKerkuar: "",
       Vendi: "",
     },
     BankName: "",
@@ -119,7 +119,7 @@ const CreateApplications = () => {
         if (res !== undefined) {
           if (res.statusCode === 200) {
             toast.success("Aplikimi u regjistrua me sukses");
-            navigate("/myapplications/search");
+            navigate("/");
           } else if (res.statusCode === 0) {
             toast.error("Probleme ne server ju lutemi provoni perseri");
           } else if (res.statusCode === 409) {
@@ -132,49 +132,55 @@ const CreateApplications = () => {
     );
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
+
   return (
     <div className='container mt-5'>
-      <div className='col-xxl-12 col-lg-10 col-sm-12 d-flex justify-content-center'>
-        <SecondForm
-          applicationDTO={applicationDTO}
-          setApplicationDTO={setApplicationDTO}
-          showForm3={setShowForm3}
-        />
-      </div>
-      <div className='col-xxl-12 col-lg-10 col-sm-12  d-flex justify-content-center mt-4'>
-        {showForm3 === true ? (
-          <ThirdForm
-            applicationDTO={applicationDTO}
-            setApplicationDTO={setApplicationDTO}
-            showForm4={setShowForm4}
-          />
-        ) : (
-          <p></p>
-        )}
-      </div>
-      <div className='col-xxl-12 col-lg-10 col-sm-12 d-flex justify-content-center mt-4'>
-        {showForm4 === true ? (
-          <FourthForm
-            applicationDTO={applicationDTO}
-            setApplicationDTO={setApplicationDTO}
-            showForm5={setShowForm5}
-          />
-        ) : (
-          <p></p>
-        )}
-      </div>
-      <div className='col-xxl-12 col-lg-10 col-sm-12 d-flex justify-content-center mt-4 mb-4 '>
-        {showForm5 === true ? (
-          <FifthForm
-            applicationDTO={applicationDTO}
-            setApplicationDTO={setApplicationDTO}
-            showForm5={setShowForm5}
-            submit={handleSubmit}
-          />
-        ) : (
-          <p></p>
-        )}
-      </div>
+      {decryptedId && decryptedId == 1 && (
+        <>
+          <div className='col-xxl-12 col-lg-10 col-sm-12 d-flex justify-content-center'>
+            <SecondForm
+              applicationDTO={applicationDTO}
+              setApplicationDTO={setApplicationDTO}
+              showForm3={setShowForm3}
+            />
+          </div>
+          <div className='col-xxl-12 col-lg-10 col-sm-12  d-flex justify-content-center mt-4'>
+            {showForm3 === true ? (
+              <ThirdForm
+                applicationDTO={applicationDTO}
+                setApplicationDTO={setApplicationDTO}
+                showForm4={setShowForm4}
+              />
+            ) : (
+              <p></p>
+            )}
+          </div>
+          <div className='col-xxl-12 col-lg-10 col-sm-12 d-flex justify-content-center mt-4'>
+            {showForm4 === true ? (
+              <FourthForm
+                applicationDTO={applicationDTO}
+                setApplicationDTO={setApplicationDTO}
+                showForm5={setShowForm5}
+              />
+            ) : (
+              <p></p>
+            )}
+          </div>
+          <div className='col-xxl-12 col-lg-10 col-sm-12 d-flex justify-content-center mt-4 mb-4 '>
+            {showForm5 === true ? (
+              <FifthForm
+                applicationDTO={applicationDTO}
+                setApplicationDTO={setApplicationDTO}
+                showForm5={setShowForm5}
+                submit={handleSubmit}
+              />
+            ) : (
+              <p></p>
+            )}
+          </div>
+        </>
+      )}
+      {decryptedId && decryptedId == 2 && <SecondForm2 />}
     </div>
   );
 };
