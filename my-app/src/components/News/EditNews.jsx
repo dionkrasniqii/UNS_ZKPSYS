@@ -61,108 +61,156 @@ export default function EditNews() {
     // });
   }
   return (
-    <div className='container mt-5'>
-      {Object.keys(data).length > 0 && (
-        <>
-          <span className='fs-1'>Te dhenat e lajmit</span>
-          <form onSubmit={handleSubmit}>
-            <div className='row row--10 mt--10'>
-              <div className='col-lg-4 col-md-4 col-sm-12 col-12'>
-                <div className='form-group'>
-                  <label className='fs-5'>Detajet</label>
-                  <textarea
-                    className='mt-4'
-                    name='RevistaPershkrimi'
-                    type='text'
-                    defaultValue={data.Detajet}
-                    onChange={(e) =>
-                      setData({
-                        ...data,
-                        Detajet: e.target.value,
-                      })
-                    }
-                  />
-                </div>
+    <div className="container-fluid p-0">
+      <div className="rbt-buy-now-area rbt-section-gap bg-gradient-1 header-transperent-spacer px-5">
+        <div className="px--40">
+          <div className="row">
+            <div className="col-lg-10">
+              <div className=" title-wrapper">
+                <h1 className="title mb--0">Të gjitha lajmrimet</h1>
               </div>
-              <div className='col-lg-5 col-md-8 col-sm-12 col-12'>
-                <div className='row'>
-                  <div className='col-lg-8 col-md-4 col-sm-12 col-12'>
-                    <div className='form-group'>
-                      <label className='fs-5'>Titulli</label>
-                      <input
-                        name='RevistaPershkrimi'
-                        type='text'
-                        defaultValue={data.Titulli}
-                        onChange={(e) =>
-                          setData({
-                            ...data,
-                            Titulli: e.target.value,
-                          })
-                        }
-                      />
-                    </div>
-                  </div>
-                  <div className='col-xxl-5 col-lg-6 col-sm-10 d-flex align-items-center mt-4'>
-                    <Upload
-                      type='button'
-                      multiple={false}
-                      maxCount='1'
-                      accept='.png, .jpeg, . jpg ,.pdf'
-                      onChange={(e) => {
-                        setData({
-                          ...data,
-                          Document: e.file.originFileObj,
-                        });
-                      }}
-                    >
-                      <Button type='button' icon={<UploadOutlined />}>
-                        Foto
-                      </Button>
-                    </Upload>
-                  </div>
-                  <div className='col-lg-6 d-flex align-items-center mt-3'>
-                    <p className='comment-form-cookies-consent'>
-                      <input
-                        id='Aktiv'
-                        name='Aktiv'
-                        defaultChecked={data.Aktiv}
-                        type='checkbox'
-                        onChange={(e) =>
-                          setData({
-                            ...data,
-                            Aktiv: e.target.checked,
-                          })
-                        }
-                      />
-                      <label htmlFor='Aktiv'>Aktiv</label>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className='col-lg-12'>
-                <div className='row'>
-                  <div className='col-lg-1 col-sm-12 d-flex justify-content-start'>
-                    <button
-                      className='rbt-btn btn-primary  radius-round btn-sm'
-                      type='submit'
-                    >
-                      <span className='btn-text'>Ruaj</span>
-                      {/* <i className='feather-arrow-right'></i> */}
-                      <span className='btn-icon'></span>
-                    </button>
-                    <Link
-                      className='rbt-btn btn-danger btn-sm radius-round'
-                      to={"/news/index"}
-                    >
-                      Kthehu
-                    </Link>
-                  </div>
-                </div>
-              </div>
+              <p className="description mt-1">
+                Blogu i lajmëve paraqet standarde që njofton të gjithë
+                përdoruesit në mënyren sa më të shpejt dhe korrekte.
+              </p>
             </div>
-          </form>
-        </>
-      )}
+            <div className="col-lg-2">
+              <Link className="rbt-btn btn-gradient" to={"/news/create"}>
+                Krijoni Lajmrimin
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="container rbt-buy-now-area top-news">
+        <div className="rbt-blog-details-area rbt-section-gapBottom breadcrumb-style-max-width">
+          <div className="blog-content-wrapper rbt-article-content-wrapper">
+            <div className="content">
+              {Object.keys(data).length > 0 && (
+                <>
+                  <div className="post-thumbnail mb--30 position-relative wp-block-image alignwide">
+                    <figure>
+                      <img
+                        src="http://192.168.0.110:8888/Documents/dd9a218d-6e5b-4372-b318-ab17c0ccba6c.jpg"
+                        alt="Blog Images"
+                      />
+                      {/* <figcaption>
+                    Business and core management app are for enterprise.
+                  </figcaption> */}
+                    </figure>
+                  </div>
+
+                  <form onSubmit={handleSubmit}>
+                    <div className="row row--10 mt--10">
+                      <div className="col-lg-6">
+                        <span className="fs-1">Te dhenat e lajmit</span>
+                      </div>
+                      <div className="col-lg-6 text-end">
+                        <div className="d-flex justify-content-end align-top">
+                          <Upload
+                            type="button"
+                            multiple={false}
+                            maxCount="1"
+                            accept=".png, .jpeg, . jpg ,.pdf"
+                            onChange={(e) => {
+                              setData({
+                                ...data,
+                                Document: e.file.originFileObj,
+                              });
+                            }}
+                          >
+                            <Button type="button" icon={<UploadOutlined />}>
+                              Foto
+                            </Button>
+                          </Upload>
+
+                          <div className="form-group pt-1">
+                            <input
+                              id="Aktiv"
+                              name="Aktiv"
+                              defaultChecked={data.Aktiv}
+                              type="checkbox"
+                              onChange={(e) =>
+                                setData({
+                                  ...data,
+                                  Aktiv: e.target.checked,
+                                })
+                              }
+                            />
+                            <label htmlFor="Aktiv">Aktiv</label>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="col-lg-12">
+                        <div className="row">
+                          <div className="col-lg-12 mt-4">
+                            <div className="form-group">
+                              <label className="fs-5">Titulli</label>
+                              <input
+                                name="RevistaPershkrimi"
+                                type="text"
+                                defaultValue={data.Titulli}
+                                onChange={(e) =>
+                                  setData({
+                                    ...data,
+                                    Titulli: e.target.value,
+                                  })
+                                }
+                              />
+                            </div>
+                          </div>
+                          <div className="col-lg-12 mt-4"></div>
+                          <div className="col-lg-6"></div>
+                        </div>
+                      </div>
+                      <div className="col-lg-12">
+                        <div className="form-group">
+                          <label className="fs-5 pb-4">Detajet</label>
+                          <textarea
+                            className="mt-4 shadow-3-strong mt-5 p-3"
+                            name="RevistaPershkrimi"
+                            type="text"
+                            rows={15}
+                            defaultValue={data.Detajet}
+                            onChange={(e) =>
+                              setData({
+                                ...data,
+                                Detajet: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
+                      </div>
+                      <div className="col-lg-12">
+                        <div className="row">
+                          <div className="col-lg-1 col-sm-12 d-flex justify-content-start">
+                            <button
+                              className="rbt-btn btn-primary  radius-round btn-sm"
+                              type="submit"
+                            >
+                              <span className="btn-text">Ruaj</span>
+                              {/* <i className='feather-arrow-right'></i> */}
+                              <span className="btn-icon"></span>
+                            </button>
+                            <Link
+                              className="rbt-btn btn-danger btn-sm radius-round"
+                              to={"/news/index"}
+                            >
+                              Kthehu
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+        <div className="row"></div>
+      </div>
     </div>
   );
 }
