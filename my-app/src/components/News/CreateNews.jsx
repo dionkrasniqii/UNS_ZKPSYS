@@ -43,108 +43,120 @@ export default function CreateNews() {
     });
   }
   return (
-    <div className='container mt-5'>
-      <span className='fs-1'>Te dhenat e lajmit</span>
-      <form onSubmit={handleSubmit}>
-        <div className='row row--10 mt--10'>
-          <div className='col-lg-4 col-md-4 col-sm-12 col-12'>
-            <div className='form-group'>
-              <label className='fs-5'>Detajet</label>
-              <textarea
-                className='mt-4'
-                name='RevistaPershkrimi'
-                type='text'
-                onChange={(e) =>
-                  setData({
-                    ...data,
-                    Njoftimet: {
-                      ...data.Njoftimet,
-                      Detajet: e.target.value,
-                    },
-                  })
-                }
-              />
-            </div>
-          </div>
-          <div className='col-lg-5 col-md-8 col-sm-12 col-12'>
-            <div className='row'>
-              <div className='col-lg-8 col-md-4 col-sm-12 col-12'>
-                <div className='form-group'>
-                  <label className='fs-5'>Titulli</label>
-                  <input
-                    name='RevistaPershkrimi'
-                    type='text'
-                    onChange={(e) =>
-                      setData({
-                        ...data,
-                        Njoftimet: {
-                          ...data.Njoftimet,
-                          Titulli: e.target.value,
-                        },
-                      })
-                    }
-                  />
+    <div className='container-fluid p-0'>
+      <div className='container rbt-buy-now-area top-news mt-5'>
+        <div className='rbt-blog-details-area rbt-section-gapBottom breadcrumb-style-max-width'>
+          <div className='blog-content-wrapper rbt-article-content-wrapper'>
+            <div className='content'>
+              <form onSubmit={handleSubmit}>
+                <div className='row row--10 mt--10'>
+                  <div className='col-lg-6'>
+                    <span className='fs-1'>Te dhenat e lajmit</span>
+                  </div>
+                  <div className='col-lg-6 text-end'>
+                    <div className='d-flex justify-content-end align-top'>
+                      <Upload
+                        type='button'
+                        multiple={false}
+                        maxCount='1'
+                        accept='.png, .jpeg, . jpg ,.pdf'
+                        onChange={(e) => {
+                          setData({
+                            ...data,
+                            DokumentiId: e.file.originFileObj,
+                          });
+                        }}
+                      >
+                        <Button type='button' icon={<UploadOutlined />}>
+                          Foto
+                        </Button>
+                      </Upload>
+                      <div className='form-group pt-1'>
+                        <input
+                          id='Aktiv'
+                          name='Aktiv'
+                          type='checkbox'
+                          onChange={(e) =>
+                            setData({
+                              ...data,
+                              Njoftimet: {
+                                ...data.Njoftimet,
+                                Aktiv: e.target.checked,
+                              },
+                            })
+                          }
+                        />
+                        <label htmlFor='Aktiv'>Aktiv</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className='col-lg-12'>
+                    <div className='row'>
+                      <div className='col-lg-12 mt-4'>
+                        <div className='form-group'>
+                          <label className='fs-5'>Titulli</label>
+                          <input
+                            name='RevistaPershkrimi'
+                            type='text'
+                            onChange={(e) =>
+                              setData({
+                                ...data,
+                                Njoftimet: {
+                                  ...data.Njoftimet,
+                                  Titulli: e.target.value,
+                                },
+                              })
+                            }
+                          />
+                        </div>
+                      </div>
+                      <div className='col-lg-12 mt-4'></div>
+                      <div className='col-lg-6'></div>
+                    </div>
+                  </div>
+                  <div className='col-lg-12'>
+                    <div className='form-group'>
+                      <label className='fs-5 pb-4'>Detajet</label>
+                      <textarea
+                        className='mt-4 shadow-3-strong mt-5 p-3'
+                        name='RevistaPershkrimi'
+                        type='text'
+                        rows={15}
+                        onChange={(e) =>
+                          setData({
+                            ...data,
+                            Njoftimet: {
+                              ...data.Njoftimet,
+                              Detajet: e.target.value,
+                            },
+                          })
+                        }
+                      />
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className='col-xxl-5 col-lg-6 col-sm-10 d-flex align-items-center mt-4'>
-                {/* <label className='fs-4 pe-2'>Foto</label> */}
-                <Upload
-                  multiple={false}
-                  onChange={(e) => {
-                    setData({
-                      ...data,
-                      DokumentiId: e.file.originFileObj,
-                    });
-                  }}
-                >
-                  <Button type='text' icon={<UploadOutlined />}>
-                    Foto
-                  </Button>
-                </Upload>
-              </div>
-              <div className='col-lg-6 d-flex align-items-center mt-3'>
-                <p className='comment-form-cookies-consent'>
-                  <input
-                    id='Aktiv'
-                    name='Aktiv'
-                    type='checkbox'
-                    onChange={(e) =>
-                      setData({
-                        ...data,
-                        Njoftimet: {
-                          ...data.Njoftimet,
-                          Aktiv: e.target.checked,
-                        },
-                      })
-                    }
-                  />
-                  <label htmlFor='Aktiv'>Aktiv</label>
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className='col-lg-12'>
-            <div className='row'>
-              <div className='col-lg-1 col-sm-12 d-flex justify-content-start'>
-                <button
-                  className='rbt-btn btn-primary  radius-round btn-sm'
-                  type='submit'
-                >
-                  <span className='btn-text'>Ruaj</span>
-                  {/* <i className='feather-arrow-right'></i> */}
-                  <span className='btn-icon'></span>
-                </button>
-                <Link
-                  className='rbt-btn btn-danger btn-sm radius-round'
-                  to={"/news/index"}
-                >
-                  Kthehu
-                </Link>
-              </div>
+                <div className='col-lg-12'>
+                  <div className='col-lg-1 col-sm-12 d-flex justify-content-start'>
+                    <button
+                      className='rbt-btn btn-primary radius-round btn-sm'
+                      type='submit'
+                    >
+                      Ruaj
+                    </button>
+                    <Link
+                      className='rbt-btn btn-danger btn-sm radius-round'
+                      to={"/news/index"}
+                    >
+                      Kthehu
+                    </Link>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

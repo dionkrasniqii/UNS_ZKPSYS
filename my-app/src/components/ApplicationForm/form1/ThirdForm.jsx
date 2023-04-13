@@ -204,15 +204,15 @@ const ThirdForm = (props) => {
               <input
                 className='mt-3'
                 type='text'
-                // onChange={(e) => {
-                //   props.setApplicationDTO({
-                //     ...props.applicationDTO,
-                //     AplikimiDetajetPublikimi: {
-                //       ...props.applicationDTO.AplikimiDetajetPublikimi,
-                //       DOI: e.target.value,
-                //     },
-                //   });
-                // }}
+                onChange={(e) => {
+                  props.setApplicationDTO({
+                    ...props.applicationDTO,
+                    AplikimiDetajetPublikimi: {
+                      ...props.applicationDTO.AplikimiDetajetPublikimi,
+                      IndeksimNePlateformen: e.target.value,
+                    },
+                  });
+                }}
               />
             </div>
           </div>

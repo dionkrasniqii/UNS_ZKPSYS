@@ -1,7 +1,8 @@
-import { DatePicker, InputNumber, Select } from "antd";
+import { Button, DatePicker, InputNumber, Select, Upload } from "antd";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import CrudProvider from "../../../provider/CrudProvider";
+import { UploadOutlined } from "@mui/icons-material";
 
 const ThirdForm = (props) => {
   function DataEpranimit(date, dateString) {
@@ -298,6 +299,25 @@ const ThirdForm = (props) => {
                 }}
               />
             </div>
+          </div>
+          <div className='col-xxl-3 col-sm-12 pb-5'>
+            {/* <label className='fs-4 pe-2'>Raporti Dekanit</label> */}
+            <Upload
+              maxCount='1'
+              accept='.png, .jpeg, . jpg ,.pdf'
+              className='btn btn-danger btn-raporti w-100'
+              multiple={false}
+              onChange={(e) => {
+                props.setApplicationDTO({
+                  ...props.applicationDTO,
+                  AplikimiDekaniRaportiDocumentId: e.file.originFileObj,
+                });
+              }}
+            >
+              <Button type='text' icon={<UploadOutlined />}>
+                Ngarkoni Raportin e Dekanit
+              </Button>
+            </Upload>
           </div>
         </div>
       </div>

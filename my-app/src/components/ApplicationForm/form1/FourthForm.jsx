@@ -156,7 +156,7 @@ const FourthForm = (props) => {
               }}
             >
               <Button type='text' icon={<UploadOutlined />}>
-                Ngarkoni Raporti e Dekanit
+                Ngarkoni Raportin e Dekanit
               </Button>
             </Upload>
           </div>

@@ -276,38 +276,6 @@ const SecondForm = (props) => {
                   </div>
                   <div className='col-lg-4'>
                     <div className='form-group'>
-                      <label>Autor korrespodent:</label>
-                      <div className='rbt-modern-select bootstrap-select pt-2'>
-                        <Select
-                          showSearch
-                          maxTagCount='responsive'
-                          optionFilterProp='children'
-                          filterOption={(input, option) =>
-                            (option?.label ?? "")
-                              .toLowerCase()
-                              .includes(input.toLowerCase())
-                          }
-                          mode='multiple'
-                          allowClear
-                          style={{ width: "100%" }}
-                          placeholder='Zgjedhni'
-                          onChange={(e) => {
-                            let newArray = [];
-                            e.map((obj) => {
-                              newArray.push(obj);
-                            });
-                            setapplicationDTO({
-                              ...applicationDTO,
-                              AutoriKorrespodentId: newArray,
-                            });
-                          }}
-                          options={professorsList}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className='col-lg-4'>
-                    <div className='form-group'>
                       <label>Bashkautoret:</label>
                       <div className='rbt-modern-select bootstrap-select pt-2'>
                         <Select

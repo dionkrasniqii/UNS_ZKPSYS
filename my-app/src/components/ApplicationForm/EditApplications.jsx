@@ -361,7 +361,7 @@ const EditApplications = () => {
                               readOnly
                               defaultValue={
                                 new Date(
-                                  applicant.dataPublikimit
+                                  applicant.aplikimiDetajetPublikimi?.dataPublikimit
                                 ).toLocaleDateString("en-GB") || ""
                               }
                             />
@@ -377,7 +377,7 @@ const EditApplications = () => {
                                   readOnly
                                   defaultValue={
                                     applicant.aplikimiDetajetPublikimi
-                                      .indeksimNePlateformen || ""
+                                      ?.indeksimNePlateformen || ""
                                   }
                                 />
                               </div>
@@ -864,11 +864,11 @@ const EditApplications = () => {
                           </div>
                           <div className='col-xxl-4 col-lg-4'>
                             <div className='form-group'>
-                              <label>Vendi</label>
+                              <label>Vendi ngjarjes</label>
                               <input
                                 type='text'
                                 readOnly
-                                defaultValue={applicant.vendi || ""}
+                                defaultValue={applicant.vendiNgjarjes || ""}
                               />
                             </div>
                           </div>

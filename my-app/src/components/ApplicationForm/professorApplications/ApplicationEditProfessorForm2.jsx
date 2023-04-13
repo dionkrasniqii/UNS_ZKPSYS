@@ -333,7 +333,7 @@ export default function ApplicationEditProfessorForm2() {
                   </div>
                   <div className='col-xxl-3 col-lg-3'>
                     <div className='form-group'>
-                      <label>Vendi</label>
+                      <label>Vendi Ngjarjes</label>
                       <input
                         type='text'
                         onChange={(e) => {
@@ -342,7 +342,7 @@ export default function ApplicationEditProfessorForm2() {
                             Vendi: e.target.value,
                           });
                         }}
-                        defaultValue={applicant.vendi || ""}
+                        defaultValue={applicant.vendiNgjarjes || ""}
                       />
                     </div>
                   </div>

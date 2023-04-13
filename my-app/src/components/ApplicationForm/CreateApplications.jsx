@@ -48,6 +48,7 @@ const CreateApplications = () => {
       DataPranimit: "",
       LinkuPublikimit: "",
       DataPublikimit: "",
+      IndeksimNePlateformen: "",
     },
     AplikuesiPrezantimi: {
       Konference: false,
