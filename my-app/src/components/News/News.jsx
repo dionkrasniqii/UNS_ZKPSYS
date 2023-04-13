@@ -15,7 +15,7 @@ export default function News() {
       }
     });
   }, []);
-  
+
   async function handleDelete(e) {
     await CrudProvider.deleteItemById("NjoftimetAPI", e).then((res) => {
       if (res) {
@@ -34,117 +34,92 @@ export default function News() {
   }
 
   return (
-    <div className='container mt-5'>
-      <div className='row'>
-        <div className='col-lg-12'>
-          <div className='row'>
-            <div className='col-lg-10 col-sm-12 d-flex justify-content-start'>
-              <span className='fs-1'>Lajmet</span>
+    <div className="container-fluid p-0">
+      <div className="rbt-buy-now-area rbt-section-gap bg-gradient-1 header-transperent-spacer px-5">
+        <div className="px--40">
+          <div className="row">
+            <div className="col-lg-10">
+              <div className=" title-wrapper">
+                <h1 className="title mb--0">Të gjitha lajmrimet</h1>
+              </div>
+              <p className="description mt-1">
+                Blogu i lajmëve paraqet standarde që njofton të gjithë
+                përdoruesit në mënyren sa më të shpejt dhe korrekte.
+              </p>
             </div>
-            <div className='col-lg-2 col-sm-12 d-flex justify-content-end'>
-              <Link
-                className='rbt-btn btn-sm btn-border radius-round'
-                to={"/news/create"}
-              >
-                Shto
+            <div className="col-lg-2">
+              <Link className="rbt-btn btn-gradient" to={"/news/create"}>
+                Krijoni Lajmrimin
               </Link>
             </div>
           </div>
         </div>
-
-        {news.length > 0 &&
-          news.map((obj, index) => (
-            <div
-              className='col-lg-4 col-md-6 mt--20 px-2 col-sm-6 col-12'
-              key={index}
-            >
-              <div className='rbt-cat-box rbt-cat-box-1 variation-2 text-center'>
-                <div className='inner'>
-                  <div className='row'>
-                    <div className='col-lg-10'>
-                      <div className='icons'>
-                        <img
-                          src={CrudProvider.documentPath(obj.document.docPath)}
-                          alt='Icons Images'
-                        />
-                      </div>
-                      <div className='content'>
-                        <div className=''>
-                          <span className='rbt-card-title fs-3'>
-                            {obj.titulli}
-                          </span>
-                        </div>
+      </div>
+      <div className="container rbt-buy-now-area top-news">
+        <div className="row">
+          {news.length > 0 &&
+            news.map((obj, index) => (
+              <div className="col-lg-4 mb-5" key={index}>
+                <div className="rbt-card variation-02 rbt-hover">
+                  <div className="rbt-card-img">
+                    <Link to={`/news/edit/${btoa(obj.njoftimiId)}`}>
+                      <img
+                        src={CrudProvider.documentPath(obj.document.docPath)}
+                        alt="Card image"
+                      />
+                    </Link>
+                  </div>
+                  <div className="rbt-card-body">
+                    <h5 className="rbt-card-title">
+                      <Link to={`/news/edit/${btoa(obj.njoftimiId)}`}>
+                        {obj.titulli}
+                      </Link>
+                    </h5>
+                    <div className="rbt-card-bottom">
+                      <Link
+                        className="transparent-button"
+                        to={`/news/edit/${btoa(obj.njoftimiId)}`}
+                      >
+                        Learn More
+                        <i>
+                          <svg
+                            width="17"
+                            height="12"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g stroke="#27374D" fill="none" fill-rule="evenodd">
+                              <path d="M10.614 0l5.629 5.629-5.63 5.629"></path>
+                              <path
+                                stroke-linecap="square"
+                                d="M.663 5.572h14.594"
+                              ></path>
+                            </g>
+                          </svg>
+                        </i>
+                      </Link>
+                      <span>
                         {obj.aktiv === true ? (
                           <span
-                            className=' fs-5 text-uppercase'
+                            className=" fs-5 text-uppercase"
                             style={{ color: "green" }}
                           >
                             Aktiv
                           </span>
                         ) : (
                           <span
-                            className=' fs-5 text-uppercase'
+                            className=" fs-5 text-uppercase"
                             style={{ color: "red" }}
                           >
                             Jo Aktiv
                           </span>
                         )}
-                      </div>
-                    </div>
-                    <div className='col-md-2'>
-                      <div className='row'>
-                        <div className='d-flex justify-content-center align-items-center'>
-                          <div className='col-md-1 text-end text-danger pe-4'>
-                            <svg
-                              xmlns='http://www.w3.org/2000/svg'
-                              width={16}
-                              height={16}
-                              fill='currentColor'
-                              className='bi bi-trash'
-                              onClick={(e) => {
-                                handleDelete(obj.njoftimiId);
-                              }}
-                              viewBox='0 0 16 16'
-                            >
-                              <path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z' />
-                              <path
-                                fillRule='evenodd'
-                                d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z'
-                              />
-                            </svg>
-                          </div>
-                          <div className='col-md-1'>
-                            <Link
-                              className='transparent-button ps-1'
-                              to={`/news/edit/${btoa(obj.njoftimiId)}`}
-                            >
-                              <svg
-                                width={17}
-                                height={12}
-                                xmlns='http://www.w3.org/2000/svg'
-                              >
-                                <g
-                                  stroke='#27374D'
-                                  fill='none'
-                                  fillRule='evenodd'
-                                >
-                                  <path d='M10.614 0l5.629 5.629-5.63 5.629' />
-                                  <path
-                                    strokeLinecap='square'
-                                    d='M.663 5.572h14.594'
-                                  />
-                                </g>
-                              </svg>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
+                      </span>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+        </div>
       </div>
     </div>
   );
