@@ -26,12 +26,12 @@ export default function ApplicationsList(props) {
       onFilter: (value, record) =>
         record.titulliPunimit.toLowerCase().includes(value.toLowerCase()),
     },
-    {
-      title: "DOI",
-      dataIndex: "doi",
-      key: "aplikimiId",
-      width: "20%",
-    },
+    // {
+    //   title: "DOI",
+    //   dataIndex: "doi",
+    //   key: "aplikimiId",
+    //   width: "20%",
+    // },
     {
       title: "Statusi",
       dataIndex: "statusiKerkesesId",
@@ -102,6 +102,23 @@ export default function ApplicationsList(props) {
                   fill='currentColor'
                   aria-hidden='true'
                   style={{ color: "blue" }}
+                >
+                  <path d='M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm-32 232c0-4.4 3.6-8 8-8h48c4.4 0 8 3.6 8 8v272c0 4.4-3.6 8-8 8h-48c-4.4 0-8-3.6-8-8V296zm32 440a48.01 48.01 0 010-96 48.01 48.01 0 010 96z' />
+                </svg>
+              </span>
+            )}
+            {value === 5 && (
+              <span>
+                <label className='pe-2 mt-2'>Refuzuar</label>
+                <svg
+                  viewBox='64 64 896 896'
+                  focusable='false'
+                  data-icon='exclamation-circle'
+                  width={25}
+                  height={25}
+                  fill='currentColor'
+                  aria-hidden='true'
+                  style={{ color: "red" }}
                 >
                   <path d='M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm-32 232c0-4.4 3.6-8 8-8h48c4.4 0 8 3.6 8 8v272c0 4.4-3.6 8-8 8h-48c-4.4 0-8-3.6-8-8V296zm32 440a48.01 48.01 0 010-96 48.01 48.01 0 010 96z' />
                 </svg>

@@ -169,7 +169,7 @@ const ThirdForm = (props) => {
           </div>
           <div className='col-lg-4 col-sm-12'>
             <div className='form-group'>
-              <label className='pb-5'>Titulli punimit</label>
+              <label className='pb-5'>Titulli i punimit</label>
               <input
                 className='mt-3'
                 type='text'

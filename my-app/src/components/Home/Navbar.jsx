@@ -21,26 +21,23 @@ const sidebarItems = [
 
 const Navbar = (props) => {
   const [forms, setForms] = useState([]);
-
-  useEffect(() => {
-    CrudProvider.getAll("FormulariAPI").then((res) => {
-      if (res) {
-        if (res.statusCode === 200) {
-          setForms(res.result);
-        }
-      }
-    });
-  }, []);
-
   const token = localStorage.getItem("token");
   const user = token && jwtDecode(token);
-
   const filteredItems = sidebarItems.filter((item) =>
-    item.roles.includes(user?.role)
+  item.roles.includes(user?.role)
   );
-
   const myDiv = document.querySelector < HTMLElement > ".sidebarmobile";
   const toggleBtn = document.querySelector < HTMLElement > ".reportsMobile";
+  
+    useEffect(() => {
+      CrudProvider.getAll("FormulariAPI").then((res) => {
+        if (res) {
+          if (res.statusCode === 200) {
+            setForms(res.result);
+          }
+        }
+      });
+    }, [user]);
   if (toggleBtn) {
     toggleBtn.addEventListener("click", function () {
       if (myDiv) {

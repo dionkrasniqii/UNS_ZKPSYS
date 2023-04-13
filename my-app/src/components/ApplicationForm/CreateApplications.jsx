@@ -22,7 +22,7 @@ const CreateApplications = () => {
   const [applicationDTO, setApplicationDTO] = useState({
     Aplikimi: {
       FormulariId: decryptedId,
-      DataAplikimit: new Date().toLocaleString(),
+      // DataAplikimit: new Date().toLocaleString(),
       ProfesoriId: profesor.profesoriID,
       Emri: profesor.emri,
       Mbiemri: profesor.mbiemri,

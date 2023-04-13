@@ -4,8 +4,8 @@ const API_BASE_URL = process.env.REACT_APP_API_BASE_URL_LOCAL;
 //const API_BASE_URL = process.env.REACT_APP_API_BASE_URL_STAGING;
 //const API_BASE_URL = process.env.REACT_APP_API_BASE_URL_PRODUCTION;
 
-const API_BASE_URL_DOC = process.env.REACT_APP_API_BASE_URL_LOCAL_DOCS;
-//const API_BASE_URL_DOC = process.env.REACT_APP_API_BASE_URL_STAGING_DOCS;
+//const API_BASE_URL_DOC = process.env.REACT_APP_API_BASE_URL_LOCAL_DOCS;
+const API_BASE_URL_DOC = process.env.REACT_APP_API_BASE_URL_STAGING_DOCS;
 //const API_BASE_URL_DOC = process.env.REACT_APP_API_BASE_URL_PRODUCTION_DOCS;
 
 async function login(login) {
@@ -32,7 +32,6 @@ async function getAll(controller) {
     const response = await axios.get(`${API_BASE_URL}/${controller}`, {
       headers: {
         Authorization: `Bearer ${token}`,
-        //Authorization: "Bearer" + token,
         "Content-Type": "application/json",
       },
     });
@@ -72,7 +71,6 @@ async function createItem(controller, itemData) {
       {
         headers: {
           Authorization: `Bearer ${token}`,
-
           "Content-Type": "application/json",
         },
       }
@@ -93,7 +91,6 @@ async function createItemWithFile(controller, itemData) {
       {
         headers: {
           Authorization: `Bearer ${token}`,
-
           "Content-Type": "Multipart/form-data",
         },
       }
@@ -113,7 +110,6 @@ async function updateItem(controller, itemData) {
       {
         headers: {
           Authorization: `Bearer ${token}`,
-          // "Access-Control-Allow-Origin": "http://localhost:3000",
           "Content-Type": "application/json",
         },
       }
@@ -132,7 +128,6 @@ async function updateItemWithFile(controller, itemData) {
       itemData,
       {
         headers: {
-          // Authorization: "Bearer " + token,
           Authorization: `Bearer ${token}`,
           "Content-Type": "Multipart/form-data",
         },
@@ -197,21 +192,62 @@ async function getProfessorApplications(FormulariId, ProfesorId) {
     handleRequestError(error);
   }
 }
+async function getApplicantList(facultyId, formId) {
+  try {
+    let token = localStorage.getItem("token");
+
+    const response = await axios.get(
+      `${API_BASE_URL}/AplikimiShqyrtimiAPI/GetAplikimet/${facultyId}/${formId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data.result.result;
+  } catch (error) {
+    handleRequestError(error);
+  }
+}
+
+async function getApplicantFinalList(facultyId, formId) {
+  try {
+    let token = localStorage.getItem("token");
+
+    const response = await axios.get(
+      `${API_BASE_URL}/AplikimiShqyrtimiAPI/GetAplikimetFinal/${facultyId}/${formId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data.result.result;
+  } catch (error) {
+    handleRequestError(error);
+  }
+}
+
+// function documentPath(filePath) {
+//   const fullPath = `${API_BASE_URL_DOC}/${filePath}`;
+//   try {
+//     const response = fetch(fullPath);
+//     if (response.ok === true) {
+//       return fullPath;
+//     } else {
+//       return `${API_BASE_URL_DOC}/notfound.png`;
+//     }
+//   } catch (error) {
+//     return `${API_BASE_URL_DOC}/notfound.png`;
+//   }
+// }
+
 function documentPath(filePath) {
   return `${API_BASE_URL_DOC}/${filePath}`;
 }
-// async function getBankSMC(personalNumber) {
-//   try {
-//     let token = localStorage.getItem("token");
 
-//     const response = await axios.get(
-//       `${process.env.REACT_APP_API_PERSONEL_PRODUCTION}${personalNumber}`
-//     );
-//     return response.data;
-//   } catch (error) {
-//     handleRequestError(error);
-//   }
-// }
 async function handleRequestError(error) {
   if (error.response) {
     console.log(error.response.data);
@@ -236,5 +272,6 @@ export default {
   getProfessorApplications,
   updateItemWithFile,
   documentPath,
-  // getBankSMC,
+  getApplicantList,
+  getApplicantFinalList,
 };

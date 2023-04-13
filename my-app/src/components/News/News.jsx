@@ -15,7 +15,7 @@ export default function News() {
       }
     });
   }, []);
-  
+
   async function handleDelete(e) {
     await CrudProvider.deleteItemById("NjoftimetAPI", e).then((res) => {
       if (res) {
