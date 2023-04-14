@@ -3,11 +3,14 @@ import { Button, Select, Upload } from "antd";
 import React, { useEffect } from "react";
 import { toast } from "react-toastify";
 import CrudProvider from "../../../provider/CrudProvider";
+import { useTranslation } from "react-i18next";
 
 const FourthForm = (props) => {
+  const { t } = useTranslation();
+
   let options = [
-    { value: true, label: "Po" },
-    { value: false, label: "Jo" },
+    { value: true, label: t("Yes") },
+    { value: false, label: t("No") },
   ];
 
   function handleNextForm() {
@@ -22,9 +25,7 @@ const FourthForm = (props) => {
     ) {
       props.showForm5(true);
     } else {
-      toast.error(
-        `Plotesoni te dhenat e kerkuara tek forma "Prezantimi ne njesine akademike"`
-      );
+      toast.error(t("FillDataAtForm"), t("PresentationAcademicUnit"));
     }
   }
   return (
@@ -36,19 +37,17 @@ const FourthForm = (props) => {
         <div className='row mb-5'>
           <div className='col-lg-12 mb-4'>
             <h1 className='page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0'>
-              Prezantimi ne njesine akademike (Bashkangjitë dëshminë)
+              {t("PresentationAcademicUnit")} ({t("AttachTestimony")})
             </h1>
           </div>
 
           <div className='col-lg-3 col-sm-12'>
             <div className='form-group'>
-              <label className=''>
-                Eshte prezantuar si aktivitet ne konference?
-              </label>
+              <label className=''>{t("IsPresentedOnKonferenc")}</label>
               <div className='rbt-modern-select bootstrap-select pt-2'>
                 <Select
                   style={{ width: "100%" }}
-                  placeholder='Zgjedhni'
+                  placeholder={t("Choose")}
                   options={options}
                   onChange={(e) => {
                     props.setApplicationDTO({
@@ -64,8 +63,7 @@ const FourthForm = (props) => {
             </div>
           </div>
           {props.applicationDTO.AplikuesiPrezantimi.Konference === true ? (
-            <div className='col-lg-3 col-sm-10 mt--20'>
-              {/* <label className='fs-4 pe-2'>Dokumenti Konferences</label> */}
+            <div className='col-lg-2 col-xxl-2 col-sm-10 mt--20'>
               <Upload
                 maxCount='1'
                 accept='.png, .jpeg, . jpg ,.pdf'
@@ -77,20 +75,18 @@ const FourthForm = (props) => {
                 }}
               >
                 <Button type='button' icon={<UploadOutlined />}>
-                  Ngarko dokumentin e konferences
+                  {t("Upload")}
                 </Button>
               </Upload>
             </div>
           ) : null}
           <div className='col-lg-3 col-sm-12'>
             <div className='form-group'>
-              <label className=''>
-                Eshte prezantuar si aktivitet ne njesine akademike?
-              </label>
+              <label className=''>{t("IsPresentedOnAcademic")}</label>
               <div className='rbt-modern-select bootstrap-select pt-2'>
                 <Select
                   style={{ width: "100%" }}
-                  placeholder='Zgjedhni'
+                  placeholder={t("Choose")}
                   options={options}
                   onChange={(e) => {
                     props.setApplicationDTO({
@@ -106,8 +102,7 @@ const FourthForm = (props) => {
             </div>
           </div>
           {props.applicationDTO.AplikuesiPrezantimi.NjesiAkademike === true ? (
-            <div className='col-xxl-3 col-lg-4 col-sm-10 mt--20'>
-              {/* <label className='fs-4 pe-2'>Njesia akademike</label> */}
+            <div className='col-lg-2 col-xxl-2 col-sm-10 mt--20'>
               <Upload
                 maxCount='1'
                 accept='.png, .jpeg, . jpg ,.pdf'
@@ -118,15 +113,15 @@ const FourthForm = (props) => {
                   });
                 }}
               >
-                <Button type='text' icon={<UploadOutlined />}>
-                  Ngarko dokumentin e njësisë akademike
+                <Button type='button' icon={<UploadOutlined />}>
+                  {t("Upload")}
                 </Button>
               </Upload>
             </div>
           ) : null}
           <div className='col-xxl-12 col-lg-10 cl-md-10 col-sm-12'>
             <div className='form-group'>
-              <label>Sqaro menyren e prezantimit:</label>
+              <label> {t("ReportMode")}</label>
               <textarea
                 className='mt-5'
                 onChange={(e) => {
@@ -142,7 +137,6 @@ const FourthForm = (props) => {
             </div>
           </div>
           <div className='col-xxl-3 col-sm-12 pb-5'>
-            {/* <label className='fs-4 pe-2'>Raporti Dekanit</label> */}
             <Upload
               maxCount='1'
               accept='.png, .jpeg, . jpg ,.pdf'
@@ -156,7 +150,7 @@ const FourthForm = (props) => {
               }}
             >
               <Button type='text' icon={<UploadOutlined />}>
-                Ngarkoni Raportin e Dekanit
+                {t("DeanReport")}
               </Button>
             </Upload>
           </div>
@@ -168,7 +162,7 @@ const FourthForm = (props) => {
           onClick={handleNextForm}
           type='button'
         >
-          Të dhënat bankare
+          {t("BeneficiarysBankDetails")}
         </a>
       </div>
     </div>

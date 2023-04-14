@@ -1,12 +1,14 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 const CreateMagazinePrice = (props) => {
+  const { t } = useTranslation();
   function submit() {
     if (props.newModel.Shuma !== undefined) {
       props.saveData(props.newModel);
     } else {
-      toast.error("Shtypni nje shume valide");
+      toast.error(t("PutValidPrice"));
     }
   }
 
@@ -15,7 +17,7 @@ const CreateMagazinePrice = (props) => {
       <div className='rbt-card '>
         <p className='rbt-card-text'>{props.magazineName}</p>
         <div className='form-group'>
-          <label>Vendosni çmimin</label>
+          <label>{t("PutPrice")}</label>
           <input
             type='text'
             className='w-75'

@@ -3,33 +3,51 @@ import jwtDecode from "jwt-decode";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CrudProvider from "../../provider/CrudProvider";
-
 import logo from "../../assets/images/logo/logo.png";
-
-const sidebarItems = [
-  // { label: "Ballina", path: "/", roles: ["35", "5", "61"] },
-  //ZKPS staf
-  { label: "Aplikimet", path: "/application/index", roles: ["35", "61"] },
-  //ZKPS admin
-  //{ label: "Formularet", path: "/formular/index", roles: ["35"] },
-  { label: "Revistat", path: "/magazine/index", roles: ["35"] },
-  { label: "Revistat Shuma", path: "/magazine/search", roles: ["35"] },
-  { label: "Lajmet", path: "/news/index", roles: ["35"] },
-  //ZKPS zyrtar
-  { label: "Aplikimet", path: "/myapplications/search", roles: ["5"] },
-];
+import { useTranslation } from "react-i18next";
+import i18next from "i18next";
 
 const Navbar = (props) => {
   const [forms, setForms] = useState([]);
   const token = localStorage.getItem("token");
   const user = token && jwtDecode(token);
-  const filteredItems = sidebarItems.filter((item) =>
-  item.roles.includes(user?.role)
-  );
   const myDiv = document.querySelector < HTMLElement > ".sidebarmobile";
   const toggleBtn = document.querySelector < HTMLElement > ".reportsMobile";
-  
-    useEffect(() => {
+  const { t } = useTranslation();
+  const langId = localStorage.getItem("i18nextLng");
+  const sidebarItems = [
+    //ZKPS staf
+    {
+      label: `${t("Applications")}`,
+      path: "/application/index",
+      roles: ["35", "61"],
+    },
+    //ZKPS admin
+    //{ label: "Formularet", path: "/formular/index", roles: ["35"] },
+    { label: `${t("Magazines")}`, path: "/magazine/index", roles: ["35"] },
+    {
+      label: `${t("PriceMagazines")}`,
+      path: "/magazine/search",
+      roles: ["35"],
+    },
+    { label: `${t("News")}`, path: "/news/index", roles: ["35"] },
+    //ZKPS zyrtar
+    {
+      label: `${t("Applications")}`,
+      path: "/myapplications/search",
+      roles: ["5"],
+    },
+  ];
+
+  const langs = {
+    0: { name: "Shqip" },
+    2: { name: "English" },
+  };
+  const filteredItems = sidebarItems.filter((item) =>
+    item.roles.includes(user?.role)
+  );
+  useEffect(() => {
+    if (user && user.role == 5) {
       CrudProvider.getAll("FormulariAPI").then((res) => {
         if (res) {
           if (res.statusCode === 200) {
@@ -37,7 +55,9 @@ const Navbar = (props) => {
           }
         }
       });
-    }, [user]);
+    }
+  }, [token]);
+
   if (toggleBtn) {
     toggleBtn.addEventListener("click", function () {
       if (myDiv) {
@@ -92,7 +112,7 @@ const Navbar = (props) => {
                 <nav className='mainmenu-nav'>
                   <ul className='mainmenu'>
                     <li className=' position-static'>
-                      <Link to={"/"}>Ballina</Link>
+                      <Link to={"/"}> {t("Home")}</Link>
                     </li>
                     {filteredItems.length > 0 &&
                       filteredItems.map((item, index) => (
@@ -122,9 +142,26 @@ const Navbar = (props) => {
                     )}
                     {props.isAuth.isAuthenticated === false && (
                       <li className=' position-static'>
-                        <Link to={"/login"}>Login</Link>
+                        <Link to={"/login"}>{t("Login")}</Link>
                       </li>
                     )}
+                    <div className='form-group'>
+                      <select
+                        className='btn btn-sm text-primary dropdownFleg order-lg-3'
+                        defaultValue={langId}
+                        onChange={(e) => i18next.changeLanguage(e.target.value)}
+                      >
+                        {Object.keys(langs).map((item) => (
+                          <option
+                            className='text-center w-100'
+                            key={item}
+                            value={item}
+                          >
+                            {langs[item].name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </ul>
                 </nav>
               </div>
@@ -164,7 +201,11 @@ const Navbar = (props) => {
                               <path d='M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z' />
                             </svg>
                           </span>
-                          {user.role == 5 ? "Profesor" : "Staf"}
+                          {user.role == 5
+                            ? "PROFESOR"
+                            : user.role == 35
+                            ? "ZKPS"
+                            : "KOMISION"}
                         </a>
                         <div className='rbt-user-menu-list-wrapper'>
                           <div className='inner'>
@@ -172,7 +213,7 @@ const Navbar = (props) => {
                               <li>
                                 <a onClick={props.logout} type='button'>
                                   <i className='feather-log-out' />
-                                  <span>Logout</span>
+                                  <span>{t("Logout")}</span>
                                 </a>
                               </li>
                             </ul>
@@ -251,7 +292,7 @@ const Navbar = (props) => {
             <ul className='mainmenu'>
               <li className=' position-static'>
                 <Link to={"/"} onClick={closeSideBarOnMobile}>
-                  Ballina
+                  {t("Home")}
                 </Link>
               </li>
               {filteredItems.length > 0 &&
@@ -286,14 +327,14 @@ const Navbar = (props) => {
               {props.isAuth.isAuthenticated === false ? (
                 <li className=' position-static'>
                   <Link onClick={closeSideBarOnMobile} to={"/login"}>
-                    Login
+                    {t("Login")}
                   </Link>
                 </li>
               ) : (
                 <li className=' position-static'>
                   <a onClick={props.logout} type='button'>
                     <i className='feather-log-out' />
-                    <span>Logout</span>
+                    <span>{t("Logout")}</span>
                   </a>
                 </li>
               )}

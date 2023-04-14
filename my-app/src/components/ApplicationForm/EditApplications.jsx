@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Triangle } from "react-loader-spinner";
 import jwtDecode from "jwt-decode";
+import { useTranslation } from "react-i18next";
 
 const EditApplications = () => {
   const { id } = useParams();
@@ -29,6 +30,7 @@ const EditApplications = () => {
     Aktiv: true,
   });
   const professorList = useSelector((state) => state.professorList.professors);
+  const { t } = useTranslation();
 
   useEffect(() => {
     Promise.all([
@@ -102,11 +104,11 @@ const EditApplications = () => {
 
   function isModelValid(model) {
     if (model.StatusiKerkesesId === "") {
-      toast.error("Shqyrto aplikimin");
+      toast.error(t("ReviewApplication"));
       return false;
     }
     if (model.StatusiKerkesesId === "2" && model.Verejtje === "") {
-      toast.error("Plotosoni verejtjen");
+      toast.error(t("CompleteNotice"));
       return false;
     }
     return true;
@@ -122,7 +124,7 @@ const EditApplications = () => {
     ).then((res) => {
       if (res) {
         if (res.statusCode === 200) {
-          toast.success("Te dhenat e perditsuan me sukses");
+          toast.success(t("DataUpdatedSuccessfully"));
           navigate("/application/index");
         }
       }
@@ -160,12 +162,12 @@ const EditApplications = () => {
                                 />
                               </svg>
                             </i>
-                            Prapa
+                            {t("Back")}
                           </Link>
                         </div>
                         <div className='col-xxl-6 col-lg-6 col-sm-12 mt-2 text-start'>
                           <h2 className='text-uppercase '>
-                            Te dhenat e aplikuesit
+                            {t("DataOfApplicant")}
                           </h2>
                         </div>
                       </div>
@@ -175,13 +177,13 @@ const EditApplications = () => {
                         <div className='col-xxl-12 mb-3'>
                           <div className='col-xxl-2 rbt-border-bottom'>
                             <h4 className='text-uppercase'>
-                              Parashtruesi kerkeses
+                              {t("RequestApplicant")}
                             </h4>
                           </div>
                         </div>
                         <div className='col-xxl-2 col-lg-2'>
                           <div className='form-group'>
-                            <label>Emri Profesorit</label>
+                            <label> {t("ProfessorName")}</label>
                             <input
                               type='text'
                               readOnly
@@ -191,7 +193,7 @@ const EditApplications = () => {
                         </div>
                         <div className='col-xxl-2 col-lg-2'>
                           <div className='form-group'>
-                            <label>Mbiemri Profesorit</label>
+                            <label>{t("ProfessorSurname")}</label>
                             <input
                               type='text'
                               readOnly
@@ -201,7 +203,7 @@ const EditApplications = () => {
                         </div>
                         <div className='col-xxl-2 col-lg-2'>
                           <div className='form-group'>
-                            <label>Thirrja Shkencore</label>
+                            <label>{t("ScientificCall")}</label>
                             <input
                               type='text'
                               readOnly
@@ -213,7 +215,7 @@ const EditApplications = () => {
                         </div>
                         <div className='col-xxl-2 col-lg-2'>
                           <div className='form-group'>
-                            <label>Thirrja Akademike</label>
+                            <label>{t("AcademicCall")}</label>
                             <input
                               type='text'
                               readOnly
@@ -225,7 +227,7 @@ const EditApplications = () => {
                         </div>
                         <div className='col-xxl-2 col-lg-2'>
                           <div className='form-group'>
-                            <label>Autore kryesore</label>
+                            <label>{t("LeadAuthor")}</label>
                             <input
                               type='text'
                               readOnly
@@ -237,7 +239,7 @@ const EditApplications = () => {
                         </div>
                         <div className='col-xxl-4 col-lg-4'>
                           <div className='form-group'>
-                            <label>Autore korrespodent</label>
+                            <label>{t("CorrespondingAuthor")}</label>
                             <input
                               type='text'
                               readOnly
@@ -251,7 +253,7 @@ const EditApplications = () => {
                         </div>
                         <div className='col-xxl-4 col-lg-4'>
                           <div className='form-group'>
-                            <label>Bashke autoret</label>
+                            <label>{t("Co-authors")}</label>
                             <input
                               type='text'
                               readOnly
@@ -268,13 +270,13 @@ const EditApplications = () => {
                         <div className='col-xxl-12 mb-3'>
                           <div className='col-xxl-2 rbt-border-bottom'>
                             <h4 className='text-uppercase'>
-                              Detajet e publikimit
+                              {t("PublicationDetails")}
                             </h4>
                           </div>
                         </div>
                         <div className='col-xxl-6 col-lg-6'>
                           <div className='form-group'>
-                            <label>Perkatesia autorit</label>
+                            <label>{t("AttributionAuthor")}</label>
                             <textarea
                               className='mt-4'
                               type='text'
@@ -287,7 +289,7 @@ const EditApplications = () => {
                           <div className='row'>
                             <div className='col-xxl-4 col-lg-4'>
                               <div className='form-group'>
-                                <label>Titulli punimit</label>
+                                <label>{t("TitleOfPaper")}</label>
                                 <input
                                   type='text'
                                   readOnly
@@ -297,7 +299,7 @@ const EditApplications = () => {
                             </div>
                             <div className='col-xxl-4 col-lg-4'>
                               <div className='form-group'>
-                                <label>Emri revistes</label>
+                                <label>{t("NameOfMagazine")}</label>
                                 <input
                                   type='text'
                                   readOnly
@@ -309,7 +311,7 @@ const EditApplications = () => {
                             </div>
                             <div className='col-xxl-4 col-lg-4'>
                               <div className='form-group'>
-                                <label>Impakt faktori</label>
+                                <label>{t("ImpactFactor")}</label>
                                 <input
                                   type='text'
                                   readOnly
@@ -319,7 +321,7 @@ const EditApplications = () => {
                             </div>
                             <div className='col-xxl-12 col-lg-12'>
                               <div className='form-group'>
-                                <label>DOI</label>
+                                <label>{t("DOI")}</label>
                                 <input
                                   type='text'
                                   readOnly
@@ -331,7 +333,7 @@ const EditApplications = () => {
                         </div>
                         <div className='col-xxl-4 col-lg-4'>
                           <div className='form-group'>
-                            <label>Shtepia botuese</label>
+                            <label>{t("PublishingHouse")}</label>
                             <input
                               type='text'
                               readOnly
@@ -341,7 +343,7 @@ const EditApplications = () => {
                         </div>
                         <div className='col-xxl-4 col-lg-4'>
                           <div className='form-group'>
-                            <label>Data pranimit</label>
+                            <label>{t("DateAcceptance")}</label>
                             <input
                               type='text'
                               readOnly
@@ -355,7 +357,7 @@ const EditApplications = () => {
                         </div>
                         <div className='col-xxl-4 col-lg-4'>
                           <div className='form-group'>
-                            <label>Data publikimit</label>
+                            <label>{t("DatePublication")}</label>
                             <input
                               type='text'
                               readOnly
@@ -371,7 +373,7 @@ const EditApplications = () => {
                           <div className='row'>
                             <div className='col-xxl-6 col-lg-6'>
                               <div className='form-group'>
-                                <label>Indeksimi ne platformen</label>
+                                <label>{t("IndexingOnPlatform")}</label>
                                 <input
                                   type='text'
                                   readOnly
@@ -384,7 +386,7 @@ const EditApplications = () => {
                             </div>
                             <div className='col-xxl-6 col-lg-6'>
                               <div className='form-group'>
-                                <label>Linku i publikimit</label>
+                                <label>{t("LinkOfPublication")}</label>
                                 <input
                                   type='text'
                                   readOnly
@@ -401,42 +403,39 @@ const EditApplications = () => {
                         <div className='col-xxl-12 mb-3'>
                           <div className='col-xxl-2 rbt-border-bottom'>
                             <h4 className='text-uppercase'>
-                              Prezantimi ne njesine akademike
+                              {t("PresentationAcademicUnit")}
                             </h4>
                           </div>
                         </div>
                         <div className='col-xxl-4 col-lg-4'>
                           <div className='form-group'>
-                            <label>
-                              Eshte prezantuar si aktivitet ne konference:
-                            </label>
+                            <label>{t("IsPresentedOnKonferenc")}</label>
                             <input
                               type='text'
                               readOnly
                               defaultValue={
-                                applicant.konferenc ? "Po" : "Jo" || ""
+                                applicant.konferenc ? t("Yes") : t("No") || ""
                               }
                             />
                           </div>
                         </div>
                         <div className='col-xxl-4 col-lg-4'>
                           <div className='form-group'>
-                            <label>
-                              Eshte prezantuar si aktivitet ne njesine
-                              akademike:
-                            </label>
+                            <label>{t("IsPresentedOnAcademic")}</label>
                             <input
                               type='text'
                               readOnly
                               defaultValue={
-                                applicant.njesiAkademike ? "Po" : "Jo" || ""
+                                applicant.njesiAkademike
+                                  ? t("Yes")
+                                  : t("No") || ""
                               }
                             />
                           </div>
                         </div>
                         <div className='col-xxl-6 col-lg-6'>
                           <div className='form-group'>
-                            <label>Menyra prezantimit</label>
+                            <label>{t("ReportMode")}</label>
                             <textarea
                               className='mt-4'
                               readOnly
@@ -450,7 +449,7 @@ const EditApplications = () => {
                       <div className='row'>
                         <div className='col-xxl-12 mb-3'>
                           <div className='col-xxl-2 rbt-border-bottom'>
-                            <h4 className='text-uppercase'>Dokumente</h4>
+                            <h4 className='text-uppercase'>{t("Documents")}</h4>
                           </div>
                         </div>
                         <div className='col-xxl-2 col-lg-2'>
@@ -463,7 +462,7 @@ const EditApplications = () => {
                             data-bs-toggle='modal'
                             data-bs-target='#exampleModal_RaportiDekanit'
                           >
-                            Raporti Dekanit
+                            {t("DeanReport")}
                           </button>
                           <div
                             className='modal fade'
@@ -479,7 +478,7 @@ const EditApplications = () => {
                                     className='modal-title'
                                     id='exampleModalLabel'
                                   >
-                                    Raporti Dekanit
+                                    {t("DeanReport")}
                                   </h5>
                                   <button
                                     type='button'
@@ -514,7 +513,7 @@ const EditApplications = () => {
                                     className='btn btn-primary btn-lg'
                                     data-bs-dismiss='modal'
                                   >
-                                    Mbyll
+                                    {t("Close")}
                                   </button>
                                 </div>
                               </div>
@@ -530,7 +529,7 @@ const EditApplications = () => {
                                 data-bs-toggle='modal'
                                 data-bs-target='#exampleModal_Konferenc'
                               >
-                                Konference
+                                {t("Conference")}
                               </button>
                               <div
                                 className='modal fade'
@@ -546,13 +545,13 @@ const EditApplications = () => {
                                         className='modal-title'
                                         id='exampleModalLabel'
                                       >
-                                        Konference
+                                        {t("Conference")}
                                       </h5>
                                       <button
                                         type='button'
                                         className='btn-close'
                                         data-bs-dismiss='modal'
-                                        aria-label='Close'
+                                        aria-label={t("Close")}
                                       ></button>
                                     </div>
                                     <div className='modal-body'>
@@ -581,7 +580,7 @@ const EditApplications = () => {
                                         className='btn btn-primary btn-lg'
                                         data-bs-dismiss='modal'
                                       >
-                                        Mbylle
+                                        {t("Close")}
                                       </button>
                                     </div>
                                   </div>
@@ -599,7 +598,7 @@ const EditApplications = () => {
                                 data-bs-toggle='modal'
                                 data-bs-target='#exampleModal_NjesiAkademike'
                               >
-                                Njesia akademike
+                                {t("AcademicUnit")}
                               </button>
                               <div
                                 className='modal fade'
@@ -615,7 +614,7 @@ const EditApplications = () => {
                                         className='modal-title'
                                         id='exampleModalLabel'
                                       >
-                                        Konference
+                                        {t("AcademicUnit")}
                                       </h5>
                                       <button
                                         type='button'
@@ -651,7 +650,7 @@ const EditApplications = () => {
                                         className='btn btn-primary btn-lg'
                                         data-bs-dismiss='modal'
                                       >
-                                        Mbyll
+                                        {t("Close")}
                                       </button>
                                     </div>
                                   </div>
@@ -667,13 +666,13 @@ const EditApplications = () => {
                         <div className='col-xxl-12 mb-3'>
                           <div className='col-xxl-2 rbt-border-bottom'>
                             <h4 className='text-uppercase'>
-                              Te dhenat bankare te perfituesit
+                              {t("BeneficiarysBankDetails")}
                             </h4>
                           </div>
                         </div>
                         <div className='col-xxl-2 col-lg-2'>
                           <div className='form-group'>
-                            <label>Banka</label>
+                            <label>{t("Bank")}</label>
                             <input
                               type='text'
                               readOnly
@@ -683,7 +682,7 @@ const EditApplications = () => {
                         </div>
                         <div className='col-xxl-2 col-lg-2'>
                           <div className='form-group'>
-                            <label>Llogaria bankare</label>
+                            <label>{t("BankAccount")}</label>
                             <input
                               type='text'
                               readOnly
@@ -693,7 +692,7 @@ const EditApplications = () => {
                         </div>
                         <div className='col-xxl-2 col-lg-2'>
                           <div className='form-group'>
-                            <label>Vendi</label>
+                            <label>{t("Country")}</label>
                             <input
                               type='text'
                               readOnly
@@ -703,7 +702,7 @@ const EditApplications = () => {
                         </div>
                         <div className='col-xxl-2 col-lg-2'>
                           <div className='form-group'>
-                            <label>Shuma e kerkuar</label>
+                            <label>{t("AmountRequested")}</label>
                             <input
                               type='text'
                               readOnly
@@ -739,12 +738,12 @@ const EditApplications = () => {
                                 />
                               </svg>
                             </i>
-                            Prapa
+                            {t("Back")}
                           </Link>
                         </div>
                         <div className='col-xxl-6 col-lg-6 col-sm-12 mt-2 text-start'>
                           <h2 className='text-uppercase '>
-                            Te dhenat e aplikuesit
+                            {t("DataOfApplicant")}
                           </h2>
                         </div>
                       </div>
@@ -754,13 +753,13 @@ const EditApplications = () => {
                         <div className='col-xxl-12 mb-3'>
                           <div className='col-xxl-2 rbt-border-bottom'>
                             <h4 className='text-uppercase'>
-                              Parashtruesi kerkeses
+                              {t("RequestApplicant")}
                             </h4>
                           </div>
                         </div>
                         <div className='col-xxl-2 col-lg-2'>
                           <div className='form-group'>
-                            <label>Emri Profesorit</label>
+                            <label>{t("ProfessorName")}</label>
                             <input
                               type='text'
                               readOnly
@@ -770,7 +769,7 @@ const EditApplications = () => {
                         </div>
                         <div className='col-xxl-2 col-lg-2'>
                           <div className='form-group'>
-                            <label>Mbiemri Profesorit</label>
+                            <label>{t("ProfessorSurname")}</label>
                             <input
                               type='text'
                               readOnly
@@ -780,7 +779,7 @@ const EditApplications = () => {
                         </div>
                         <div className='col-xxl-2 col-lg-2'>
                           <div className='form-group'>
-                            <label>Thirrja Shkencore</label>
+                            <label>{t("ScientificCall")}</label>
                             <input
                               type='text'
                               readOnly
@@ -792,7 +791,7 @@ const EditApplications = () => {
                         </div>
                         <div className='col-xxl-2 col-lg-2'>
                           <div className='form-group'>
-                            <label>Thirrja Akademike</label>
+                            <label>{t("AcademicCall")}</label>
                             <input
                               type='text'
                               readOnly
@@ -804,7 +803,7 @@ const EditApplications = () => {
                         </div>
                         <div className='col-xxl-2 col-lg-2'>
                           <div className='form-group'>
-                            <label>Autore kryesore</label>
+                            <label>{t("LeadAuthor")}</label>
                             <input
                               type='text'
                               readOnly
@@ -830,7 +829,7 @@ const EditApplications = () => {
                         </div> */}
                         <div className='col-xxl-4 col-lg-4'>
                           <div className='form-group'>
-                            <label>Bashke autoret</label>
+                            <label>{t("Co-authors")}</label>
                             <input
                               type='text'
                               readOnly
@@ -847,14 +846,14 @@ const EditApplications = () => {
                         <div className='col-xxl-12 mb-3'>
                           <div className='col-xxl-2 rbt-border-bottom'>
                             <h4 className='text-uppercase'>
-                              Detajet e publikimit
+                              {t("PublicationDetails")}
                             </h4>
                           </div>
                         </div>
                         <div className='row'>
                           <div className='col-xxl-4 col-lg-4'>
                             <div className='form-group'>
-                              <label>Emërtimi i ngjarjes</label>
+                              <label>{t("NameOfEvent")}</label>
                               <input
                                 type='text'
                                 readOnly
@@ -864,7 +863,7 @@ const EditApplications = () => {
                           </div>
                           <div className='col-xxl-4 col-lg-4'>
                             <div className='form-group'>
-                              <label>Vendi ngjarjes</label>
+                              <label>{t("CountryOfEvent")}</label>
                               <input
                                 type='text'
                                 readOnly
@@ -874,7 +873,7 @@ const EditApplications = () => {
                           </div>
                           <div className='col-xxl-4 col-lg-4'>
                             <div className='form-group'>
-                              <label>Data publikimit</label>
+                              <label>{t("DatePublication")}</label>
                               <input
                                 type='text'
                                 readOnly
@@ -888,7 +887,7 @@ const EditApplications = () => {
                           </div>
                           <div className='col-xxl-4 col-lg-4'>
                             <div className='form-group'>
-                              <label>Organizatori</label>
+                              <label>{t("Organizer")}</label>
                               <input
                                 type='text'
                                 readOnly
@@ -898,7 +897,7 @@ const EditApplications = () => {
                           </div>
                           <div className='col-xxl-4 col-lg-4'>
                             <div className='form-group'>
-                              <label>Ftesa dhe programi</label>
+                              <label>{t("InvitationAndProgram")}</label>
                               <input
                                 type='text'
                                 readOnly
@@ -908,7 +907,7 @@ const EditApplications = () => {
                           </div>
                           <div className='col-xxl-4 col-lg-4'>
                             <div className='form-group'>
-                              <label>Abstrakti</label>
+                              <label>{t("TheAbstract")}</label>
                               <input
                                 type='text'
                                 readOnly
@@ -918,7 +917,7 @@ const EditApplications = () => {
                           </div>
                           <div className='col-xxl-4 col-lg-4'>
                             <div className='form-group'>
-                              <label>Titulli punimit</label>
+                              <label>{t("TitleOfPaper")}</label>
                               <input
                                 type='text'
                                 readOnly
@@ -928,7 +927,7 @@ const EditApplications = () => {
                           </div>
                           <div className='col-xxl-4 col-lg-4'>
                             <div className='form-group'>
-                              <label>Konfirmimi i pranimit të punimit</label>
+                              <label>{t("ConfirmationOfAcceptanceWork")}</label>
                               <input
                                 type='text'
                                 readOnly
@@ -940,7 +939,7 @@ const EditApplications = () => {
                           </div>
                           <div className='col-xxl-4 col-lg-4'>
                             <div className='form-group'>
-                              <label>Autorë e punimit (AFFILIATION)</label>
+                              <label>{t("AuthorsOfPaper")}</label>
                               <input
                                 type='text'
                                 readOnly
@@ -950,21 +949,21 @@ const EditApplications = () => {
                           </div>
                           <div className='col-xxl-4 col-lg-4'>
                             <div className='form-group'>
-                              <label>Foles me kumtesë/poster</label>
+                              <label>{t("SpeakerWithMessagePoster")}</label>
                               <input
                                 type='text'
                                 readOnly
                                 defaultValue={
                                   applicant.folesKumtesPoster
-                                    ? "Po"
-                                    : "Jo" || ""
+                                    ? t("Yes")
+                                    : t("No") || ""
                                 }
                               />
                             </div>
                           </div>
                           <div className='col-xxl-4 col-lg-4'>
                             <div className='form-group'>
-                              <label>Ngjarje artistike/sportive</label>
+                              <label>{t("ArtisticSportingEvents")}</label>
                               <input
                                 type='text'
                                 readOnly
@@ -978,7 +977,7 @@ const EditApplications = () => {
                           </div>
                           <div className='col-xxl-4 col-lg-4'>
                             <div className='form-group'>
-                              <label>Kryesues/panelist</label>
+                              <label>{t("ChairPanelist")}</label>
                               <input
                                 type='text'
                                 readOnly
@@ -991,7 +990,7 @@ const EditApplications = () => {
                           <div className='row'>
                             <div className='col-xxl-6 col-lg-6'>
                               <div className='form-group'>
-                                <label>Linku i publikimit</label>
+                                <label>{t("LinkOfPublication")}</label>
                                 <input
                                   type='text'
                                   readOnly
@@ -1020,7 +1019,7 @@ const EditApplications = () => {
                             data-bs-toggle='modal'
                             data-bs-target='#exampleModal_RaportiDekanit'
                           >
-                            Raporti Dekanit
+                            {t("DeanReport")}
                           </button>
                           <div
                             className='modal fade'
@@ -1036,7 +1035,7 @@ const EditApplications = () => {
                                     className='modal-title'
                                     id='exampleModalLabel'
                                   >
-                                    Raporti Dekanit
+                                    {t("DeanReport")}
                                   </h5>
                                   <button
                                     type='button'
@@ -1071,7 +1070,7 @@ const EditApplications = () => {
                                     className='btn btn-primary btn-lg'
                                     data-bs-dismiss='modal'
                                   >
-                                    Mbyll
+                                    {t("Close")}
                                   </button>
                                 </div>
                               </div>
@@ -1085,13 +1084,13 @@ const EditApplications = () => {
                         <div className='col-xxl-12 mb-3'>
                           <div className='col-xxl-2 rbt-border-bottom'>
                             <h4 className='text-uppercase'>
-                              Te dhenat bankare te perfituesit
+                              {t("BeneficiarysBankDetails")}
                             </h4>
                           </div>
                         </div>
                         <div className='col-xxl-2 col-lg-2'>
                           <div className='form-group'>
-                            <label>Banka</label>
+                            <label> {t("Bank")}</label>
                             <input
                               type='text'
                               readOnly
@@ -1101,7 +1100,7 @@ const EditApplications = () => {
                         </div>
                         <div className='col-xxl-2 col-lg-2'>
                           <div className='form-group'>
-                            <label>Llogaria bankare</label>
+                            <label> {t("BankAccount")}</label>
                             <input
                               type='text'
                               readOnly
@@ -1111,7 +1110,7 @@ const EditApplications = () => {
                         </div>
                         <div className='col-xxl-2 col-lg-2'>
                           <div className='form-group'>
-                            <label>Vendi</label>
+                            <label>{t("Country")}</label>
                             <input
                               type='text'
                               readOnly
@@ -1121,7 +1120,7 @@ const EditApplications = () => {
                         </div>
                         <div className='col-xxl-2 col-lg-2'>
                           <div className='form-group'>
-                            <label>Shuma e kerkuar</label>
+                            <label>{t("AmountRequested")}</label>
                             <input
                               type='text'
                               readOnly
@@ -1152,7 +1151,7 @@ const EditApplications = () => {
                 <div className='col-xxl-3 col-lg-3'>
                   <div className='rbt-card-body'>
                     <div className='form-group'>
-                      <label>Verejtje</label>
+                      <label>{t("Remark")}</label>
                       <textarea
                         className='mt-4'
                         onChange={(e) => {
@@ -1165,10 +1164,10 @@ const EditApplications = () => {
               )}
               <div className='col-xxl-2 col-lg-2 d-flex align-items-center'>
                 <button
-                  className='rbt-btn  btn-gradient-submit radius-round btn-sm'
+                  className='rbt-btn  btn-primary radius-round btn-sm'
                   onClick={handleSubmit}
                 >
-                  <span data-text='Vazhdo'>Vazhdo</span>
+                  <span data-text='Vazhdo'>{t("Save")}</span>
                 </button>
               </div>
             </div>

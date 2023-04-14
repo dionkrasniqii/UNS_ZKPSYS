@@ -2,9 +2,11 @@ import { DatePicker, InputNumber, Select } from "antd";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import CrudProvider from "../../../provider/CrudProvider";
+import { useTranslation } from "react-i18next";
 
 const ThirdForm = (props) => {
   const [magazines, setMagazines] = useState([]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     CrudProvider.getAll("RevistaAPI").then((res) => {
@@ -85,9 +87,7 @@ const ThirdForm = (props) => {
     ) {
       props.showForm4(true);
     } else {
-      toast.error(
-        `Plotesoni te dhenat e kerkuara tek forma "Detajet e publikimit"`
-      );
+      toast.error(t("FillDataAtForm"), t("PublicationDetails"));
     }
   }
   return (
@@ -99,12 +99,12 @@ const ThirdForm = (props) => {
         <div className='row'>
           <div className='col-lg-12 mb-4'>
             <h1 className='page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0'>
-              Detajet e publikimit
+              {t("PublicationDetails")}
             </h1>
           </div>
           <div className='col-lg-12 col-sm-12 col-md-10'>
             <div className='form-group'>
-              <label>Perkatesia e autorit (Affilation)</label>
+              <label>{t("AttributionAuthor")}</label>
               <textarea
                 type='text'
                 className='mt-3'
@@ -122,7 +122,7 @@ const ThirdForm = (props) => {
           </div>
           <div className='col-lg-4 col-sm-12'>
             <div className='form-group'>
-              <label className='pb-5'>Titulli punimit</label>
+              <label className='pb-5'>{t("TitleOfPaper")}</label>
               <input
                 className='mt-3'
                 type='text'
@@ -141,7 +141,7 @@ const ThirdForm = (props) => {
 
           <div className='col-lg-4 col-sm-12'>
             <div className='form-group'>
-              <label className='pb-5'>DOI</label>
+              <label className='pb-5'>{t("DOI")}</label>
               <input
                 className='mt-3'
                 type='text'
@@ -159,13 +159,13 @@ const ThirdForm = (props) => {
           </div>
           <div className='col-lg-4 col-sm-12'>
             <div className='form-group'>
-              <label>Revista</label>
+              <label>{t("Magazines")}</label>
               <div className='rbt-modern-select bootstrap-select pt-2'>
                 <Select
                   type='text'
                   options={options}
                   style={{ width: "100%" }}
-                  placeholder='Zgjedhni'
+                  placeholder={t("Choose")}
                   onChange={(e) => {
                     props.setApplicationDTO({
                       ...props.applicationDTO,
@@ -182,7 +182,7 @@ const ThirdForm = (props) => {
 
           <div className='col-lg-4 col-sm-12 col-md-10'>
             <div className='form-group'>
-              <label>Shtepia botuese</label>
+              <label>{t("PublishingHouse")}</label>
               <input
                 type='text'
                 className='mt-3'
@@ -200,7 +200,7 @@ const ThirdForm = (props) => {
           </div>
           <div className='col-lg-4 col-sm-12 col-md-10'>
             <div className='form-group'>
-              <label>Indeksimi në platformën</label>
+              <label>{t("IndexingOnPlatform")}</label>
               <input
                 className='mt-3'
                 type='text'
@@ -218,7 +218,7 @@ const ThirdForm = (props) => {
           </div>
           <div className='col-lg-4 col-sm-12'>
             <div className='form-group'>
-              <label>Impakt faktori (IF)</label>
+              <label>{t("ImpactFactor")}</label>
               <div className='pt-5'>
                 <InputNumber
                   min={1}
@@ -239,20 +239,20 @@ const ThirdForm = (props) => {
           </div>
           <div className='col-lg-3 col-sm-12 col-md-10'>
             <div className='form-group'>
-              <label className=''>Data e pranimit</label>
+              <label className=''>{t("DateAcceptance")}</label>
               <DatePicker className='w-100 mt-5' onChange={DataEpranimit} />
             </div>
           </div>
           <div className='col-lg-3 col-sm-12 col-md-10'>
             <div className='form-group'>
-              <label className=''>Data e publikimit</label>
+              <label className=''>{t("DatePublication")}</label>
               <DatePicker className='w-100 mt-5' onChange={DataEpublikimit} />
             </div>
           </div>
 
           <div className='col-lg-6 col-sm-12 col-md-10 mt-2'>
             <div className='form-group'>
-              <label>Linku i publikimit</label>
+              <label>{t("LinkOfPublication")}</label>
               <input
                 type='text'
                 className='mt-2'
@@ -276,7 +276,7 @@ const ThirdForm = (props) => {
           onClick={handleNextForm}
           type='button'
         >
-          Prezantimi në njesinë akademike
+          {t("PresentationAcademicUnit")}
         </a>
       </div>
     </div>

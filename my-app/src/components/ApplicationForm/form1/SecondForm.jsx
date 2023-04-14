@@ -3,11 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import CrudProvider from "../../../provider/CrudProvider";
+import { useTranslation } from "react-i18next";
 
 const SecondForm = (props) => {
   const professors = useSelector((state) => state.professorList.professors);
   const [faculty, setFaculty] = useState({});
-
+  const { t } = useTranslation();
   useEffect(() => {
     CrudProvider.getItemById(
       "GeneralAPIController/GetFakultetiId",
@@ -42,64 +43,62 @@ const SecondForm = (props) => {
     ) {
       props.showForm3(true);
     } else {
-      toast.error(
-        `Plotesoni te dhenat e kerkuara tek forma "Parashtruesi i kerkeses"`
-      );
+      toast.error(t("FillDataAtForm"), t("RequestApplicant"));
     }
   }
 
   return (
-    <div className="mt-5">
-      <h1 className="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0 text-uppercase">
-        Aneksi i parë
+    <div className='mt-5'>
+      <h1 className='page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0 text-uppercase'>
+        {t("FirstAnnex")}
       </h1>
-      <div className="d-flex mt-1">
-        <a className="fs-5 fw-bold text-danger">Ballina</a>
-        <div className="mx-1 fs-5 fw-bold text-dark">/</div>
-        <div className="breadcrumb-item text-muted fs-5">Formulari i parë</div>
+      <div className='d-flex mt-1'>
+        <a className='fs-5 fw-bold text-danger'>{t("Home")}</a>
+        <div className='mx-1 fs-5 fw-bold text-dark'>/</div>
+        <div className='breadcrumb-item text-muted fs-5'>{t("FirstAnnex")}</div>
       </div>
 
-      <div className="rbt-card col-xxl-12 col-lg-12 col-sm-12 mt-5">
-        <h1 className="text-center text-uppercase fs-2 my-3 mb-5">
-          Formulari i Aplikimi për Finincim të publikimit shkencor
+      <div className='rbt-card col-xxl-12 col-lg-12 col-sm-12 mt-5'>
+        <h1 className='text-center text-uppercase fs-2 my-3 mb-5'>
+          {t("ApplicationFormFundingScientificPublication")}
         </h1>
-        <div className="row">
-          <div className="col-xxl-12 col-lg-10 col-sm-12 rbt-border-dashed rbt-radius border-1 px-5 pt-3 position-relative">
-            <div className="box">
+        <div className='row'>
+          <div className='col-xxl-12 col-lg-10 col-sm-12 rbt-border-dashed rbt-radius border-1 px-5 pt-3 position-relative'>
+            <div className='box'>
               <span>1</span>
             </div>
-            <div className="row mt-4 mb-4">
-              <div className="col-lg-12 mb-4">
-                <h1 className="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
-                  Parashtruesi i kerkeses
+            <div className='row mt-4 mb-4'>
+              <div className='col-lg-12 mb-4'>
+                <h1 className='page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0'>
+                  {t("RequestApplicant")}
                 </h1>
               </div>
-              <div className="col-lg-3 col-sm-12 col-md-10">
-                <div className="form-group">
-                  <label>Emri</label>
+              <div className='col-lg-3 col-sm-12 col-md-10'>
+                <div className='form-group'>
+                  <label> {t("Name")}</label>
                   <input
-                    type="text"
+                    type='text'
                     defaultValue={props.applicationDTO.Aplikimi.Emri}
                     readOnly
                   />
                 </div>
               </div>
-              <div className="col-lg-3 col-sm-12 col-md-10">
-                <div className="form-group">
-                  <label>Mbiemri</label>
+              <div className='col-lg-3 col-sm-12 col-md-10'>
+                <div className='form-group'>
+                  <label> {t("Surname")}</label>
                   <input
-                    type="text"
+                    type='text'
                     defaultValue={props.applicationDTO.Aplikimi.Mbiemri}
                     readOnly
                   />
                 </div>
               </div>
               {Object.keys(faculty).length > 0 && (
-                <div className="col-lg-6 col-sm-12 col-md-10">
-                  <div className="form-group">
-                    <label>Njesia akademike</label>
+                <div className='col-lg-6 col-sm-12 col-md-10'>
+                  <div className='form-group'>
+                    <label>{t("AcademicUnit")}</label>
                     <input
-                      type="text"
+                      type='text'
                       defaultValue={faculty.fakultetiPershkrimi}
                       readOnly
                     />
@@ -107,42 +106,42 @@ const SecondForm = (props) => {
                 </div>
               )}
 
-              <div className="col-lg-6 col-sm-12 col-md-10">
-                <div className="form-group">
-                  <label>Thirrja Shkencore</label>
+              <div className='col-lg-6 col-sm-12 col-md-10'>
+                <div className='form-group'>
+                  <label>{t("ScientificCall")}</label>
                   <input
-                    type="text"
+                    type='text'
                     defaultValue={props.applicationDTO.ThirrjaShkencoreEmri}
                     readOnly
                   />
                 </div>
               </div>
-              <div className="col-lg-6 col-sm-12 col-md-10">
-                <div className="form-group">
-                  <label>Thirrja akademike</label>
+              <div className='col-lg-6 col-sm-12 col-md-10'>
+                <div className='form-group'>
+                  <label>{t("AcademicCall")}</label>
                   <input
-                    type="text"
+                    type='text'
                     defaultValue={props.applicationDTO.ThirrjaAkademikeEmri}
                     readOnly
                   />
                 </div>
               </div>
-              <div className="col-lg-4">
-                <div className="form-group">
-                  <label>Autor kryesor:</label>
-                  <div className="rbt-modern-select bootstrap-select pt-2">
+              <div className='col-lg-4'>
+                <div className='form-group'>
+                  <label>{t("LeadAuthor")}</label>
+                  <div className='rbt-modern-select bootstrap-select pt-2'>
                     <Select
                       showSearch
-                      optionFilterProp="children"
+                      optionFilterProp='children'
                       filterOption={(input, option) =>
                         (option?.label ?? "")
                           .toLowerCase()
                           .includes(input.toLowerCase())
                       }
-                      mode="single"
+                      mode='single'
                       allowClear
                       style={{ width: "100%" }}
-                      placeholder="Zgjedhni"
+                      placeholder={t("Choose")}
                       onChange={(e) => {
                         props.setApplicationDTO({
                           ...props.applicationDTO,
@@ -154,23 +153,23 @@ const SecondForm = (props) => {
                   </div>
                 </div>
               </div>
-              <div className="col-lg-4">
-                <div className="form-group">
-                  <label>Autor korrespodent:</label>
-                  <div className="rbt-modern-select bootstrap-select pt-2">
+              <div className='col-lg-4'>
+                <div className='form-group'>
+                  <label>{t("CorrespondingAuthor")}</label>
+                  <div className='rbt-modern-select bootstrap-select pt-2'>
                     <Select
                       showSearch
-                      maxTagCount="responsive"
-                      optionFilterProp="children"
+                      maxTagCount='responsive'
+                      optionFilterProp='children'
                       filterOption={(input, option) =>
                         (option?.label ?? "")
                           .toLowerCase()
                           .includes(input.toLowerCase())
                       }
-                      mode="multiple"
+                      mode='multiple'
                       allowClear
                       style={{ width: "100%" }}
-                      placeholder="Zgjedhni"
+                      placeholder={t("Choose")}
                       onChange={(e) => {
                         let newArray = [];
                         e.map((obj) => {
@@ -186,23 +185,23 @@ const SecondForm = (props) => {
                   </div>
                 </div>
               </div>
-              <div className="col-lg-4">
-                <div className="form-group">
-                  <label>Bashkautoret:</label>
-                  <div className="rbt-modern-select bootstrap-select pt-2">
+              <div className='col-lg-4'>
+                <div className='form-group'>
+                  <label>{t("Co-authors")}</label>
+                  <div className='rbt-modern-select bootstrap-select pt-2'>
                     <Select
                       showSearch
-                      maxTagCount="responsive"
-                      optionFilterProp="children"
+                      maxTagCount='responsive'
+                      optionFilterProp='children'
                       filterOption={(input, option) =>
                         (option?.label ?? "")
                           .toLowerCase()
                           .includes(input.toLowerCase())
                       }
-                      mode="multiple"
+                      mode='multiple'
                       allowClear
                       style={{ width: "100%" }}
-                      placeholder="Zgjedhni"
+                      placeholder={t("Choose")}
                       onChange={(e) => {
                         // let newArray = [];
                         // e.map((obj) => {
@@ -222,13 +221,13 @@ const SecondForm = (props) => {
             </div>
           </div>
         </div>
-        <div className="col-xxl-12 col-lg-12 col-sm-12 mt-5 text-end">
+        <div className='col-xxl-12 col-lg-12 col-sm-12 mt-5 text-end'>
           <a
-            className="btn btn-danger fs-5 px-5 py-4"
+            className='btn btn-danger fs-5 px-5 py-4'
             onClick={handleNextForm}
-            type="button"
+            type='button'
           >
-            Detajet e publikimit
+            {t("PublicationDetails")}
           </a>
         </div>
       </div>

@@ -6,10 +6,11 @@ import { toast } from "react-toastify";
 import Encryption from "../../Auth/Encryption";
 import photo1 from "../../assets/images/icons/counter-03.png";
 import CrudProvider from "../../provider/CrudProvider.js";
+import { useTranslation } from "react-i18next";
 
 const Magazine = () => {
   const [data, setData] = useState([]);
-
+  const { t } = useTranslation();
   useEffect(() => {
     CrudProvider.getAll("RevistaAPI").then((res) => {
       setData(res.result);
@@ -22,10 +23,10 @@ const Magazine = () => {
           CrudProvider.getAll("RevistaAPI").then((res) => {
             setData(res.result);
           });
-          toast.success("Te dhenat u fshin me sukses");
+          toast.success(t("DataDeletedSuccessfully"));
         }
       } else {
-        toast.error("Probleme ne server");
+        toast.error(t("ServerProblems"));
       }
     });
   }
@@ -35,14 +36,14 @@ const Magazine = () => {
         <div className='col-lg-12'>
           <div className='row'>
             <div className='col-lg-10 col-sm-12 d-flex justify-content-start'>
-              <span className='fs-1'>Revista</span>
+              <span className='fs-1'>{t("Magazines")}</span>
             </div>
             <div className='col-lg-2 col-sm-12 d-flex justify-content-end'>
               <Link
                 className='rbt-btn btn-sm btn-border radius-round'
                 to={"/magazine/create"}
               >
-                Shto
+                {t("Add")}
               </Link>
             </div>
           </div>
@@ -72,14 +73,14 @@ const Magazine = () => {
                             className=' fs-5 text-uppercase'
                             style={{ color: "green" }}
                           >
-                            Aktiv
+                            {t("Active")}
                           </span>
                         ) : (
                           <span
                             className=' fs-5 text-uppercase'
                             style={{ color: "red" }}
                           >
-                            Jo Aktiv
+                            {t("NotActive")}
                           </span>
                         )}
                       </div>
@@ -140,7 +141,7 @@ const Magazine = () => {
           ))
         ) : (
           <Alert severity='info' className='fs-3'>
-            Nuk ka te dhena
+            {t("NoData")}
           </Alert>
         )}
       </div>

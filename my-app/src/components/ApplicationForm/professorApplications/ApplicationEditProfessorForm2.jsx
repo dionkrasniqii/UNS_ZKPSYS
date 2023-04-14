@@ -37,7 +37,6 @@ export default function ApplicationEditProfessorForm2() {
     LinkuPublikimit: "",
     ChangeDekaniDoc: false,
   });
-
   useEffect(() => {
     CrudProvider.getItemById(
       "AplikimiShqyrtimiAPI/GetAplikiminById",

@@ -3,8 +3,11 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import CrudProvider from "../../../provider/CrudProvider";
 import { UploadOutlined } from "@mui/icons-material";
+import { useTranslation } from "react-i18next";
 
 const ThirdForm = (props) => {
+  const { t } = useTranslation();
+
   function DataEpranimit(date, dateString) {
     props.setApplicationDTO({
       ...props.applicationDTO,
@@ -15,8 +18,8 @@ const ThirdForm = (props) => {
     });
   }
   let options = [
-    { value: true, label: "Po" },
-    { value: false, label: "Jo" },
+    { value: true, label: t("Yes") },
+    { value: false, label: t("No") },
   ];
   function handleNextForm() {
     const {
@@ -66,14 +69,13 @@ const ThirdForm = (props) => {
         <div className='row'>
           <div className='col-lg-12 mb-4'>
             <h1 className='page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0'>
-              Detajet e konferences,simpoziumit ose aktivitetit
-              shkencor,artistik dhe sportiv
+              {t("DetailsConferenc2")}
             </h1>
           </div>
 
           <div className='col-lg-4 col-sm-12'>
             <div className='form-group'>
-              <label className='pb-5'>Emërtimi i ngjarjes</label>
+              <label className='pb-5'> {t("NameOfEvent")}</label>
               <input
                 className='mt-3'
                 type='text'
@@ -92,7 +94,7 @@ const ThirdForm = (props) => {
 
           <div className='col-lg-4 col-sm-12 col-md-10'>
             <div className='form-group'>
-              <label>Vendi</label>
+              <label> {t("Country")}</label>
               <input
                 type='text'
                 className='mt-3'
@@ -110,13 +112,13 @@ const ThirdForm = (props) => {
           </div>
           <div className='col-lg-4 col-sm-12 col-md-10'>
             <div className='form-group'>
-              <label className=''>Data</label>
+              <label className=''> {t("Date")}</label>
               <DatePicker className='w-100 mt-5' onChange={DataEpranimit} />
             </div>
           </div>
           <div className='col-lg-4 col-sm-12'>
             <div className='form-group'>
-              <label className='pb-5'>Organizatori</label>
+              <label className='pb-5'>{t("Organizer")}</label>
               <input
                 className='mt-3'
                 type='text'
@@ -134,7 +136,7 @@ const ThirdForm = (props) => {
           </div>
           <div className='col-lg-4 col-sm-12'>
             <div className='form-group'>
-              <label className='pb-5'>Ftesa dhe programi</label>
+              <label className='pb-5'>{t("InvitationAndProgram")}</label>
               <input
                 className='mt-3'
                 type='text'
@@ -152,7 +154,7 @@ const ThirdForm = (props) => {
           </div>
           <div className='col-lg-4 col-sm-12'>
             <div className='form-group'>
-              <label className='pb-5'>Abstrakti</label>
+              <label className='pb-5'>{t("TheAbstract")}</label>
               <input
                 className='mt-3'
                 type='text'
@@ -170,7 +172,7 @@ const ThirdForm = (props) => {
           </div>
           <div className='col-lg-4 col-sm-12'>
             <div className='form-group'>
-              <label className='pb-5'>Titulli i punimit</label>
+              <label className='pb-5'>{t("TitleOfPaper")}</label>
               <input
                 className='mt-3'
                 type='text'
@@ -188,7 +190,9 @@ const ThirdForm = (props) => {
           </div>
           <div className='col-lg-4 col-sm-12'>
             <div className='form-group'>
-              <label className='pb-5'>Konfirmimi i pranimit te punimit</label>
+              <label className='pb-5'>
+                {t("ConfirmationOfAcceptanceWork")}
+              </label>
               <input
                 className='mt-3'
                 type='text'
@@ -206,7 +210,7 @@ const ThirdForm = (props) => {
           </div>
           <div className='col-lg-4 col-sm-12'>
             <div className='form-group'>
-              <label className='pb-5'>Autoret e punimit (AFFILIATION)</label>
+              <label className='pb-5'>{t("AuthorsOfPaper")}</label>
               <input
                 className='mt-3'
                 type='text'
@@ -224,7 +228,7 @@ const ThirdForm = (props) => {
           </div>
           <div className='col-lg-3 col-sm-12'>
             <div className='form-group'>
-              <label className=''>Foles me kumtesë/poster</label>
+              <label className=''>{t("SpeakerWithMessagePoster")}</label>
               <div className='rbt-modern-select bootstrap-select pt-2'>
                 <Select
                   style={{ width: "100%" }}
@@ -245,7 +249,7 @@ const ThirdForm = (props) => {
           </div>
           <div className='col-lg-3 col-sm-12'>
             <div className='form-group'>
-              <label className=''>Ngjarje artistike/sportive</label>
+              <label className=''>{t("ArtisticSportingEvents")}</label>
               <div className='rbt-modern-select bootstrap-select pt-2'>
                 <Select
                   style={{ width: "100%" }}
@@ -266,7 +270,7 @@ const ThirdForm = (props) => {
           </div>
           <div className='col-lg-4 col-sm-12'>
             <div className='form-group'>
-              <label className='pb-5'>Kryesues/panelist</label>
+              <label className='pb-5'>{t("ChairPanelist")}</label>
               <input
                 className='mt-3'
                 type='text'
@@ -284,7 +288,7 @@ const ThirdForm = (props) => {
           </div>
           <div className='col-lg-4 col-sm-12'>
             <div className='form-group'>
-              <label className='pb-5'>Linku publikimit te ngjarjes</label>
+              <label className='pb-5'>{t("LinkOfPublication")}</label>
               <input
                 className='mt-3'
                 type='text'
@@ -300,7 +304,7 @@ const ThirdForm = (props) => {
               />
             </div>
           </div>
-          <div className='col-xxl-3 col-sm-12 pb-5'>
+          <div className='col-xxl-3 col-sm-12 mt-3'>
             {/* <label className='fs-4 pe-2'>Raporti Dekanit</label> */}
             <Upload
               maxCount='1'
@@ -315,7 +319,7 @@ const ThirdForm = (props) => {
               }}
             >
               <Button type='text' icon={<UploadOutlined />}>
-                Ngarkoni Raportin e Dekanit
+                {t("DeanReport")}
               </Button>
             </Upload>
           </div>
@@ -327,7 +331,7 @@ const ThirdForm = (props) => {
           onClick={handleNextForm}
           type='button'
         >
-          Të dhënat bankare
+          {t("BeneficiarysBankDetails")}
         </a>
       </div>
     </div>

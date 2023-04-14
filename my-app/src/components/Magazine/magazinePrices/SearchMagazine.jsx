@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import CrudProvider from "../../../provider/CrudProvider";
 import CreateMagazinePrice from "./CreateMagazinePrice";
 import MagazinePrices from "./MagazinePrices";
+import { useTranslation } from "react-i18next";
 
 const SearchMagazine = () => {
   const [data, setData] = useState({
@@ -13,6 +14,7 @@ const SearchMagazine = () => {
     Faculties: [{}],
     Magazines: [{}],
   });
+  const { t } = useTranslation();
   const [magazine, setMagazine] = useState({});
   const [show, setShow] = useState(false);
   const [showCreate, setShowCreate] = useState(false);
@@ -54,21 +56,21 @@ const SearchMagazine = () => {
 
   let formList =
     data.Form &&
-    data.Form.length > 1 &&
+    data.Form.length > 0 &&
     data.Form.map((obj) => {
       return { label: `${obj.pershkrimi}`, value: `${obj.formulariId}` };
     });
 
   let magazineList =
     data.Magazines &&
-    data.Magazines.length > 1 &&
+    data.Magazines.length > 0 &&
     data.Magazines.map((obj) => {
       return { label: `${obj.revistaPershkrimi}`, value: `${obj.revistaId}` };
     }, this);
 
   let facultiesList =
     data.Faculties &&
-    data.Faculties.length > 1 &&
+    data.Faculties.length > 0 &&
     data.Faculties.map((obj) => {
       return {
         label: `${obj.fakultetiPershkrimi}`,
@@ -92,21 +94,21 @@ const SearchMagazine = () => {
         }
       });
     } else {
-      toast.warning("Zgjedh te gjitha fushat");
+      toast.warning(t("FillAllFields"));
     }
   }
   async function handleSubmitCreate(data) {
     await CrudProvider.createItem("RevistaShumaAPI", data).then((res) => {
       if (res !== undefined) {
         if (res.statusCode === 200) {
-          toast.success("Te dhenat u regjistruan me sukses");
+          toast.success(t("DataSavedSuccessfully"));
           setShow(false);
           setShowCreate(false);
         } else if (res.statusCode === 0) {
           toast.warning(res.errorMessages[0]);
         }
       } else {
-        toast.error("Probleme me server, ju lutem perseri");
+        toast.error(t("ServerProblems"));
       }
     });
   }
@@ -116,13 +118,13 @@ const SearchMagazine = () => {
         <form onSubmit={handleSubmit}>
           <div className='row'>
             <div className='col-lg-3 col-md-2 col-sm-12'>
-              <label className='fs-4'>Formularet</label>
+              <label className='fs-4'>{t("Forms")}</label>
               <div className='form-group'>
                 <div className='rbt-modern-select bootstrap-select  bg-transparent height-45'>
                   <Select
                     id='forms'
                     options={formList}
-                    placeholder='Zgjedhni'
+                    placeholder={t("Choose")}
                     style={{ width: "100%" }}
                     onChange={(e) => {
                       setShow(false);
@@ -137,14 +139,14 @@ const SearchMagazine = () => {
               </div>
             </div>
             <div className='col-lg-3 ps-3 col-md-2 col-sm-12'>
-              <label className='fs-4'>Revistat</label>
+              <label className='fs-4'>{t("Magazines")}</label>
               <div className='form-group'>
                 <div className='rbt-modern-select bootstrap-select  bg-transparent height-45'>
                   <Select
                     name='magazines'
                     id='magazine'
                     options={magazineList}
-                    placeholder='Zgjedhni'
+                    placeholder={t("Choose")}
                     style={{ width: "100%" }}
                     onChange={(e) => {
                       setShow(false);
@@ -159,14 +161,14 @@ const SearchMagazine = () => {
               </div>
             </div>
             <div className='col-lg-3 col-md-2 ps-4 col-sm-12'>
-              <label className='fs-4'>Fakultetet</label>
+              <label className='fs-4'>{t("Faculties")}</label>
               <div className='form-group'>
                 <div className='rbt-modern-select bootstrap-select  bg-transparent height-45'>
                   <Select
                     name='faculties'
                     id='faculty'
                     options={facultiesList}
-                    placeholder='Zgjedhni'
+                    placeholder={t("Choose")}
                     style={{ width: "130%" }}
                     onChange={(e) => {
                       setShow(false);
@@ -188,7 +190,7 @@ const SearchMagazine = () => {
                   setShowCreate(false);
                 }}
               >
-                Kerko
+                {t("Search")}
               </button>
             </div>
             {show === true && (
@@ -197,13 +199,12 @@ const SearchMagazine = () => {
                   <MagazinePrices data={magazine} />
                 ) : (
                   <Alert className='fs-4' severity='warning'>
-                    Ska formular me qmim per kete reviste, per te krijuar nje
-                    çmimi klikoni
+                    {t("NoPriceMagazineDescription")}
                     <span
                       className='ps-2 fs-3 text-primary text-uppercase'
                       onClick={handleCreate}
                     >
-                      ketu
+                      {t("Here")}
                     </span>
                   </Alert>
                 )}

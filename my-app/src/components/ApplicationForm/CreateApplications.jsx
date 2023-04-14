@@ -11,6 +11,7 @@ import FourthForm from "./form1/FourthForm";
 import SecondForm from "./form1/SecondForm";
 import ThirdForm from "./form1/ThirdForm";
 import SecondForm2 from "./form2/SecondForm2";
+import { useTranslation } from "react-i18next";
 
 const CreateApplications = () => {
   const { id } = useParams();
@@ -18,6 +19,7 @@ const CreateApplications = () => {
   const profesor = JSON.parse(
     Encryption.Decrypt(localStorage.getItem("profesor"))
   );
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [applicationDTO, setApplicationDTO] = useState({
     Aplikimi: {
@@ -119,14 +121,14 @@ const CreateApplications = () => {
       (res) => {
         if (res !== undefined) {
           if (res.statusCode === 200) {
-            toast.success("Aplikimi u regjistrua me sukses");
+            toast.success(t("DataSavedSuccessfully"));
             navigate("/");
           } else if (res.statusCode === 0) {
-            toast.error("Probleme ne server ju lutemi provoni perseri");
+            toast.error(t("ServerProblems"));
           } else if (res.statusCode === 409) {
-            toast.error("Ju keni aplikuar me heret me kete email");
+            toast.error(t("YouHaveAppliedWithThisEmail"));
           } else {
-            toast.error("Probleme ne server ju lutemi provoni perseri");
+            toast.error(t("ServerProblems"));
           }
         }
       }

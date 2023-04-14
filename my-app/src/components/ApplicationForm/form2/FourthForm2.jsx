@@ -3,8 +3,10 @@ import { Button, Select, Upload } from "antd";
 import React, { useEffect } from "react";
 import { toast } from "react-toastify";
 import CrudProvider from "../../../provider/CrudProvider";
+import { useTranslation } from "react-i18next";
 
 const FourthForm = (props) => {
+  const { t } = useTranslation();
   function Submit() {
     const { NumriLlogarisBankare, Vendi, ShumaKerkuar } =
       props.applicationDTO.Aplikimi;
@@ -13,9 +15,7 @@ const FourthForm = (props) => {
     if (NumriLlogarisBankare && Vendi && ShumaKerkuar) {
       props.submit();
     } else {
-      toast.error(
-        `Plotesoni te dhenat e kerkuara tek forma "Te dhenat bankare te perfituesit"`
-      );
+      toast.error(t("FillDataAtForm") - t("BeneficiarysBankDetails"));
     }
   }
 
@@ -28,13 +28,12 @@ const FourthForm = (props) => {
         <div className='row'>
           <div className='col-lg-12 mb-5'>
             <h1 className='page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0'>
-              Të dhënat bankare të përfituesit - Autorit të parë ose autorit
-              korrespodent
+              {t("BeneficiarysBankDetails")}
             </h1>
           </div>
           <div className='col-lg-6 col-sm-12'>
             <div className='form-group'>
-              <label>Banka</label>
+              <label> {t("Bank")}</label>
               <input
                 className='w-100'
                 type='text'
@@ -45,7 +44,7 @@ const FourthForm = (props) => {
           </div>
           <div className='col-lg-6 col-sm-12'>
             <div className='form-group'>
-              <label>Numri i llogarise bankare</label>
+              <label> {t("BankAccount")}</label>
               <input
                 className='w-100'
                 type='text'
@@ -58,7 +57,7 @@ const FourthForm = (props) => {
           </div>
           <div className='col-lg-6 col-sm-12'>
             <div className='form-group'>
-              <label>Vendi</label>
+              <label> {t("Country")}</label>
               <input
                 className='w-100'
                 type='text'
@@ -76,7 +75,7 @@ const FourthForm = (props) => {
           </div>
           <div className='col-lg-6 col-sm-12'>
             <div className='form-group'>
-              <label>Shuma e kerkuar</label>
+              <label> {t("AmountRequested")}</label>
               <input
                 max='600'
                 className='w-100'
@@ -101,7 +100,7 @@ const FourthForm = (props) => {
           type='button'
           onClick={Submit}
         >
-          Aplikoni
+          {t("Apply")}
         </a>
       </div>
     </div>

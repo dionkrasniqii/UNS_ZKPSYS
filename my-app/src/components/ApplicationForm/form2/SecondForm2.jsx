@@ -8,19 +8,21 @@ import { useNavigate, useParams } from "react-router";
 import ThirdForm2 from "./ThirdForm2";
 import FourthForm2 from "./FourthForm2";
 import { CribRounded } from "@mui/icons-material";
+import { useTranslation } from "react-i18next";
 const SecondForm = (props) => {
   const { id } = useParams();
   const decryptedId = atob(id);
   const profesor = JSON.parse(
     Encryption.Decrypt(localStorage.getItem("profesor"))
   );
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const professors = useSelector((state) => state.professorList.professors);
   const [faculty, setFaculty] = useState({});
   const [applicationDTO, setapplicationDTO] = useState({
     Aplikimi: {
       FormulariId: decryptedId,
-      DataAplikimit: new Date().toLocaleString(),
+      // DataAplikimit: new Date().toLocaleString(),
       ProfesoriId: profesor.profesoriID,
       Emri: profesor.emri,
       Mbiemri: profesor.mbiemri,
@@ -53,19 +55,6 @@ const SecondForm = (props) => {
     AplikimiBashkeAutorId: [],
     AplikimiDekaniRaportiDocumentId: "",
   });
-  // useEffect(() => {
-  //   CrudProvider.getItemById(
-  //     "GeneralAPIController/GetFakultetiId",
-  //     applicationDTO.Aplikimi.FakultetiId
-  //   ).then((res) => {
-  //     if (res) {
-  //       if (res.statusCode === 200) {
-  //         setFaculty(res.result);
-  //       }
-  //     }
-  //   });
-  // }, []);
-
   const [showForm3, setShowForm3] = useState(false);
   const [showForm4, setShowForm4] = useState(false);
   const [showForm5, setShowForm5] = useState(false);
@@ -103,23 +92,12 @@ const SecondForm = (props) => {
     });
 
   function handleNextForm() {
-    const {
-      Aplikimi,
-      AutoriKryesorId,
-      AutoriKorrespodentId,
-      AplikimiBashkeAutorId,
-    } = applicationDTO;
+    const { Aplikimi, AutoriKryesorId, AplikimiBashkeAutorId } = applicationDTO;
 
-    if (
-      AutoriKryesorId &&
-      AutoriKorrespodentId?.length &&
-      AplikimiBashkeAutorId?.length
-    ) {
+    if (AutoriKryesorId && AplikimiBashkeAutorId?.length) {
       setShowForm3(true);
     } else {
-      toast.error(
-        `Plotesoni te dhenat e kerkuara tek forma "Parashtruesi i kerkeses"`
-      );
+      toast.error(t("FillDataAtForm"), t("RequestApplicant"));
     }
   }
 
@@ -147,17 +125,16 @@ const SecondForm = (props) => {
       "AplikimiAPI/PostApplicationAneks2",
       formData
     ).then((res) => {
-      console.log(res);
       if (res) {
         if (res.statusCode === 200) {
-          toast.success("Aplikimi u regjistrua me sukses");
+          toast.success(t("DataSavedSuccessfully"));
           navigate("/");
         } else if (res.statusCode === 0) {
-          toast.error("Probleme ne server ju lutemi provoni perseri");
+          toast.error(t("ServerProblems"));
         } else if (res.statusCode === 409) {
-          toast.error("Ju keni aplikuar me heret me kete email");
+          toast.error(t("YouHaveAppliedWithThisEmail"));
         } else {
-          toast.error("Probleme ne server ju lutemi provoni perseri");
+          toast.error(t("ServerProblems"));
         }
       }
     });
@@ -168,20 +145,19 @@ const SecondForm = (props) => {
       <div className='col-xxl-12 col-lg-10 col-sm-12 d-flex justify-content-center mt-4 mb-4 '>
         <div className='mt-5'>
           <h1 className='page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0 text-uppercase'>
-            Aneksi i dytë
+            {t("SecondAnnex")}
           </h1>
           <div className='d-flex mt-1'>
-            <a className='fs-5 fw-bold text-danger'>Ballina</a>
+            <a className='fs-5 fw-bold text-danger'> {t("Home")}</a>
             <div className='mx-1 fs-5 fw-bold text-dark'>/</div>
             <div className='breadcrumb-item text-muted fs-5'>
-              Formulari i dytë
+              {t("SecondAnnex")}
             </div>
           </div>
 
           <div className='rbt-card col-xxl-12 col-lg-12 col-sm-12 mt-5'>
             <h1 className='text-center text-uppercase fs-2 my-3 mb-5'>
-              formulari i aplikimit për financim të pjesëmarrjes në konferenca
-              dhe simpoziume shkencore, artistike dhe sportive
+              {t("SecondAnnexDescription")}
             </h1>
             <div className='row'>
               <div className='col-xxl-12 col-lg-10 col-sm-12 rbt-border-dashed rbt-radius border-1 px-5 pt-3 position-relative'>
@@ -191,12 +167,12 @@ const SecondForm = (props) => {
                 <div className='row mt-4 mb-4'>
                   <div className='col-lg-12 mb-4'>
                     <h1 className='page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0'>
-                      Parashtruesi i kerkeses
+                      {t("RequestApplicant")}
                     </h1>
                   </div>
                   <div className='col-lg-3 col-sm-12 col-md-10'>
                     <div className='form-group'>
-                      <label>Emri</label>
+                      <label> {t("Name")}</label>
                       <input
                         type='text'
                         defaultValue={applicationDTO.Aplikimi.Emri}
@@ -206,7 +182,7 @@ const SecondForm = (props) => {
                   </div>
                   <div className='col-lg-3 col-sm-12 col-md-10'>
                     <div className='form-group'>
-                      <label>Mbiemri</label>
+                      <label> {t("Surname")}</label>
                       <input
                         type='text'
                         defaultValue={applicationDTO.Aplikimi.Mbiemri}
@@ -217,7 +193,7 @@ const SecondForm = (props) => {
                   {Object.keys(faculty).length > 0 && (
                     <div className='col-lg-6 col-sm-12 col-md-10'>
                       <div className='form-group'>
-                        <label>Njesia akademike</label>
+                        <label>{t("AcademicUnit")}</label>
                         <input
                           type='text'
                           defaultValue={faculty.fakultetiPershkrimi}
@@ -229,7 +205,7 @@ const SecondForm = (props) => {
 
                   <div className='col-lg-6 col-sm-12 col-md-10'>
                     <div className='form-group'>
-                      <label>Thirrja Shkencore</label>
+                      <label>{t("ScientificCall")}</label>
                       <input
                         type='text'
                         defaultValue={applicationDTO.ThirrjaShkencoreEmri}
@@ -239,7 +215,7 @@ const SecondForm = (props) => {
                   </div>
                   <div className='col-lg-6 col-sm-12 col-md-10'>
                     <div className='form-group'>
-                      <label>Thirrja akademike</label>
+                      <label>{t("AcademicCall")}</label>
                       <input
                         type='text'
                         defaultValue={applicationDTO.ThirrjaAkademikeEmri}
@@ -249,7 +225,7 @@ const SecondForm = (props) => {
                   </div>
                   <div className='col-lg-4'>
                     <div className='form-group'>
-                      <label>Autor kryesor:</label>
+                      <label>{t("LeadAuthor")}</label>
                       <div className='rbt-modern-select bootstrap-select pt-2'>
                         <Select
                           showSearch
@@ -262,7 +238,7 @@ const SecondForm = (props) => {
                           mode='single'
                           allowClear
                           style={{ width: "100%" }}
-                          placeholder='Zgjedhni'
+                          placeholder={t("Choose")}
                           onChange={(e) => {
                             setapplicationDTO({
                               ...applicationDTO,
@@ -290,7 +266,7 @@ const SecondForm = (props) => {
                           mode='multiple'
                           allowClear
                           style={{ width: "100%" }}
-                          placeholder='Zgjedhni'
+                          placeholder={t("Choose")}
                           onChange={(e) => {
                             setapplicationDTO({
                               ...applicationDTO,
@@ -311,7 +287,7 @@ const SecondForm = (props) => {
                 onClick={handleNextForm}
                 type='button'
               >
-                Detajet e konferences
+                {t("ConferencDetails")}
               </a>
             </div>
           </div>

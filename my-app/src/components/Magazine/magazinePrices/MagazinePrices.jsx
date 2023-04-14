@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import CrudProvider from "../../../provider/CrudProvider";
+import { useTranslation } from "react-i18next";
 
 const MagazinePrices = ({ data }) => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const MagazinePrices = ({ data }) => {
     FakultetiId: data.fakultetiId,
     Shuma: data.shuma,
   });
-
+  const { t } = useTranslation();
   const [edit, setEdit] = useState(false);
   function changePrice() {
     setEdit(true);
@@ -22,11 +23,11 @@ const MagazinePrices = ({ data }) => {
       (res) => {
         if (res !== undefined) {
           if (res.statusCode) {
-            toast.success("Te dhenat u perditsuan me sukses");
+            toast.success(t("DataSavedSuccessfully"));
             setEdit(false);
           }
         } else {
-          toast.error("Probleme me server, ju lutem provoni serish");
+          toast.error(t("ServerProblems"));
         }
       }
     );
@@ -82,7 +83,7 @@ const MagazinePrices = ({ data }) => {
                         <span className='current-price'>{model.Shuma}$</span>
                       </div>
                       <a className='rbt-btn-link' onClick={changePrice}>
-                        Modifiko
+                        {t("Edit")}
                         <svg
                           xmlns='http://www.w3.org/2000/svg'
                           width={16}
@@ -101,7 +102,7 @@ const MagazinePrices = ({ data }) => {
                   ) : (
                     <div>
                       <div className='form-group'>
-                        <label>Vendosni çmimin</label>
+                        <label> {t("PutPrice")}</label>
                         <input
                           type='text'
                           className='w-75'

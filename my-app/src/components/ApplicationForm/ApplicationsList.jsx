@@ -2,12 +2,15 @@ import { Table, Input, Alert } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 import Encryption from "../../Auth/Encryption";
+import { useTranslation } from "react-i18next";
 const { Search } = Input;
 
 export default function ApplicationsList(props) {
+  const { t } = useTranslation();
+
   const columns = [
     {
-      title: "Emri",
+      title: t("Name"),
       dataIndex: ["emri"],
       key: "aplikimiId",
       width: "20%",
@@ -27,25 +30,25 @@ export default function ApplicationsList(props) {
         record.emri.toLowerCase().includes(value.toLowerCase()),
     },
     {
-      title: "Mbiemri",
+      title: t("Surname"),
       dataIndex: ["mbiemri"],
       key: "aplikimiId",
       width: "20%",
     },
     {
-      title: "Formulari",
+      title: t("Form"),
       dataIndex: ["aneksi"],
       key: "aplikimiId",
       width: "20%",
     },
     {
-      title: "Titulli punimit",
+      title: t("TitleOfPaper"),
       dataIndex: ["titulliPunimit"],
       key: "aplikimiId",
       width: "20%",
     },
     {
-      title: "Data aplikimit",
+      title: t("DateOfApplication"),
       dataIndex: ["dataAplikimit"],
       render: (value, row, index) => {
         let newDate = new Date(value);
@@ -55,7 +58,7 @@ export default function ApplicationsList(props) {
       width: "20%",
     },
     {
-      title: "Statusi",
+      title: t("Status"),
       dataIndex: ["statusi"],
       width: "20%",
       key: "aplikimiId",
@@ -64,7 +67,7 @@ export default function ApplicationsList(props) {
           <div className='text-start'>
             {value === "Aprovim" && (
               <span>
-                <label className='pe-2 mt-2'>Aprovuar</label>
+                <label className='pe-2 mt-2'>{t("Approved")}</label>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   width={25}
@@ -80,7 +83,7 @@ export default function ApplicationsList(props) {
             )}
             {value === "Proces" && (
               <span>
-                <label className='pe-2 mt-2'>Proces</label>
+                <label className='pe-2 mt-2'>{t("Process")}</label>
                 <svg
                   viewBox='64 64 896 896'
                   focusable='false'
@@ -97,7 +100,7 @@ export default function ApplicationsList(props) {
             )}
             {value === "Rikthim" && (
               <span>
-                <label className='pe-2 mt-2'>Rikthim</label>
+                <label className='pe-2 mt-2'>{t("Relapse")}</label>
                 <svg
                   viewBox='64 64 896 896'
                   focusable='false'
@@ -114,7 +117,7 @@ export default function ApplicationsList(props) {
             )}
             {value === "Verifikuar" && (
               <span>
-                <label className='pe-2 mt-2'>Verifikuar</label>
+                <label className='pe-2 mt-2'>{t("Verified")}</label>
                 <svg
                   viewBox='64 64 896 896'
                   focusable='false'
@@ -131,7 +134,7 @@ export default function ApplicationsList(props) {
             )}
             {value === "Refuzim" && (
               <span>
-                <label className='pe-2 mt-2'>Refuzuar</label>
+                <label className='pe-2 mt-2'>{t("Rejected")}</label>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   width={25}
@@ -151,7 +154,7 @@ export default function ApplicationsList(props) {
       width: "20%",
     },
     {
-      title: "Veprime",
+      title: t("Actions"),
       key: "aplikimiId",
       dataIndex: "aplikimiId",
       fixed: "right",
@@ -196,7 +199,7 @@ export default function ApplicationsList(props) {
             style={{
               fontSize: "19px",
             }}
-            message='Nuk ka asnje aplikant ne kete fakultet'
+            message={t("NoApplicantsInThisFaculty")}
             showIcon
             type='info'
           />

@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import CrudProvider from "../../provider/CrudProvider";
 import logo from "../../photos/logo.png";
 import logoUP from "../../assets/images/icons/up.png";
+import { useTranslation } from "react-i18next";
 
 const Login = (props) => {
   const login = {
@@ -12,7 +13,7 @@ const Login = (props) => {
     Password: "",
   };
   const navigate = useNavigate();
-
+  const { t } = useTranslation();
   async function handleLogin(data) {
     data.preventDefault();
     let username = document.querySelector("input[name=username]").value;
@@ -46,16 +47,16 @@ const Login = (props) => {
             {/* <div className='col-xxl-12 text-center'>
               <img src={logo} width='500px' height='250px' />
             </div> */}
-            <h3 className='title'>Qasja</h3>
+            <h3 className='title'>{t("Login")}</h3>
             <form className='max-width-auto' onSubmit={handleLogin}>
               <div className='form-group'>
                 <input name='username' type='text' autoComplete='off' />
-                <label>Username</label>
+                <label>{t("Username")}</label>
                 <span className='focus-border' />
               </div>
               <div className='form-group'>
                 <input name='password' autoComplete='off' type='password' />
-                <label>Password</label>
+                <label>{t("Password")}</label>
                 <span className='focus-border' />
               </div>
               <div className='form-submit-group'>

@@ -5,12 +5,13 @@ import { Button, Upload } from "antd";
 import { UploadOutlined } from "@mui/icons-material";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function EditNews() {
   const { id } = useParams();
   const decryptedId = atob(id);
   const navigate = useNavigate();
-
+  const { t } = useTranslation();
   const [data, setData] = useState({
     NjoftimiId: "",
     Titulli: "",
@@ -57,7 +58,7 @@ export default function EditNews() {
     await CrudProvider.updateItemWithFile("NjoftimetAPI", model).then((res) => {
       if (res) {
         if (res.statusCode === 200) {
-          toast.success("Te dhenat u ruajten me sukses");
+          toast.success(t("DataSavedSuccessfully"));
           navigate("/news/index");
         }
       }
@@ -86,7 +87,7 @@ export default function EditNews() {
                   <form onSubmit={handleSubmit}>
                     <div className='row row--10 mt--10'>
                       <div className='col-lg-6'>
-                        <span className='fs-1'>Te dhenat e lajmit</span>
+                        <span className='fs-1'>{t("NewsDetails")}</span>
                       </div>
                       <div className='col-lg-6 text-end'>
                         <div className='d-flex justify-content-end align-top'>
@@ -104,7 +105,7 @@ export default function EditNews() {
                             }}
                           >
                             <Button type='button' icon={<UploadOutlined />}>
-                              Foto
+                              {t("Photo")}
                             </Button>
                           </Upload>
                           {data.Aktiv && (
@@ -121,7 +122,7 @@ export default function EditNews() {
                                   })
                                 }
                               />
-                              <label htmlFor='Aktiv'>Aktiv</label>
+                              <label htmlFor='Aktiv'> {t("Active")}</label>
                             </div>
                           )}
                         </div>
@@ -131,7 +132,7 @@ export default function EditNews() {
                         <div className='row'>
                           <div className='col-lg-12 mt-4'>
                             <div className='form-group'>
-                              <label className='fs-5'>Titulli</label>
+                              <label className='fs-5'> {t("Title")}</label>
                               <input
                                 name='RevistaPershkrimi'
                                 type='text'
@@ -151,7 +152,7 @@ export default function EditNews() {
                       </div>
                       <div className='col-lg-12'>
                         <div className='form-group'>
-                          <label className='fs-5 pb-4'>Detajet</label>
+                          <label className='fs-5 pb-4'>{t("Details")}</label>
                           <textarea
                             className='mt-4 shadow-3-strong mt-5 p-3'
                             name='RevistaPershkrimi'
@@ -174,13 +175,13 @@ export default function EditNews() {
                           className='rbt-btn btn-primary radius-round btn-sm'
                           type='submit'
                         >
-                          Ruaj
+                          {t("Save")}
                         </button>
                         <Link
                           className='rbt-btn btn-danger btn-sm radius-round'
                           to={"/news/index"}
                         >
-                          Kthehu
+                          {t("Back")}
                         </Link>
                       </div>
                     </div>

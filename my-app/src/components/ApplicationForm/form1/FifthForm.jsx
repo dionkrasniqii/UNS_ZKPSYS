@@ -3,8 +3,11 @@ import { Button, Upload } from "antd";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import CrudProvider from "../../../provider/CrudProvider";
+import { useTranslation } from "react-i18next";
 
 const FifthForm = (props) => {
+  const { t } = useTranslation();
+
   function handleNextForm() {
     const { NumriLlogarisBankare, Vendi, ShumaKerkuar } =
       props.applicationDTO.Aplikimi;
@@ -14,40 +17,39 @@ const FifthForm = (props) => {
       props.submit();
     } else {
       toast.error(
-        `Plotesoni te dhenat e kerkuara tek forma "Te dhenat bankare te perfituesit"`
+        toast.error(t("FillDataAtForm"), t("BeneficiarysBankDetails"))
       );
     }
   }
   return (
-    <div className="rbt-card rbt-card-body mt-5 w-100 pt--50 mb--100">
-      <div className="col-xxl-12 col-lg-10 col-sm-12 rbt-border-dashed rbt-radius border-1 px-5 pt-5 position-relative">
-        <div className="box">
+    <div className='rbt-card rbt-card-body mt-5 w-100 pt--50 mb--100'>
+      <div className='col-xxl-12 col-lg-10 col-sm-12 rbt-border-dashed rbt-radius border-1 px-5 pt-5 position-relative'>
+        <div className='box'>
           <span>4</span>
         </div>
-        <div className="row">
-          <div className="col-lg-12 mb-5">
-            <h1 className="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
-              Të dhënat bankare të përfituesit - Autorit të parë ose autorit
-              korrespodent
+        <div className='row'>
+          <div className='col-lg-12 mb-5'>
+            <h1 className='page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0'>
+              {t("BeneficiarysBankDetails")} - {t("FirstOrCorrespondentAuthor")}
             </h1>
           </div>
-          <div className="col-lg-6 col-sm-12">
-            <div className="form-group">
-              <label>Banka</label>
+          <div className='col-lg-6 col-sm-12'>
+            <div className='form-group'>
+              <label>{t("Bank")}</label>
               <input
-                className="w-100"
-                type="text"
+                className='w-100'
+                type='text'
                 readOnly
                 defaultValue={props.applicationDTO.Aplikimi.BankName}
               />
             </div>
           </div>
-          <div className="col-lg-6 col-sm-12">
-            <div className="form-group">
-              <label>Numri i llogarise bankare</label>
+          <div className='col-lg-6 col-sm-12'>
+            <div className='form-group'>
+              <label>{t("BankAccount")}</label>
               <input
-                className="w-100"
-                type="text"
+                className='w-100'
+                type='text'
                 readOnly
                 defaultValue={
                   props.applicationDTO.Aplikimi.NumriLlogarisBankare
@@ -55,12 +57,12 @@ const FifthForm = (props) => {
               />
             </div>
           </div>
-          <div className="col-lg-6 col-sm-12">
-            <div className="form-group">
-              <label>Vendi</label>
+          <div className='col-lg-6 col-sm-12'>
+            <div className='form-group'>
+              <label>{t("Country")}</label>
               <input
-                className="w-100"
-                type="text"
+                className='w-100'
+                type='text'
                 onChange={(e) => {
                   props.setApplicationDTO({
                     ...props.applicationDTO,
@@ -73,12 +75,12 @@ const FifthForm = (props) => {
               />
             </div>
           </div>
-          <div className="col-lg-6 col-sm-12">
-            <div className="form-group">
-              <label>Shuma e kerkuar</label>
+          <div className='col-lg-6 col-sm-12'>
+            <div className='form-group'>
+              <label>{t("AmountRequested")}</label>
               <input
-                className="w-100"
-                type="text"
+                className='w-100'
+                type='text'
                 readOnly
                 defaultValue={`${props.applicationDTO.Aplikimi.ShumaKerkuar}€`}
               />
@@ -106,13 +108,13 @@ const FifthForm = (props) => {
           </i>
         </a>
       </div> */}
-      <div className="col-xxl-12 col-lg-12 col-sm-12 mt-5 text-end">
+      <div className='col-xxl-12 col-lg-12 col-sm-12 mt-5 text-end'>
         <a
-          className="btn btn-dark fs-5 px-5 py-4"
+          className='btn btn-dark fs-5 px-5 py-4'
           onClick={handleNextForm}
-          type="button"
+          type='button'
         >
-          Aplikoni
+          {t("Apply")}
         </a>
       </div>
     </div>

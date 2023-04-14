@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import CrudProvider from "../../provider/CrudProvider";
+import { useTranslation } from "react-i18next";
 
 export default function News() {
   const [news, setNews] = useState([]);
-
+  const { t } = useTranslation();
   useEffect(() => {
     CrudProvider.getAll("NjoftimetAPI").then((res) => {
       if (res) {
@@ -23,12 +24,12 @@ export default function News() {
           CrudProvider.getAll("NjoftimetAPI").then((res) => {
             setNews(res.result);
           });
-          toast.success("Te dhenat u fshin me sukses");
+          toast.success(t("DataDeletedSuccessfully"));
         } else if (res.statusCode === 0) {
           toast.error(res.errorMessages[0]);
         }
       } else {
-        toast.error("Probleme ne server");
+        toast.error(t("ServerProblems"));
       }
     });
   }
@@ -40,16 +41,13 @@ export default function News() {
           <div className='row'>
             <div className='col-lg-10'>
               <div className=' title-wrapper'>
-                <h1 className='title mb--0'>Të gjitha lajmrimet</h1>
+                <h1 className='title mb--0'>{t("AllNews")}</h1>
               </div>
-              <p className='description mt-1'>
-                Blogu i lajmëve paraqet standarde që njofton të gjithë
-                përdoruesit në mënyren sa më të shpejt dhe korrekte.
-              </p>
+              <p className='description mt-1'>{t("NewsDesc")}</p>
             </div>
             <div className='col-lg-2'>
               <Link className='rbt-btn btn-gradient' to={"/news/create"}>
-                Krijo
+                {t("Add")}
               </Link>
             </div>
           </div>
@@ -99,7 +97,7 @@ export default function News() {
                           className='transparent-button'
                           to={`/news/edit/${btoa(obj.njoftimiId)}`}
                         >
-                          Modifiko
+                          {t("Edit")}
                           <i>
                             <svg
                               width='17'
@@ -127,14 +125,14 @@ export default function News() {
                             className=' fs-5 text-uppercase'
                             style={{ color: "green" }}
                           >
-                            Aktiv
+                            {t("Active")}
                           </span>
                         ) : (
                           <span
                             className=' fs-5 text-uppercase'
                             style={{ color: "red" }}
                           >
-                            Jo Aktiv
+                            {t("NotActive")}
                           </span>
                         )}
                       </span>

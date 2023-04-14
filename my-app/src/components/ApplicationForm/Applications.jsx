@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CrudProvider from "../../provider/CrudProvider";
 import ApplicationsList from "./ApplicationsList";
+import { useTranslation } from "react-i18next";
 
 const Applications = () => {
   const [faculties, setFaculties] = useState([]);
@@ -15,7 +16,7 @@ const Applications = () => {
   const user = localStorage.getItem("token")
     ? jwtDecode(localStorage.getItem("token"))
     : null;
-
+  const { t } = useTranslation();
   // let selectValFaculty = sessionStorage.getItem("selectValFaculty");
   // let selectValForm = sessionStorage.getItem("selectValForm");
 
@@ -116,7 +117,7 @@ const Applications = () => {
         <div className='row'>
           <div className='col-lg-3 col-sm-12 mt-2'>
             <Select
-              placeholder='Zgjedhni fakultetin'
+              placeholder={t("ChooseFaculty")}
               style={{ width: "100%" }}
               mode='single'
               options={facultiesList}
@@ -129,7 +130,7 @@ const Applications = () => {
           </div>
           <div className='col-lg-3 col-sm-12 mt-2'>
             <Select
-              placeholder='Zgjedhni formularin'
+              placeholder={t("ChooseForm")}
               style={{ width: "100%" }}
               mode='single'
               options={formsList}
@@ -145,7 +146,7 @@ const Applications = () => {
               className='rbt-btn btn-sm btn-border radius-round'
               onClick={Submit}
             >
-              Kerko
+              {t("Search")}
             </a>
           </div>
         </div>
