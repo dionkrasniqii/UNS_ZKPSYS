@@ -746,6 +746,7 @@ body {
     justify-content: start;
     align-items: center;
     color: #000;
+    margin-top: -15px;
 }
 
 .first-logo {
@@ -1205,7 +1206,7 @@ ul li a {
 }
 
 ul li a:hover {
-    color: var(--color-primary);
+    color: #ce2c32;
 }
 
 ul ul {
@@ -12211,6 +12212,12 @@ ul.rbt-dropdown-menu.currency-menu li .sub-menu {
     transition: 0.3s;
 }
 
+a:hover,
+a:focus,
+a:active {
+    color: #ce2c32 !important;
+}
+
 @media only screen and (min-width: 1200px) and (max-width: 1599px) {
     .rbt-header .mainmenu-nav .mainmenu>li>a {
         padding: 0 10px;
@@ -12251,7 +12258,7 @@ ul.rbt-dropdown-menu.currency-menu li .sub-menu {
 .rbt-header .mainmenu-nav .mainmenu li {
     margin-top: 0;
     margin-bottom: 0;
-    position: relative;
+    /* position: relative; */
 }
 
 .rbt-header .mainmenu-nav .mainmenu li:first-child a {
@@ -13120,12 +13127,83 @@ ul.rbt-dropdown-menu.currency-menu li .sub-menu {
     background: transparent;
     border: 0 none;
     color: var(--color-body);
-    font-size: 22px;
+    height: 45px;
+    width: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 100%;
     padding: 0;
+    color: #000 !important;
+}
+
+.hamberger .hamberger-button svg {
+    width: 33px;
+    height: 33px;
+    color: #000 !important;
+}
+
+.nav-item-langage {
+    position: absolute;
+    right: 40px;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    top: 8px;
+}
+
+.nav-item-langage a {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 60px !important;
+}
+
+.nav-item-langage a {
+    width: 45px;
+    height: 50px !important;
+}
+
+.nav-item-langage a img {
+    width: 33px;
+    height: 25px;
+}
+
+.language-mobile {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.language-mobile a img {
+    width: 50px;
+    height: 50px;
+}
+
+
+/* .nav-item-langage a:hover {
+    border-bottom: 3px solid #30588d;
+}
+
+.activeFleg {
+    border-bottom: 3px solid #ce2c32;
+}
+
+.nav-item-langage a:focus {
+    outline: 0 !important;
+    box-shadow: none !important;
+} */
+
+@media only screen and (max-width: 767px) {
+    .nav-item-langage {
+        left: -6px;
+        display: flex;
+        justify-content: start;
+        top: -5px;
+    }
+    .costume-width {
+        width: 100% !important;
+    }
 }
 
 
