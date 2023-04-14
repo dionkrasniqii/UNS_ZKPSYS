@@ -56,7 +56,7 @@ const ThirdForm = (props) => {
       props.showForm4(true);
     } else {
       toast.error(
-        `Plotesoni te dhenat e kerkuara tek forma "Detajet e konferences,simpoziumit ose aktivitetit shkencor,artistik dhe sportiv"`
+        toast.error(t("FillDataAtForm") + " " + t("DetailsConferenc2"))
       );
     }
   }

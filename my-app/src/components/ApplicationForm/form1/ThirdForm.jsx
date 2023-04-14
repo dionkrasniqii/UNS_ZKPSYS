@@ -87,7 +87,7 @@ const ThirdForm = (props) => {
     ) {
       props.showForm4(true);
     } else {
-      toast.error(t("FillDataAtForm"), t("PublicationDetails"));
+      toast.error(t("FillDataAtForm") + " " + t("PublicationDetails"));
     }
   }
   return (

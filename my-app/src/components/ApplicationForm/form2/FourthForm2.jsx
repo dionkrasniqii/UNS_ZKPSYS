@@ -15,7 +15,7 @@ const FourthForm = (props) => {
     if (NumriLlogarisBankare && Vendi && ShumaKerkuar) {
       props.submit();
     } else {
-      toast.error(t("FillDataAtForm") - t("BeneficiarysBankDetails"));
+      toast.error(t("FillDataAtForm") + " " + t("BeneficiarysBankDetails"));
     }
   }
 

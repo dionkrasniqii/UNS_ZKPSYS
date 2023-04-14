@@ -17,7 +17,7 @@ const FifthForm = (props) => {
       props.submit();
     } else {
       toast.error(
-        toast.error(t("FillDataAtForm"), t("BeneficiarysBankDetails"))
+        toast.error(t("FillDataAtForm") + " " + t("BeneficiarysBankDetails"))
       );
     }
   }

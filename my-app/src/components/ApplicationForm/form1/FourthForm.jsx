@@ -25,7 +25,7 @@ const FourthForm = (props) => {
     ) {
       props.showForm5(true);
     } else {
-      toast.error(t("FillDataAtForm"), t("PresentationAcademicUnit"));
+      toast.error(t("FillDataAtForm") + " " + t("PresentationAcademicUnit"));
     }
   }
   return (

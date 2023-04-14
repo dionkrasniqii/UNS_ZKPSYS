@@ -6,10 +6,12 @@ import { toast } from "react-toastify";
 import { Button, DatePicker, Select, Upload } from "antd";
 import { Link } from "react-router-dom";
 import { UploadOutlined } from "@mui/icons-material";
+import { useTranslation } from "react-i18next";
 
 export default function ApplicationEditProfessorForm2() {
   const { id } = useParams();
   const decryptedId = atob(id);
+  const { t } = useTranslation();
   const [applicant, setApplicant] = useState({});
   const navigate = useNavigate();
   const professorList = useSelector((state) => state.professorList.professors);
@@ -110,8 +112,8 @@ export default function ApplicationEditProfessorForm2() {
     });
   }
   let optionsTrueFalse = [
-    { value: true, label: "Po" },
-    { value: false, label: "Jo" },
+    { value: true, label: t("Yes") },
+    { value: false, label: t("No") },
   ];
   function checkIsPDf(event) {
     if (event) {
@@ -145,7 +147,7 @@ export default function ApplicationEditProfessorForm2() {
     ).then((res) => {
       if (res) {
         if (res.statusCode === 200) {
-          toast.success("Te dhenat u perditesuan me sukses");
+          toast.success(t("DataUpdatedSuccessfully"));
           navigate("/myapplications/search");
         }
       }
@@ -179,11 +181,11 @@ export default function ApplicationEditProfessorForm2() {
                           />
                         </svg>
                       </i>
-                      Prapa
+                      {t("Back")}
                     </Link>
                   </div>
                   <div className='col-xxl-6 col-lg-6 col-sm-12 mt-2 text-start'>
-                    <h2 className='text-uppercase '>Te dhenat e aplikuesit</h2>
+                    <h2 className='text-uppercase '> {t("DataOfApplicant")}</h2>
                   </div>
                 </div>
               </div>
@@ -192,12 +194,14 @@ export default function ApplicationEditProfessorForm2() {
                   <div className='row'>
                     <div className='col-xxl-12 mb-3'>
                       <div className='col-xxl-2 rbt-border-bottom'>
-                        <h4 className='text-uppercase text-danger'>Verejtja</h4>
+                        <h4 className='text-uppercase text-danger'>
+                          {t("Remark")}
+                        </h4>
                       </div>
                     </div>
                     <div className='col-xxl-12 col-lg-12'>
                       <div className='form-group'>
-                        <label>Verejtja</label>
+                        <label> {t("Remark")}</label>
                         <textarea
                           className='mt-4'
                           type='text'
@@ -215,12 +219,14 @@ export default function ApplicationEditProfessorForm2() {
                 <div className='row'>
                   <div className='col-xxl-12 mb-3'>
                     <div className='col-xxl-2 rbt-border-bottom'>
-                      <h4 className='text-uppercase'>Parashtruesi kerkeses</h4>
+                      <h4 className='text-uppercase'>
+                        {t("RequestApplicant")}
+                      </h4>
                     </div>
                   </div>
                   <div className='col-xxl-2 col-lg-2'>
                     <div className='form-group'>
-                      <label>Emri Profesorit</label>
+                      <label>{t("ProfessorName")}</label>
                       <input
                         type='text'
                         readOnly
@@ -230,7 +236,7 @@ export default function ApplicationEditProfessorForm2() {
                   </div>
                   <div className='col-xxl-2 col-lg-2'>
                     <div className='form-group'>
-                      <label>Mbiemri Profesorit</label>
+                      <label> {t("ProfessorSurname")}</label>
                       <input
                         type='text'
                         readOnly
@@ -240,7 +246,7 @@ export default function ApplicationEditProfessorForm2() {
                   </div>
                   <div className='col-xxl-2 col-lg-2'>
                     <div className='form-group'>
-                      <label>Thirrja Shkencore</label>
+                      <label>{t("ScientificCall")}</label>
                       <input
                         type='text'
                         readOnly
@@ -252,7 +258,7 @@ export default function ApplicationEditProfessorForm2() {
                   </div>
                   <div className='col-xxl-2 col-lg-2'>
                     <div className='form-group'>
-                      <label>Thirrja Akademike</label>
+                      <label>{t("AcademicCall")}</label>
                       <input
                         type='text'
                         readOnly
@@ -265,7 +271,7 @@ export default function ApplicationEditProfessorForm2() {
                   <div className='col-xxl-2 col-lg-2'>
                     <div className='form-group'>
                       <label>
-                        Autore kryesore
+                        {t("LeadAuthor")}
                         <span className='text-danger'>*</span>
                       </label>
                       <Select
@@ -286,7 +292,7 @@ export default function ApplicationEditProfessorForm2() {
                   <div className='col-xxl-4 col-lg-4'>
                     <div className='form-group'>
                       <label>
-                        Bashke autoret
+                        {t("Co-authors")}
                         <span className='text-danger'>*</span>
                       </label>
                       <Select
@@ -311,13 +317,15 @@ export default function ApplicationEditProfessorForm2() {
                 <div className='row'>
                   <div className='col-xxl-12 mb-3'>
                     <div className='col-xxl-2 rbt-border-bottom'>
-                      <h4 className='text-uppercase'>Detajet e publikimit</h4>
+                      <h4 className='text-uppercase'>
+                        {t("PublicationDetails")}
+                      </h4>
                     </div>
                   </div>
 
                   <div className='col-xxl-3 col-lg-3'>
                     <div className='form-group'>
-                      <label>Emërtimi i ngjarjes</label>
+                      <label> {t("NameOfEvent")}</label>
                       <input
                         type='text'
                         onChange={(e) => {
@@ -332,7 +340,7 @@ export default function ApplicationEditProfessorForm2() {
                   </div>
                   <div className='col-xxl-3 col-lg-3'>
                     <div className='form-group'>
-                      <label>Vendi Ngjarjes</label>
+                      <label>{t("CountryOfEvent")}</label>
                       <input
                         type='text'
                         onChange={(e) => {
@@ -348,7 +356,7 @@ export default function ApplicationEditProfessorForm2() {
                   <div className='col-xxl-3 col-lg-3'>
                     <div className='form-group'>
                       <label>
-                        Data ngjarjes
+                        {t("Date")}
                         <span className='text-danger'>*</span>
                       </label>
                       <DatePicker
@@ -359,7 +367,7 @@ export default function ApplicationEditProfessorForm2() {
                   </div>
                   <div className='col-xxl-3 col-lg-3'>
                     <div className='form-group'>
-                      <label>Organizatori</label>
+                      <label> {t("Organizer")}</label>
                       <input
                         type='text'
                         onChange={(e) => {
@@ -374,7 +382,7 @@ export default function ApplicationEditProfessorForm2() {
                   </div>
                   <div className='col-xxl-3 col-lg-3'>
                     <div className='form-group'>
-                      <label>Ftesa dhe programi</label>
+                      <label>{t("InvitationAndProgram")}</label>
                       <input
                         type='text'
                         onChange={(e) => {
@@ -389,7 +397,7 @@ export default function ApplicationEditProfessorForm2() {
                   </div>
                   <div className='col-xxl-3 col-lg-3'>
                     <div className='form-group'>
-                      <label>Abstrakti</label>
+                      <label>{t("TheAbstract")}</label>
                       <input
                         type='text'
                         onChange={(e) => {
@@ -404,7 +412,7 @@ export default function ApplicationEditProfessorForm2() {
                   </div>
                   <div className='col-xxl-3 col-lg-3'>
                     <div className='form-group'>
-                      <label>Titulli i punimit</label>
+                      <label>{t("TitleOfPaper")}</label>
                       <input
                         type='text'
                         onChange={(e) => {
@@ -419,7 +427,7 @@ export default function ApplicationEditProfessorForm2() {
                   </div>
                   <div className='col-xxl-3 col-lg-3'>
                     <div className='form-group'>
-                      <label>Autorët e punimit</label>
+                      <label>{t("AuthorsOfPaper")}</label>
                       <input
                         type='text'
                         onChange={(e) => {
@@ -434,7 +442,7 @@ export default function ApplicationEditProfessorForm2() {
                   </div>
                   <div className='col-xxl-3 col-lg-3'>
                     <div className='form-group'>
-                      <label>Folës kumtues/poster</label>
+                      <label>{t("SpeakerWithMessagePoster")}</label>
                       <Select
                         placeholder='Zgjedhni'
                         style={{ width: "80%" }}
@@ -453,7 +461,7 @@ export default function ApplicationEditProfessorForm2() {
                   </div>
                   <div className='col-xxl-3 col-lg-3'>
                     <div className='form-group'>
-                      <label>Ngjarje artistike/sportive</label>
+                      <label>{t("ArtisticSportingEvents")}</label>
                       <Select
                         placeholder='Zgjedhni'
                         style={{ width: "80%" }}
@@ -472,7 +480,7 @@ export default function ApplicationEditProfessorForm2() {
                   </div>
                   <div className='col-xxl-3 col-lg-3'>
                     <div className='form-group'>
-                      <label>Kryesues/panelist</label>
+                      <label>{t("ChairPanelist")}</label>
                       <input
                         type='text'
                         onChange={(e) => {
@@ -487,7 +495,7 @@ export default function ApplicationEditProfessorForm2() {
                   </div>
                   <div className='col-xxl-6 col-lg-6'>
                     <div className='form-group'>
-                      <label>Linku i publikimit</label>
+                      <label>{t("LinkOfPublication")}</label>
                       <input
                         name='linkuPublikimit'
                         type='text'
@@ -509,7 +517,7 @@ export default function ApplicationEditProfessorForm2() {
                     <div className='row'>
                       <div className='col-xxl-12 mb-3'>
                         <div className='col-xxl-2 rbt-border-bottom'>
-                          <h4 className='text-uppercase'>Dokumente</h4>
+                          <h4 className='text-uppercase'>{t("Documents")}</h4>
                         </div>
                       </div>
                       <div className='col-xxl-2 col-lg-2'>
@@ -521,7 +529,7 @@ export default function ApplicationEditProfessorForm2() {
                             data-bs-toggle='modal'
                             data-bs-target='#exampleModal_RaportiDekanit'
                           >
-                            Raporti Dekanit
+                            {t("DeanReport")}
                           </button>
 
                           <div
@@ -538,7 +546,7 @@ export default function ApplicationEditProfessorForm2() {
                                     className='modal-title'
                                     id='exampleModalLabel'
                                   >
-                                    Raporti Dekanit
+                                    {t("DeanReport")}
                                   </h5>
                                   <button
                                     type='button'
@@ -573,7 +581,7 @@ export default function ApplicationEditProfessorForm2() {
                                     className='btn btn-primary btn-lg'
                                     data-bs-dismiss='modal'
                                   >
-                                    Mbyll
+                                    {t("Close")}
                                   </button>
                                 </div>
                               </div>
@@ -599,7 +607,7 @@ export default function ApplicationEditProfessorForm2() {
                             }}
                           >
                             <Button type='text' icon={<UploadOutlined />}>
-                              Ngarko
+                              {t("Upload")}
                             </Button>
                           </Upload>
                         </div>
@@ -613,13 +621,13 @@ export default function ApplicationEditProfessorForm2() {
                   <div className='col-xxl-12 mb-3'>
                     <div className='col-xxl-2 rbt-border-bottom'>
                       <h4 className='text-uppercase'>
-                        Te dhenat bankare te perfituesit
+                        {t("BeneficiarysBankDetails")}
                       </h4>
                     </div>
                   </div>
                   <div className='col-xxl-2 col-lg-2'>
                     <div className='form-group'>
-                      <label>Banka</label>
+                      <label> {t("Bank")}</label>
                       <input
                         name='llogariaBankare'
                         type='text'
@@ -630,7 +638,7 @@ export default function ApplicationEditProfessorForm2() {
                   </div>
                   <div className='col-xxl-2 col-lg-2'>
                     <div className='form-group'>
-                      <label>Llogaria bankare</label>
+                      <label> {t("BankAccount")}</label>
                       <input
                         name='llogariaBankare'
                         type='text'
@@ -641,7 +649,7 @@ export default function ApplicationEditProfessorForm2() {
                   </div>
                   <div className='col-xxl-2 col-lg-2'>
                     <div className='form-group'>
-                      <label>Vendi</label>
+                      <label>{t("Country")}</label>
                       <input
                         name='vendi'
                         type='text'
@@ -652,7 +660,7 @@ export default function ApplicationEditProfessorForm2() {
                   </div>
                   <div className='col-xxl-2 col-lg-2'>
                     <div className='form-group'>
-                      <label>Shuma e kerkuar</label>
+                      <label>{t("AmountRequested")}</label>
                       <input
                         type='text'
                         readOnly
@@ -671,7 +679,7 @@ export default function ApplicationEditProfessorForm2() {
                   className='rbt-btn  btn-gradient-submit radius-round btn-sm'
                   type='submit'
                 >
-                  <span data-text='Vazhdo'>Vazhdo</span>
+                  <span data-text='Vazhdo'>{t("Save")}</span>
                 </button>
               </div>
             </div>

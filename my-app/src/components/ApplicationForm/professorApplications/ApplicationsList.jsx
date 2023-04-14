@@ -1,20 +1,22 @@
 import { Input, Table } from "antd";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 const { Search } = Input;
 
 export default function ApplicationsList(props) {
+  const { t } = useTranslation();
   const data = props.data;
   const columns = [
     {
-      title: "Titulli punimit",
+      title: t("TitleOfPaper"),
       dataIndex: "titulliPunimit",
       key: "aplikimiId",
       width: "20%",
       filterDropdown: ({ setSelectedKeys, confirm }) => (
         <div style={{ padding: 8 }}>
           <Search
-            placeholder='Kërko titullin'
+            placeholder={t("Search") + " " + t("Title")}
             onSearch={(value) => {
               setSelectedKeys([value]);
               confirm();
@@ -33,7 +35,7 @@ export default function ApplicationsList(props) {
     //   width: "20%",
     // },
     {
-      title: "Statusi",
+      title: t("Status"),
       dataIndex: "statusiKerkesesId",
       width: "20%",
       key: "aplikimiId",
@@ -42,7 +44,7 @@ export default function ApplicationsList(props) {
           <div className='text-start'>
             {value === 4 && (
               <span>
-                <label className='pe-2 mt-2'>Aprovuar</label>
+                <label className='pe-2 mt-2'>{t("Approved")}</label>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   width={25}
@@ -58,7 +60,7 @@ export default function ApplicationsList(props) {
             )}
             {value === 1 && (
               <span>
-                <label className='pe-2 mt-2'>Proces</label>
+                <label className='pe-2 mt-2'>{t("Process")}</label>
                 <svg
                   viewBox='64 64 896 896'
                   focusable='false'
@@ -75,7 +77,7 @@ export default function ApplicationsList(props) {
             )}
             {value === 2 && (
               <span>
-                <label className='pe-2 mt-2'>Rikthim</label>
+                <label className='pe-2 mt-2'>{t("Relapse")}</label>
                 <svg
                   viewBox='64 64 896 896'
                   focusable='false'
@@ -92,7 +94,7 @@ export default function ApplicationsList(props) {
             )}
             {value === 3 && (
               <span>
-                <label className='pe-2 mt-2'>Verifikuar</label>
+                <label className='pe-2 mt-2'>{t("Verified")}</label>
                 <svg
                   viewBox='64 64 896 896'
                   focusable='false'
@@ -109,7 +111,7 @@ export default function ApplicationsList(props) {
             )}
             {value === 5 && (
               <span>
-                <label className='pe-2 mt-2'>Refuzuar</label>
+                <label className='pe-2 mt-2'>{t("Rejected")}</label>
                 <svg
                   viewBox='64 64 896 896'
                   focusable='false'
@@ -130,7 +132,7 @@ export default function ApplicationsList(props) {
       width: "20%",
     },
     {
-      title: "Veprime",
+      title: t("Actions"),
       dataIndex: "statusiKerkesesId",
       key: "aplikimiId",
       render: (value, record) => {

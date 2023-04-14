@@ -43,7 +43,7 @@ const SecondForm = (props) => {
     ) {
       props.showForm3(true);
     } else {
-      toast.error(t("FillDataAtForm"), t("RequestApplicant"));
+      toast.error(t("FillDataAtForm") + " " + t("RequestApplicant"));
     }
   }
 
