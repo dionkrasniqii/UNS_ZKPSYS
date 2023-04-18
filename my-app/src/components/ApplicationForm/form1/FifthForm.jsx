@@ -1,8 +1,5 @@
-import { UploadOutlined } from "@mui/icons-material";
-import { Button, Upload } from "antd";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { toast } from "react-toastify";
-import CrudProvider from "../../../provider/CrudProvider";
 import { useTranslation } from "react-i18next";
 
 const FifthForm = (props) => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Select } from "antd";
+import { Button, Checkbox, Select, Upload } from "antd";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import CrudProvider from "../../../provider/CrudProvider";
@@ -7,8 +7,9 @@ import Encryption from "../../../Auth/Encryption";
 import { useNavigate, useParams } from "react-router";
 import ThirdForm2 from "./ThirdForm2";
 import FourthForm2 from "./FourthForm2";
-import { CribRounded } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
+import { UploadOutlined } from "@mui/icons-material";
+
 const SecondForm = (props) => {
   const { id } = useParams();
   const decryptedId = atob(id);
@@ -58,6 +59,7 @@ const SecondForm = (props) => {
   const [showForm3, setShowForm3] = useState(false);
   const [showForm4, setShowForm4] = useState(false);
   const [showForm5, setShowForm5] = useState(false);
+  const [foreign, setForeign] = useState(false);
 
   useEffect(() => {
     Promise.all([
@@ -90,6 +92,15 @@ const SecondForm = (props) => {
     professors.map((obj) => {
       return { value: `${obj.ProfesoriID}`, label: `${obj.EmriDheMbiemri}` };
     });
+
+  let coAuthors =
+    professorsList &&
+    applicationDTO.AutoriKryesorId !== "" &&
+    professorsList
+      .filter(({ value }) => {
+        return value !== applicationDTO.AutoriKryesorId;
+      })
+      .map(({ value, label }) => ({ value, label }));
 
   function handleNextForm() {
     const { Aplikimi, AutoriKryesorId, AplikimiBashkeAutorId } = applicationDTO;
@@ -223,59 +234,116 @@ const SecondForm = (props) => {
                       />
                     </div>
                   </div>
-                  <div className='col-lg-4'>
-                    <div className='form-group'>
-                      <label>{t("LeadAuthor")}</label>
-                      <div className='rbt-modern-select bootstrap-select pt-2'>
-                        <Select
-                          showSearch
-                          optionFilterProp='children'
-                          filterOption={(input, option) =>
-                            (option?.label ?? "")
-                              .toLowerCase()
-                              .includes(input.toLowerCase())
-                          }
-                          mode='single'
-                          allowClear
-                          style={{ width: "100%" }}
-                          placeholder={t("Choose")}
-                          onChange={(e) => {
-                            setapplicationDTO({
-                              ...applicationDTO,
-                              AutoriKryesorId: e,
-                            });
-                          }}
-                          options={professorsList}
-                        />
+                  <div className='col-xxl-12 col-lg-12 col-sm-12'>
+                    <div className='row'>
+                      <div className='col-lg-4'>
+                        <div className='row'>
+                          <div className='col-xxl-12 col-lg-12 col-sm-12'>
+                            <Checkbox
+                              onChange={(e) => {
+                                setForeign(e.target.checked);
+                              }}
+                            >
+                              Autorë të huaj
+                            </Checkbox>
+                          </div>
+                          <div className='form-group'>
+                            <label>{t("LeadAuthor")}</label>
+                            {!foreign ? (
+                              <div className='rbt-modern-select bootstrap-select pt-2'>
+                                <Select
+                                  showSearch
+                                  optionFilterProp='children'
+                                  filterOption={(input, option) =>
+                                    (option?.label ?? "")
+                                      .toLowerCase()
+                                      .includes(input.toLowerCase())
+                                  }
+                                  mode='single'
+                                  allowClear
+                                  style={{ width: "100%" }}
+                                  placeholder={t("Choose")}
+                                  onChange={(e) => {
+                                    setapplicationDTO({
+                                      ...applicationDTO,
+                                      AutoriKryesorId: e,
+                                      AplikimiBashkeAutorId: [],
+                                    });
+                                  }}
+                                  options={professorsList}
+                                />
+                              </div>
+                            ) : (
+                              <input type='text' placeholder='....' />
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      <div className='col-lg-4'>
+                        <div className='row'>
+                          <div className='col-xxl-12 col-lg-12 col-sm-12'>
+                            <Checkbox
+                              onChange={(e) => {
+                                setForeign(e.target.checked);
+                              }}
+                            >
+                              Autorë të huaj
+                            </Checkbox>
+                          </div>
+                          <div className='form-group'>
+                            <label>{t("Co-authors")}</label>
+                            {!foreign ? (
+                              <div className='rbt-modern-select bootstrap-select pt-2'>
+                                <Select
+                                  showSearch
+                                  maxTagCount='responsive'
+                                  optionFilterProp='children'
+                                  filterOption={(input, option) =>
+                                    (option?.label ?? "")
+                                      .toLowerCase()
+                                      .includes(input.toLowerCase())
+                                  }
+                                  mode='multiple'
+                                  allowClear
+                                  value={applicationDTO.AplikimiBashkeAutorId}
+                                  style={{ width: "100%" }}
+                                  placeholder={t("Choose")}
+                                  onChange={(e) => {
+                                    setapplicationDTO({
+                                      ...applicationDTO,
+                                      AplikimiBashkeAutorId: e,
+                                    });
+                                  }}
+                                  options={coAuthors}
+                                />
+                              </div>
+                            ) : (
+                              <input type='text' placeholder='....' />
+                            )}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div className='col-lg-4'>
-                    <div className='form-group'>
-                      <label>Bashkautoret:</label>
-                      <div className='rbt-modern-select bootstrap-select pt-2'>
-                        <Select
-                          showSearch
-                          maxTagCount='responsive'
-                          optionFilterProp='children'
-                          filterOption={(input, option) =>
-                            (option?.label ?? "")
-                              .toLowerCase()
-                              .includes(input.toLowerCase())
-                          }
-                          mode='multiple'
-                          allowClear
-                          style={{ width: "100%" }}
-                          placeholder={t("Choose")}
-                          onChange={(e) => {
-                            setapplicationDTO({
-                              ...applicationDTO,
-                              AplikimiBashkeAutorId: e,
-                            });
-                          }}
-                          options={professorsList}
-                        />
-                      </div>
+                  <div className='col-xxl-12 col-lg-12 col-sm-12'>
+                    <div className='col-xxl-3 col-lg-3 col-sm-12 mt-3'>
+                      <Upload
+                        maxCount='1'
+                        accept='.png, .jpeg, . jpg ,.pdf'
+                        className='btn btn-danger btn-raporti w-100'
+                        multiple={false}
+                        onChange={(e) => {
+                          props.setApplicationDTO({
+                            ...props.applicationDTO,
+                            AplikimiDekaniRaportiDocumentId:
+                              e.file.originFileObj,
+                          });
+                        }}
+                      >
+                        <Button type='text' icon={<UploadOutlined />}>
+                          Konfirmimi i bashkautorëve
+                        </Button>
+                      </Upload>
                     </div>
                   </div>
                 </div>
@@ -310,6 +378,7 @@ const SecondForm = (props) => {
             applicationDTO={applicationDTO}
             setApplicationDTO={setapplicationDTO}
             submit={handleSubmit}
+            professor={profesor}
             // showForm4={setShowForm4}
           />
         ) : (

@@ -1,7 +1,6 @@
-import { Button, DatePicker, InputNumber, Select, Upload } from "antd";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { Button, DatePicker, Select, Upload } from "antd";
 import { toast } from "react-toastify";
-import CrudProvider from "../../../provider/CrudProvider";
 import { UploadOutlined } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
 
@@ -55,9 +54,7 @@ const ThirdForm = (props) => {
     ) {
       props.showForm4(true);
     } else {
-      toast.error(
-        toast.error(t("FillDataAtForm") + " " + t("DetailsConferenc2"))
-      );
+      toast.error(t("FillDataAtForm") + " " + t("DetailsConferenc2"));
     }
   }
   return (
@@ -72,7 +69,6 @@ const ThirdForm = (props) => {
               {t("DetailsConferenc2")}
             </h1>
           </div>
-
           <div className='col-lg-4 col-sm-12'>
             <div className='form-group'>
               <label className='pb-5'> {t("NameOfEvent")}</label>
@@ -91,7 +87,6 @@ const ThirdForm = (props) => {
               />
             </div>
           </div>
-
           <div className='col-lg-4 col-sm-12 col-md-10'>
             <div className='form-group'>
               <label> {t("Country")}</label>
@@ -136,42 +131,6 @@ const ThirdForm = (props) => {
           </div>
           <div className='col-lg-4 col-sm-12'>
             <div className='form-group'>
-              <label className='pb-5'>{t("InvitationAndProgram")}</label>
-              <input
-                className='mt-3'
-                type='text'
-                onChange={(e) => {
-                  props.setApplicationDTO({
-                    ...props.applicationDTO,
-                    aplikimiDetajetAneks2: {
-                      ...props.applicationDTO.aplikimiDetajetAneks2,
-                      FtesaProgrami: e.target.value,
-                    },
-                  });
-                }}
-              />
-            </div>
-          </div>
-          <div className='col-lg-4 col-sm-12'>
-            <div className='form-group'>
-              <label className='pb-5'>{t("TheAbstract")}</label>
-              <input
-                className='mt-3'
-                type='text'
-                onChange={(e) => {
-                  props.setApplicationDTO({
-                    ...props.applicationDTO,
-                    aplikimiDetajetAneks2: {
-                      ...props.applicationDTO.aplikimiDetajetAneks2,
-                      Abstrakti: e.target.value,
-                    },
-                  });
-                }}
-              />
-            </div>
-          </div>
-          <div className='col-lg-4 col-sm-12'>
-            <div className='form-group'>
               <label className='pb-5'>{t("TitleOfPaper")}</label>
               <input
                 className='mt-3'
@@ -182,26 +141,6 @@ const ThirdForm = (props) => {
                     aplikimiDetajetAneks2: {
                       ...props.applicationDTO.aplikimiDetajetAneks2,
                       TitulliPunimit: e.target.value,
-                    },
-                  });
-                }}
-              />
-            </div>
-          </div>
-          <div className='col-lg-4 col-sm-12'>
-            <div className='form-group'>
-              <label className='pb-5'>
-                {t("ConfirmationOfAcceptanceWork")}
-              </label>
-              <input
-                className='mt-3'
-                type='text'
-                onChange={(e) => {
-                  props.setApplicationDTO({
-                    ...props.applicationDTO,
-                    aplikimiDetajetAneks2: {
-                      ...props.applicationDTO.aplikimiDetajetAneks2,
-                      KonfirmimiPranimitPunimit: e.target.value,
                     },
                   });
                 }}
@@ -304,24 +243,95 @@ const ThirdForm = (props) => {
               />
             </div>
           </div>
-          <div className='col-xxl-3 col-sm-12 mt-3'>
-            {/* <label className='fs-4 pe-2'>Raporti Dekanit</label> */}
-            <Upload
-              maxCount='1'
-              accept='.png, .jpeg, . jpg ,.pdf'
-              className='btn btn-danger btn-raporti w-100'
-              multiple={false}
-              onChange={(e) => {
-                props.setApplicationDTO({
-                  ...props.applicationDTO,
-                  AplikimiDekaniRaportiDocumentId: e.file.originFileObj,
-                });
-              }}
-            >
-              <Button type='text' icon={<UploadOutlined />}>
-                {t("DeanReport")}
-              </Button>
-            </Upload>
+          <div className='col-lg-12 mb-4'>
+            <h1 className='page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0'>
+              {t("Documents")}
+            </h1>
+          </div>
+          <div className='col-xxl-12 col-lg-12 col-sm-12 mb-2'>
+            <div className='row'>
+              <div className='col-xxl-3 col-lg-3 col-sm-12 mt-3'>
+                <Upload
+                  maxCount='1'
+                  accept='.png, .jpeg, . jpg ,.pdf'
+                  className='btn btn-danger btn-raporti w-100'
+                  multiple={false}
+                  onChange={(e) => {
+                    props.setApplicationDTO({
+                      ...props.applicationDTO,
+                      AplikimiDekaniRaportiDocumentId: e.file.originFileObj,
+                    });
+                  }}
+                >
+                  <Button type='text' icon={<UploadOutlined />}>
+                    {t("DeanReport")}
+                  </Button>
+                </Upload>
+              </div>
+              <div className='col-xxl-3 col-lg-3 col-sm-12 mt-3'>
+                <Upload
+                  maxCount='1'
+                  accept='.png, .jpeg, . jpg ,.pdf'
+                  className='btn btn-danger btn-raporti w-100'
+                  multiple={false}
+                  onChange={(e) => {
+                    props.setApplicationDTO({
+                      ...props.applicationDTO,
+                      aplikimiDetajetAneks2: {
+                        ...props.applicationDTO.aplikimiDetajetAneks2,
+                        FtesaProgrami: e.file.originFileObj,
+                      },
+                    });
+                  }}
+                >
+                  <Button type='text' icon={<UploadOutlined />}>
+                    {t("InvitationAndProgram")}
+                  </Button>
+                </Upload>
+              </div>
+              <div className='col-xxl-3 col-lg-3 col-sm-12 mt-3'>
+                <Upload
+                  maxCount='1'
+                  accept='.png, .jpeg, . jpg ,.pdf'
+                  className='btn btn-danger btn-raporti w-100'
+                  multiple={false}
+                  onChange={(e) => {
+                    props.setApplicationDTO({
+                      ...props.applicationDTO,
+                      aplikimiDetajetAneks2: {
+                        ...props.applicationDTO.aplikimiDetajetAneks2,
+                        Abstrakti: e.file.originFileObj,
+                      },
+                    });
+                  }}
+                >
+                  <Button type='text' icon={<UploadOutlined />}>
+                    {t("TheAbstract")}
+                  </Button>
+                </Upload>
+              </div>
+              <div className='col-xxl-3 col-lg-3 col-sm-12 mt-3'>
+                <Upload
+                  maxCount='1'
+                  accept='.png, .jpeg, . jpg ,.pdf'
+                  className='btn btn-danger btn-raporti w-100'
+                  multiple={false}
+                  onChange={(e) => {
+                    props.setApplicationDTO({
+                      ...props.applicationDTO,
+                      aplikimiDetajetAneks2: {
+                        ...props.applicationDTO.aplikimiDetajetAneks2,
+                        KonfirmimiPranimitPunimit: e.file.originFileObj,
+                      },
+                    });
+                  }}
+                >
+                  <Button type='text' icon={<UploadOutlined />}>
+                    {t("ConfirmationOfAcceptanceWork")}
+                  </Button>
+                </Upload>
+              </div>
+            </div>
           </div>
         </div>
       </div>

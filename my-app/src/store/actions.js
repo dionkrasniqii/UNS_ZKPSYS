@@ -1,6 +1,8 @@
+import Encryption from "../Auth/Encryption";
+
 export const setProfessors = (professors) => ({
   type: "SET_PROFESSORS",
-  payload: professors,
+  payload: JSON.parse(Encryption.Decrypt(professors)),
 });
 
 export const addProfessor = (professor) => ({

@@ -3,7 +3,6 @@ import { Radio } from "antd";
 import { useNavigate, useParams } from "react-router";
 import CrudProvider from "../../provider/CrudProvider";
 import Encryption from "../../Auth/Encryption";
-import { mode } from "crypto-js";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";

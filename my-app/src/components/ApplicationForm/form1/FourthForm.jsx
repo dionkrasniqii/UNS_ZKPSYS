@@ -7,7 +7,6 @@ import { useTranslation } from "react-i18next";
 
 const FourthForm = (props) => {
   const { t } = useTranslation();
-
   let options = [
     { value: true, label: t("Yes") },
     { value: false, label: t("No") },

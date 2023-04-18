@@ -1,12 +1,32 @@
-import { UploadOutlined } from "@mui/icons-material";
-import { Button, Select, Upload } from "antd";
 import React, { useEffect } from "react";
 import { toast } from "react-toastify";
-import CrudProvider from "../../../provider/CrudProvider";
 import { useTranslation } from "react-i18next";
 
 const FourthForm = (props) => {
   const { t } = useTranslation();
+  const professoriID = props.professor.profesoriID;
+  const leadAuthorId = props.applicationDTO.AutoriKryesorId;
+
+  useEffect(() => {
+    professoriID == leadAuthorId
+      ? props.setApplicationDTO({
+          ...props.applicationDTO,
+          Aplikimi: {
+            ...props.applicationDTO.Aplikimi,
+            ShumaKerkuar: 600,
+          },
+        })
+      : props.setApplicationDTO({
+          ...props.applicationDTO,
+          Aplikimi: {
+            ...props.applicationDTO.Aplikimi,
+            ShumaKerkuar: 300,
+          },
+        });
+  }, [leadAuthorId]);
+
+  const amountRequested = props.applicationDTO.Aplikimi.ShumaKerkuar;
+
   function Submit() {
     const { NumriLlogarisBankare, Vendi, ShumaKerkuar } =
       props.applicationDTO.Aplikimi;
@@ -80,15 +100,8 @@ const FourthForm = (props) => {
                 max='600'
                 className='w-100'
                 type='number'
-                onChange={(e) => {
-                  props.setApplicationDTO({
-                    ...props.applicationDTO,
-                    Aplikimi: {
-                      ...props.applicationDTO.Aplikimi,
-                      ShumaKerkuar: e.target.value,
-                    },
-                  });
-                }}
+                readOnly
+                defaultValue={amountRequested}
               />
             </div>
           </div>
