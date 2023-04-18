@@ -126,6 +126,13 @@ const SearchMagazine = () => {
                     options={formList}
                     placeholder={t("Choose")}
                     style={{ width: "100%" }}
+                    showSearch
+                    optionFilterProp='children'
+                    filterOption={(input, option) =>
+                      (option?.label ?? "")
+                        .toLowerCase()
+                        .includes(input.toLowerCase())
+                    }
                     onChange={(e) => {
                       setShow(false);
                       setShowCreate(false);
@@ -148,6 +155,13 @@ const SearchMagazine = () => {
                     options={magazineList}
                     placeholder={t("Choose")}
                     style={{ width: "100%" }}
+                    showSearch
+                    optionFilterProp='children'
+                    filterOption={(input, option) =>
+                      (option?.label ?? "")
+                        .toLowerCase()
+                        .includes(input.toLowerCase())
+                    }
                     onChange={(e) => {
                       setShow(false);
                       setShowCreate(false);
@@ -170,6 +184,13 @@ const SearchMagazine = () => {
                     options={facultiesList}
                     placeholder={t("Choose")}
                     style={{ width: "130%" }}
+                    showSearch
+                    optionFilterProp='children'
+                    filterOption={(input, option) =>
+                      (option?.label ?? "")
+                        .toLowerCase()
+                        .includes(input.toLowerCase())
+                    }
                     onChange={(e) => {
                       setShow(false);
                       setShowCreate(false);

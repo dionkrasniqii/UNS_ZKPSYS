@@ -1,7 +1,6 @@
 import { Table, Input, Alert } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
-import Encryption from "../../Auth/Encryption";
 import { useTranslation } from "react-i18next";
 const { Search } = Input;
 

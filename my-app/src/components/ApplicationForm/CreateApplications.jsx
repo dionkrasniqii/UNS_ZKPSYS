@@ -16,138 +16,15 @@ import { useTranslation } from "react-i18next";
 const CreateApplications = () => {
   const { id } = useParams();
   const decryptedId = atob(id);
-  const profesor = JSON.parse(
-    Encryption.Decrypt(localStorage.getItem("profesor"))
-  );
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-  const [applicationDTO, setApplicationDTO] = useState({
-    Aplikimi: {
-      FormulariId: decryptedId,
-      // DataAplikimit: new Date().toLocaleString(),
-      ProfesoriId: profesor.profesoriID,
-      Emri: profesor.emri,
-      Mbiemri: profesor.mbiemri,
-      FakultetiId: profesor.fakultetiID,
-      ThirrjaShkencoreId: "",
-      ThirrjaAkademikeId: "",
-      BankaId: "",
-      NumriLlogarisBankare: "",
-      ShumaKerkuar: "",
-      Vendi: "",
-    },
-    BankName: "",
-    ThirrjaShkencoreEmri: "",
-    ThirrjaAkademikeEmri: "",
-    AutoriKryesorId: "",
-    AplikimiDetajetPublikimi: {
-      PerkatesiaAutorit: "",
-      TitulliPunimit: "",
-      DOI: "",
-      ShtepiaBotuese: "",
-      RevistaId: "",
-      ImpaktFaktori: "",
-      DataPranimit: "",
-      LinkuPublikimit: "",
-      DataPublikimit: "",
-      IndeksimNePlateformen: "",
-    },
-    AplikuesiPrezantimi: {
-      Konference: false,
-      NjesiAkademike: false,
-      SqaroMenyrenPrezantimit: "",
-    },
-    AplikimiDekaniRaportiDocumentId: "",
-    KonferenceDokumentiId: "",
-    NjesiAkademikeDokumentiId: "",
-    AplikimiBashkeAutorId: [],
-    AutoriKorrespodentId: [],
-  });
-  const [showForm3, setShowForm3] = useState(false);
-  const [showForm4, setShowForm4] = useState(false);
-  const [showForm5, setShowForm5] = useState(false);
-  useEffect(() => {
-    Promise.all([
-      CrudProvider.getItemById(
-        "GeneralAPIController/GetBankaDetajet",
-        profesor.numriPersonal
-      ),
-      CrudProvider.getItemById(
-        "GeneralAPIController/GetProfesoriGrade",
-        profesor.profesoriID
-      ),
-    ]).then((res) => {
-      setApplicationDTO({
-        ...applicationDTO,
-        Aplikimi: {
-          ...applicationDTO.Aplikimi,
-          BankaId: res[0].BankId,
-          NumriLlogarisBankare: res[0].AccountNumber,
-          BankName: res[0].BankName,
-          ThirrjaAkademikeId: res[1][0].GradaMesimoreID,
-          ThirrjaShkencoreId: res[1][0].GradaShkencoreID,
-        },
-        ThirrjaAkademikeEmri: res[1][0].GradaMesimore,
-        ThirrjaShkencoreEmri: res[1][0].GradaShkencore,
-      });
-    });
-  }, []);
-
-  async function handleSubmit() {
-    const formData = new FormData();
-    Object.keys(applicationDTO).forEach((key) => {
-      if (
-        key === "Aplikimi" ||
-        key === "AplikimiDetajetPublikimi" ||
-        key === "AplikuesiPrezantimi"
-      ) {
-        Object.keys(applicationDTO[key]).forEach((subKey) => {
-          formData.append(`${key}.${subKey}`, applicationDTO[key][subKey]);
-        });
-      } else if (
-        typeof applicationDTO[key] === "object" &&
-        applicationDTO[key] !== null &&
-        applicationDTO[key].constructor === Array
-      ) {
-        applicationDTO[key].forEach((value) => {
-          formData.append(`${key}[]`, value.toString());
-        });
-      } else {
-        formData.append(key, applicationDTO[key]);
-      }
-    });
-
-    await CrudProvider.createItemWithFile("AplikimiAPI", formData).then(
-      (res) => {
-        if (res !== undefined) {
-          if (res.statusCode === 200) {
-            toast.success(t("DataSavedSuccessfully"));
-            navigate("/");
-          } else if (res.statusCode === 0) {
-            toast.error(t("ServerProblems"));
-          } else if (res.statusCode === 409) {
-            toast.error(t("YouHaveAppliedWithThisEmail"));
-          } else {
-            toast.error(t("ServerProblems"));
-          }
-        }
-      }
-    );
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
 
   return (
     <div className='container mt-5'>
       {decryptedId && decryptedId == 1 && (
         <>
           <div className='col-xxl-12 col-lg-10 col-sm-12 d-flex justify-content-center'>
-            <SecondForm
-              applicationDTO={applicationDTO}
-              setApplicationDTO={setApplicationDTO}
-              showForm3={setShowForm3}
-            />
+            <SecondForm />
           </div>
-          <div className='col-xxl-12 col-lg-10 col-sm-12  d-flex justify-content-center mt-4'>
+          {/* <div className='col-xxl-12 col-lg-10 col-sm-12  d-flex justify-content-center mt-4'>
             {showForm3 === true ? (
               <ThirdForm
                 applicationDTO={applicationDTO}
@@ -179,8 +56,8 @@ const CreateApplications = () => {
               />
             ) : (
               <p></p>
-            )}
-          </div>
+            )} */}
+          {/* </div> */}
         </>
       )}
       {decryptedId && decryptedId == 2 && <SecondForm2 />}

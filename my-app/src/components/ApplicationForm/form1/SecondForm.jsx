@@ -1,18 +1,181 @@
-import { Select } from "antd";
+import { Button, Checkbox, Select, Upload } from "antd";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import CrudProvider from "../../../provider/CrudProvider";
 import { useTranslation } from "react-i18next";
+import Encryption from "../../../Auth/Encryption";
+import { useNavigate, useParams } from "react-router";
+import ThirdForm from "./ThirdForm";
+import FourthForm from "./FourthForm";
+import FifthForm from "./FifthForm";
+import { UploadOutlined } from "@mui/icons-material";
 
-const SecondForm = (props) => {
-  const professors = useSelector((state) => state.professorList.professors);
+const SecondForm = () => {
+  const { id } = useParams();
+  const decryptedId = atob(id);
+  const profesor = JSON.parse(
+    Encryption.Decrypt(localStorage.getItem("profesor"))
+  );
   const [faculty, setFaculty] = useState({});
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const [applicationDTO, setApplicationDTO] = useState({
+    Aplikimi: {
+      FormulariId: decryptedId,
+      // DataAplikimit: new Date().toLocaleString(),
+      ProfesoriId: profesor.profesoriID,
+      Emri: profesor.emri,
+      Mbiemri: profesor.mbiemri,
+      FakultetiId: profesor.fakultetiID,
+      ThirrjaShkencoreId: "",
+      ThirrjaAkademikeId: "",
+      BankaId: "",
+      NumriLlogarisBankare: "",
+      ShumaKerkuar: "",
+      Vendi: "",
+    },
+    BankName: "",
+    ThirrjaShkencoreEmri: "",
+    ThirrjaAkademikeEmri: "",
+    AutoriKryesorId: "",
+    AplikimiDetajetPublikimi: {
+      PerkatesiaAutorit: "",
+      TitulliPunimit: "",
+      DOI: "",
+      ShtepiaBotuese: "",
+      RevistaId: "",
+      ImpaktFaktori: "",
+      DataPranimit: "",
+      LinkuPublikimit: "",
+      DataPublikimit: "",
+      IndeksimNePlateformen: "",
+    },
+    AplikuesiPrezantimi: {
+      Konference: false,
+      NjesiAkademike: false,
+      SqaroMenyrenPrezantimit: "",
+    },
+    AplikimiDekaniRaportiDocumentId: "",
+    KonferenceDokumentiId: "",
+    NjesiAkademikeDokumentiId: "",
+    AplikimiBashkeAutorId: [],
+    AutoriKorrespodentId: [],
+  });
+  const [showForm3, setShowForm3] = useState(false);
+  const [showForm4, setShowForm4] = useState(false);
+  const [showForm5, setShowForm5] = useState(false);
+  const [foreign, setForeign] = useState(false);
+
+  const professors = useSelector(
+    ({ professorList }) => professorList.professors
+  );
+  const distinctData = [
+    ...new Set(professors.map((professor) => professor.NumriPersonal)),
+  ].map((numriPersonal) =>
+    professors.find((professor) => professor.NumriPersonal === numriPersonal)
+  );
+  let professorsList =
+    distinctData.length > 0 &&
+    distinctData.map(({ ProfesoriID, EmriDheMbiemri }) => ({
+      value: `${ProfesoriID}`,
+      label: `${EmriDheMbiemri}`,
+    }));
+
+  let correspondingAuthors =
+    professorsList && applicationDTO.AutoriKryesorId !== ""
+      ? professorsList
+          .filter(({ value }) => {
+            return value !== applicationDTO.AutoriKryesorId;
+          })
+          .map(({ value, label }) => ({ value, label }))
+      : [];
+  let coAuthors = correspondingAuthors
+    ? correspondingAuthors
+        .filter(
+          ({ value }) => !applicationDTO.AutoriKorrespodentId.includes(value)
+        )
+        .map(({ value, label }) => ({ value, label }))
+    : professorsList
+        .filter(({ value }) => {
+          return value !== applicationDTO.AutoriKryesorId;
+        })
+        .map(({ value, label }) => ({ value, label }));
+
+  useEffect(() => {
+    Promise.all([
+      CrudProvider.getItemById(
+        "GeneralAPIController/GetBankaDetajet",
+        profesor.numriPersonal
+      ),
+      CrudProvider.getItemById(
+        "GeneralAPIController/GetProfesoriGrade",
+        profesor.profesoriID
+      ),
+    ]).then((res) => {
+      setApplicationDTO({
+        ...applicationDTO,
+        Aplikimi: {
+          ...applicationDTO.Aplikimi,
+          BankaId: res[0].BankId,
+          NumriLlogarisBankare: res[0].AccountNumber,
+          BankName: res[0].BankName,
+          ThirrjaAkademikeId: res[1][0].GradaMesimoreID,
+          ThirrjaShkencoreId: res[1][0].GradaShkencoreID,
+        },
+        ThirrjaAkademikeEmri: res[1][0].GradaMesimore,
+        ThirrjaShkencoreEmri: res[1][0].GradaShkencore,
+      });
+    });
+  }, []);
+
+  async function handleSubmit() {
+    const formData = new FormData();
+    Object.keys(applicationDTO).forEach((key) => {
+      if (
+        key === "Aplikimi" ||
+        key === "AplikimiDetajetPublikimi" ||
+        key === "AplikuesiPrezantimi"
+      ) {
+        Object.keys(applicationDTO[key]).forEach((subKey) => {
+          formData.append(`${key}.${subKey}`, applicationDTO[key][subKey]);
+        });
+      } else if (
+        typeof applicationDTO[key] === "object" &&
+        applicationDTO[key] !== null &&
+        applicationDTO[key].constructor === Array
+      ) {
+        applicationDTO[key].forEach((value) => {
+          formData.append(`${key}[]`, value.toString());
+        });
+      } else {
+        formData.append(key, applicationDTO[key]);
+      }
+    });
+
+    await CrudProvider.createItemWithFile("AplikimiAPI", formData).then(
+      (res) => {
+        if (res !== undefined) {
+          if (res.statusCode === 200) {
+            toast.success(t("DataSavedSuccessfully"));
+            navigate("/");
+          } else if (res.statusCode === 0) {
+            toast.error(t("ServerProblems"));
+          } else if (res.statusCode === 409) {
+            toast.error(t("YouHaveAppliedWithThisEmail"));
+          } else {
+            toast.error(t("ServerProblems"));
+          }
+        }
+      }
+    );
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
   useEffect(() => {
     CrudProvider.getItemById(
       "GeneralAPIController/GetFakultetiId",
-      props.applicationDTO.Aplikimi.FakultetiId
+      applicationDTO.Aplikimi.FakultetiId
     ).then((res) => {
       if (res) {
         if (res.statusCode === 200) {
@@ -22,26 +185,20 @@ const SecondForm = (props) => {
     });
   }, []);
 
-  let professorsList =
-    professors.length > 0 &&
-    professors.map((obj) => {
-      return { value: `${obj.ProfesoriID}`, label: `${obj.EmriDheMbiemri}` };
-    });
-
   function handleNextForm() {
     const {
       Aplikimi,
       AutoriKryesorId,
       AutoriKorrespodentId,
       AplikimiBashkeAutorId,
-    } = props.applicationDTO;
+    } = applicationDTO;
 
     if (
       AutoriKryesorId &&
       AutoriKorrespodentId?.length &&
       AplikimiBashkeAutorId?.length
     ) {
-      props.showForm3(true);
+      setShowForm3(true);
     } else {
       toast.error(t("FillDataAtForm") + " " + t("RequestApplicant"));
     }
@@ -78,7 +235,7 @@ const SecondForm = (props) => {
                   <label> {t("Name")}</label>
                   <input
                     type='text'
-                    defaultValue={props.applicationDTO.Aplikimi.Emri}
+                    defaultValue={applicationDTO.Aplikimi.Emri}
                     readOnly
                   />
                 </div>
@@ -88,7 +245,7 @@ const SecondForm = (props) => {
                   <label> {t("Surname")}</label>
                   <input
                     type='text'
-                    defaultValue={props.applicationDTO.Aplikimi.Mbiemri}
+                    defaultValue={applicationDTO.Aplikimi.Mbiemri}
                     readOnly
                   />
                 </div>
@@ -111,7 +268,7 @@ const SecondForm = (props) => {
                   <label>{t("ScientificCall")}</label>
                   <input
                     type='text'
-                    defaultValue={props.applicationDTO.ThirrjaShkencoreEmri}
+                    defaultValue={applicationDTO.ThirrjaShkencoreEmri}
                     readOnly
                   />
                 </div>
@@ -121,100 +278,185 @@ const SecondForm = (props) => {
                   <label>{t("AcademicCall")}</label>
                   <input
                     type='text'
-                    defaultValue={props.applicationDTO.ThirrjaAkademikeEmri}
+                    defaultValue={applicationDTO.ThirrjaAkademikeEmri}
                     readOnly
                   />
                 </div>
               </div>
+
               <div className='col-lg-4'>
-                <div className='form-group'>
-                  <label>{t("LeadAuthor")}</label>
-                  <div className='rbt-modern-select bootstrap-select pt-2'>
-                    <Select
-                      showSearch
-                      optionFilterProp='children'
-                      filterOption={(input, option) =>
-                        (option?.label ?? "")
-                          .toLowerCase()
-                          .includes(input.toLowerCase())
-                      }
-                      mode='single'
-                      allowClear
-                      style={{ width: "100%" }}
-                      placeholder={t("Choose")}
+                <div className='row'>
+                  <div className='col-xxl-12 col-lg-12 col-sm-12'>
+                    <Checkbox
                       onChange={(e) => {
-                        props.setApplicationDTO({
-                          ...props.applicationDTO,
-                          AutoriKryesorId: e,
-                        });
+                        setForeign(e.target.checked);
                       }}
-                      options={professorsList}
-                    />
+                    >
+                      Autorë të huaj
+                    </Checkbox>
+                  </div>
+                  <div className='form-group'>
+                    <label>{t("LeadAuthor")}</label>
+                    {!foreign ? (
+                      <div className='rbt-modern-select bootstrap-select pt-2'>
+                        <Select
+                          showSearch
+                          optionFilterProp='children'
+                          filterOption={(input, option) =>
+                            (option?.label ?? "")
+                              .toLowerCase()
+                              .includes(input.toLowerCase())
+                          }
+                          mode='single'
+                          allowClear
+                          style={{ width: "100%" }}
+                          placeholder={t("Choose")}
+                          onChange={(e) => {
+                            setApplicationDTO({
+                              ...applicationDTO,
+                              AutoriKryesorId: e,
+                              AutoriKorrespodentId: [],
+                              AplikimiBashkeAutorId: [],
+                            });
+                          }}
+                          options={professorsList}
+                        />
+                      </div>
+                    ) : (
+                      <input type='text' placeholder='....' />
+                    )}
                   </div>
                 </div>
               </div>
               <div className='col-lg-4'>
-                <div className='form-group'>
-                  <label>{t("CorrespondingAuthor")}</label>
-                  <div className='rbt-modern-select bootstrap-select pt-2'>
-                    <Select
-                      showSearch
-                      maxTagCount='responsive'
-                      optionFilterProp='children'
-                      filterOption={(input, option) =>
-                        (option?.label ?? "")
-                          .toLowerCase()
-                          .includes(input.toLowerCase())
-                      }
-                      mode='multiple'
-                      allowClear
-                      style={{ width: "100%" }}
-                      placeholder={t("Choose")}
+                <div className='row'>
+                  <div className='col-xxl-12 col-lg-12 col-sm-12'>
+                    <Checkbox
                       onChange={(e) => {
-                        let newArray = [];
-                        e.map((obj) => {
-                          newArray.push(obj);
-                        });
-                        props.setApplicationDTO({
-                          ...props.applicationDTO,
-                          AutoriKorrespodentId: newArray,
-                        });
+                        setForeign(e.target.checked);
                       }}
-                      options={professorsList}
-                    />
+                    >
+                      Autorë të huaj
+                    </Checkbox>
+                  </div>
+                  <div className='form-group'>
+                    <label>{t("CorrespondingAuthor")}</label>
+                    {!foreign ? (
+                      <div className='rbt-modern-select bootstrap-select pt-2'>
+                        <Select
+                          showSearch
+                          maxTagCount='responsive'
+                          optionFilterProp='children'
+                          filterOption={(input, option) =>
+                            (option?.label ?? "")
+                              .toLowerCase()
+                              .includes(input.toLowerCase())
+                          }
+                          mode='multiple'
+                          allowClear
+                          value={applicationDTO?.AutoriKorrespodentId}
+                          style={{ width: "100%" }}
+                          placeholder={t("Choose")}
+                          onChange={(e) => {
+                            let newArray = [];
+                            e.map((obj) => {
+                              newArray.push(obj);
+                            });
+                            setApplicationDTO({
+                              ...applicationDTO,
+                              AutoriKorrespodentId: newArray,
+                            });
+                          }}
+                          options={correspondingAuthors}
+                        />
+                      </div>
+                    ) : (
+                      <input type='text' placeholder='....' />
+                    )}
                   </div>
                 </div>
               </div>
               <div className='col-lg-4'>
-                <div className='form-group'>
-                  <label>{t("Co-authors")}</label>
-                  <div className='rbt-modern-select bootstrap-select pt-2'>
-                    <Select
-                      showSearch
-                      maxTagCount='responsive'
-                      optionFilterProp='children'
-                      filterOption={(input, option) =>
-                        (option?.label ?? "")
-                          .toLowerCase()
-                          .includes(input.toLowerCase())
-                      }
-                      mode='multiple'
-                      allowClear
-                      style={{ width: "100%" }}
-                      placeholder={t("Choose")}
+                <div className='row'>
+                  <div className='col-xxl-12 col-lg-12 col-sm-12 '>
+                    <Checkbox
                       onChange={(e) => {
-                        // let newArray = [];
-                        // e.map((obj) => {
-                        //   newArray.push(obj);
-                        // });
-                        // console.log(newArray);
-                        props.setApplicationDTO({
-                          ...props.applicationDTO,
-                          AplikimiBashkeAutorId: e,
+                        setForeign(e.target.checked);
+                      }}
+                    >
+                      Autorë të huaj
+                    </Checkbox>
+                  </div>
+                  <div className='form-group'>
+                    <label>{t("Co-authors")}</label>
+                    {!foreign ? (
+                      <div className='rbt-modern-select bootstrap-select pt-2'>
+                        <Select
+                          showSearch
+                          maxTagCount='responsive'
+                          optionFilterProp='children'
+                          filterOption={(input, option) =>
+                            (option?.label ?? "")
+                              .toLowerCase()
+                              .includes(input.toLowerCase())
+                          }
+                          value={applicationDTO?.AplikimiBashkeAutorId}
+                          mode='multiple'
+                          allowClear
+                          style={{ width: "100%" }}
+                          placeholder={t("Choose")}
+                          onChange={(e) => {
+                            setApplicationDTO({
+                              ...applicationDTO,
+                              AplikimiBashkeAutorId: e,
+                            });
+                          }}
+                          options={coAuthors}
+                        />
+                      </div>
+                    ) : (
+                      <input type='text' placeholder='....' />
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className='col-xxl-12 col-lg-12 col-sm-12'>
+                <div className='row'>
+                  <div className='col-xxl-3 col-lg-3 col-sm-12 mt-3'>
+                    <Upload
+                      maxCount='1'
+                      accept='.png, .jpeg, . jpg ,.pdf'
+                      className='btn btn-danger btn-raporti w-100'
+                      multiple={false}
+                      onChange={(e) => {
+                        setApplicationDTO({
+                          ...applicationDTO,
+                          AplikimiDekaniRaportiDocumentId: e.file.originFileObj,
                         });
                       }}
-                      options={professorsList}
-                    />
+                    >
+                      <Button type='text' icon={<UploadOutlined />}>
+                        Konfirmimi i bashkautorëve
+                      </Button>
+                    </Upload>
+                  </div>
+                  <div className='col-xxl-3 col-lg-3 col-sm-12 mt-3'>
+                    <Upload
+                      maxCount='1'
+                      accept='.png, .jpeg, . jpg ,.pdf'
+                      className='btn btn-danger btn-raporti w-100'
+                      multiple={false}
+                      onChange={(e) => {
+                        setApplicationDTO({
+                          ...applicationDTO,
+                          AplikimiDekaniRaportiDocumentId: e.file.originFileObj,
+                        });
+                      }}
+                    >
+                      <Button type='text' icon={<UploadOutlined />}>
+                        Konfirmimi i autorëve përkatës
+                      </Button>
+                    </Upload>
                   </div>
                 </div>
               </div>
@@ -230,6 +472,40 @@ const SecondForm = (props) => {
             {t("PublicationDetails")}
           </a>
         </div>
+      </div>
+      <div className='col-xxl-12 col-lg-10 col-sm-12  d-flex justify-content-center mt-4'>
+        {showForm3 === true ? (
+          <ThirdForm
+            applicationDTO={applicationDTO}
+            setApplicationDTO={setApplicationDTO}
+            showForm4={setShowForm4}
+          />
+        ) : (
+          <p></p>
+        )}
+      </div>
+      <div className='col-xxl-12 col-lg-10 col-sm-12 d-flex justify-content-center mt-4'>
+        {showForm4 === true ? (
+          <FourthForm
+            applicationDTO={applicationDTO}
+            setApplicationDTO={setApplicationDTO}
+            showForm5={setShowForm5}
+          />
+        ) : (
+          <p></p>
+        )}
+      </div>
+      <div className='col-xxl-12 col-lg-10 col-sm-12 d-flex justify-content-center mt-4 mb-4 '>
+        {showForm5 === true ? (
+          <FifthForm
+            applicationDTO={applicationDTO}
+            setApplicationDTO={setApplicationDTO}
+            showForm5={setShowForm5}
+            submit={handleSubmit}
+          />
+        ) : (
+          <p></p>
+        )}
       </div>
     </div>
   );

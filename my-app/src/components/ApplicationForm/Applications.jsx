@@ -1,8 +1,6 @@
-import { width } from "@mui/system";
+import React, { useEffect, useState } from "react";
 import { Select } from "antd";
 import jwtDecode from "jwt-decode";
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import CrudProvider from "../../provider/CrudProvider";
 import ApplicationsList from "./ApplicationsList";
 import { useTranslation } from "react-i18next";
@@ -120,6 +118,13 @@ const Applications = () => {
               placeholder={t("ChooseFaculty")}
               style={{ width: "100%" }}
               mode='single'
+              showSearch
+              optionFilterProp='children'
+              filterOption={(input, option) =>
+                (option?.label ?? "")
+                  .toLowerCase()
+                  .includes(input.toLowerCase())
+              }
               options={facultiesList}
               // defaultValue={selectValFaculty}
               onChange={(e) => {
@@ -133,6 +138,13 @@ const Applications = () => {
               placeholder={t("ChooseForm")}
               style={{ width: "100%" }}
               mode='single'
+              showSearch
+              optionFilterProp='children'
+              filterOption={(input, option) =>
+                (option?.label ?? "")
+                  .toLowerCase()
+                  .includes(input.toLowerCase())
+              }
               options={formsList}
               // defaultValue={selectValForm}
               onChange={(e) => {

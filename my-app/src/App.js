@@ -12,9 +12,11 @@ import CrudProvider from "./provider/CrudProvider";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { setProfessors } from "./store/actions";
 import store from "./store/store";
+import { useTranslation } from "react-i18next";
 
 function App() {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const [authState, setAuthState] = useState({
     isAuthenticated: false,
     token: null,
@@ -28,7 +30,7 @@ function App() {
       if (decodedToken.exp < currentTime) {
         navigate("/");
         setAuthState({ isAuthenticated: false, token: null });
-        toast.info("Sessioni juaj ka mbaruar qasuni perseri");
+        toast.info(t("SessionEndedLoginAgain"));
         localStorage.removeItem("token");
         localStorage.removeItem("profesor");
         return;
@@ -39,15 +41,15 @@ function App() {
       setAuthState({ isAuthenticated: false, token: null });
     }
   }, [oldSession]);
-
   useEffect(() => {
-    CrudProvider.getAll("GeneralAPIController/GetProfesoret").then((res) => {
-      if (res) {
-        dispatch(setProfessors(res));
-      }
-    });
-  }, []);
-
+    if (authState.isAuthenticated === true) {
+      CrudProvider.getAll("GeneralAPIController/GetProfesoret").then((res) => {
+        if (res) {
+          dispatch(setProfessors(Encryption.Encrypt(JSON.stringify(res))));
+        }
+      });
+    }
+  }, [authState]);
   function handleLogin(res) {
     localStorage.setItem("token", res.token);
     let profesor = Encryption.Encrypt(JSON.stringify(res.result));
@@ -59,7 +61,7 @@ function App() {
     localStorage.removeItem("token");
     localStorage.removeItem("profesor");
     setAuthState({ isAuthenticated: false, token: null });
-    toast.warning("You're logged out!");
+    toast.warning(t("YoureLoggedOut"));
   };
   return (
     <div className='App'>

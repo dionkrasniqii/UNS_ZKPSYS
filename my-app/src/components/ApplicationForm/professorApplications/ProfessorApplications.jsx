@@ -63,6 +63,13 @@ export default function ProfessorApplications() {
             <Select
               placeholder='Zgjedhni formularin'
               options={formularsList}
+              showSearch
+              optionFilterProp='children'
+              filterOption={(input, option) =>
+                (option?.label ?? "")
+                  .toLowerCase()
+                  .includes(input.toLowerCase())
+              }
               style={{ width: "100%" }}
               onChange={(e) => {
                 Submit(e);

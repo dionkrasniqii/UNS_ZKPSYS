@@ -43,7 +43,7 @@
   "CorrespondingAuthor": "Corresponding author",
   "Co-authors": "Co-authors",
   "PublicationDetails": "Publication details",
-  "AttributionAuthor": "Attribution to the author",
+  "AttributionAuthor": "Attribution to the author (University of Pristina)",
   "NameOfMagazine": "The name of the magazine",
   "ImpactFactor": "Impact factor",
   "DOI": "Digital Object Identifier(DOI)",
@@ -74,7 +74,7 @@
   "InvitationAndProgram": "Invitation and program",
   "TheAbstract": "The abstract",
   "ConfirmationOfAcceptanceWork": "Confirmation of acceptance of the work",
-  "AuthorsOfPaper": "Authors of the paper (AFFILIATION)",
+  "AuthorsOfPaper": "Authors of the paper (University of Pristina)",
   "SpeakerWithMessagePoster": "Speaker with message/poster",
   "ArtisticSportingEvents": "Artistic/sporting events",
   "ChairPanelist": "Chair/panelist",
@@ -116,5 +116,7 @@
   "NewsDetails": "News details",
   "Photo": "Photo",
   "Title": "Title",
-  "Details": "Details"
+  "Details": "Details",
+  "SessionEndedLoginAgain": "Your session has ended, please sign in again",
+  "YoureLoggedOut": "You're logged out!"
 }

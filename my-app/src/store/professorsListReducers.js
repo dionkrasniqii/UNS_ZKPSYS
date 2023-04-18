@@ -1,7 +1,6 @@
 const initialState = {
   professors: [],
 };
-
 const professorListReducer = (state = initialState, action) => {
   switch (action.type) {
     case "SET_PROFESSORS":
