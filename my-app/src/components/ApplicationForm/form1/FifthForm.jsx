@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 
 const FifthForm = (props) => {
   const { t } = useTranslation();
-
+  useEffect(() => {
+    document.getElementById("form5").scrollIntoView();
+  }, []);
   function handleNextForm() {
     const { NumriLlogarisBankare, Vendi, ShumaKerkuar } =
       props.applicationDTO.Aplikimi;
@@ -26,7 +28,10 @@ const FifthForm = (props) => {
         </div>
         <div className='row'>
           <div className='col-lg-12 mb-5'>
-            <h1 className='page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0'>
+            <h1
+              className='page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0'
+              id='form5'
+            >
               {t("BeneficiarysBankDetails")} - {t("FirstOrCorrespondentAuthor")}
             </h1>
           </div>
@@ -85,26 +90,6 @@ const FifthForm = (props) => {
           </div>
         </div>
       </div>
-      {/* <div className="col-lg-12 col-sm-12 text-end mt-5">
-        <a className="rbt-moderbt-btn" onClick={handleNextForm}>
-          <span className="moderbt-btn-text fs-3">Apliko</span>
-          <i className="ps-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width={16}
-              height={16}
-              fill="currentColor"
-              className="bi bi-arrow-right"
-              viewBox="0 0 16 16"
-            >
-              <path
-                fillRule="evenodd"
-                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
-              />
-            </svg>
-          </i>
-        </a>
-      </div> */}
       <div className='col-xxl-12 col-lg-12 col-sm-12 mt-5 text-end'>
         <a
           className='btn btn-dark fs-5 px-5 py-4'
