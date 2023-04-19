@@ -13,6 +13,7 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 import { setProfessors } from "./store/actions";
 import store from "./store/store";
 import { useTranslation } from "react-i18next";
+import Footer from "./components/Home/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -64,23 +65,26 @@ function App() {
     toast.warning(t("YoureLoggedOut"));
   };
   return (
-    <div className='App'>
-      <ToastContainer
-        position='top-right'
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme='light'
-        style={{ fontSize: "14px" }}
-      />
-      <Navbar logout={handleLogout} isAuth={authState} />
-      <AppRoutes login={handleLogin} />
-    </div>
+    <>
+      <div className="App">
+        <ToastContainer
+          position="top-right"
+          autoClose={1000}
+          hideProgressBar={false}
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+          style={{ fontSize: "14px" }}
+        />{" "}
+        <Navbar logout={handleLogout} isAuth={authState} />{" "}
+        <AppRoutes login={handleLogin} />{" "}
+      </div>{" "}
+      <Footer />
+    </>
   );
 }
 
