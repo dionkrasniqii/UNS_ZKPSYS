@@ -35,10 +35,24 @@ const SecondForm = () => {
       ShumaKerkuar: "",
       Vendi: "",
     },
+    AplikimiBashkeAutorId: {
+      AplikimiBashkeAutorId: [],
+      AutoriHuaj: "",
+      Huaj: false,
+    },
+    AutoriKorrespodentId: {
+      AutoriKorrespodentId: [],
+      Huaj: false,
+      AutoriHuaj: "",
+    },
+    AutoriKryesorId: {
+      AutoriKryesorId: "",
+      Huaj: false,
+      AutoriHuaj: "",
+    },
     BankName: "",
     ThirrjaShkencoreEmri: "",
     ThirrjaAkademikeEmri: "",
-    AutoriKryesorId: "",
     AplikimiDetajetPublikimi: {
       PerkatesiaAutorit: "",
       TitulliPunimit: "",
@@ -57,16 +71,14 @@ const SecondForm = () => {
       SqaroMenyrenPrezantimit: "",
     },
     AplikimiDekaniRaportiDocumentId: "",
+    KonfirmimiBashkeAutoritDoc: "",
+    KonfirmimiAutoritKorrespodentDoc: "",
     KonferenceDokumentiId: "",
     NjesiAkademikeDokumentiId: "",
-    AplikimiBashkeAutorId: [],
-    AutoriKorrespodentId: [],
   });
   const [showForm3, setShowForm3] = useState(false);
   const [showForm4, setShowForm4] = useState(false);
   const [showForm5, setShowForm5] = useState(false);
-  const [foreign, setForeign] = useState(false);
-
   const professors = useSelector(
     ({ professorList }) => professorList.professors
   );
@@ -93,7 +105,10 @@ const SecondForm = () => {
   let coAuthors = correspondingAuthors
     ? correspondingAuthors
         .filter(
-          ({ value }) => !applicationDTO.AutoriKorrespodentId.includes(value)
+          ({ value }) =>
+            !applicationDTO.AutoriKorrespodentId.AutoriKorrespodentId.includes(
+              value
+            )
         )
         .map(({ value, label }) => ({ value, label }))
     : professorsList
@@ -128,17 +143,25 @@ const SecondForm = () => {
       });
     });
   }, []);
-
   async function handleSubmit() {
     const formData = new FormData();
     Object.keys(applicationDTO).forEach((key) => {
       if (
         key === "Aplikimi" ||
         key === "AplikimiDetajetPublikimi" ||
-        key === "AplikuesiPrezantimi"
+        key === "AplikuesiPrezantimi" ||
+        key === "AutoriKryesorId" ||
+        key === "AutoriKorrespodentId" ||
+        key === "AplikimiBashkeAutorId"
       ) {
         Object.keys(applicationDTO[key]).forEach((subKey) => {
-          formData.append(`${key}.${subKey}`, applicationDTO[key][subKey]);
+          if (Array.isArray(applicationDTO[key][subKey])) {
+            applicationDTO[key][subKey].forEach((value) => {
+              formData.append(`${key}.${subKey}[]`, value.toString());
+            });
+          } else {
+            formData.append(`${key}.${subKey}`, applicationDTO[key][subKey]);
+          }
         });
       } else if (
         typeof applicationDTO[key] === "object" &&
@@ -152,7 +175,6 @@ const SecondForm = () => {
         formData.append(key, applicationDTO[key]);
       }
     });
-
     await CrudProvider.createItemWithFile("AplikimiAPI", formData).then(
       (res) => {
         if (res !== undefined) {
@@ -169,7 +191,7 @@ const SecondForm = () => {
         }
       }
     );
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    // window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   useEffect(() => {
@@ -186,22 +208,8 @@ const SecondForm = () => {
   }, []);
 
   function handleNextForm() {
-    const {
-      Aplikimi,
-      AutoriKryesorId,
-      AutoriKorrespodentId,
-      AplikimiBashkeAutorId,
-    } = applicationDTO;
-
-    if (
-      AutoriKryesorId &&
-      AutoriKorrespodentId?.length &&
-      AplikimiBashkeAutorId?.length
-    ) {
-      setShowForm3(true);
-    } else {
-      toast.error(t("FillDataAtForm") + " " + t("RequestApplicant"));
-    }
+    setShowForm3(true);
+    // toast.error(t("FillDataAtForm") + " " + t("RequestApplicant"));
   }
 
   return (
@@ -286,18 +294,24 @@ const SecondForm = () => {
 
               <div className='col-lg-4'>
                 <div className='row'>
-                  <div className='col-xxl-12 col-lg-12 col-sm-12'>
+                  {/* <div className='col-xxl-12 col-lg-12 col-sm-12'>
                     <Checkbox
                       onChange={(e) => {
-                        setForeign(e.target.checked);
+                        setApplicationDTO({
+                          ...applicationDTO,
+                          AutoriKryesorId: {
+                            ...applicationDTO.AutoriKryesorId,
+                            Huaj: e.target.checked,
+                          },
+                        });
                       }}
                     >
                       Autorë të huaj
                     </Checkbox>
-                  </div>
+                  </div> */}
                   <div className='form-group'>
                     <label>{t("LeadAuthor")}</label>
-                    {!foreign ? (
+                    {!applicationDTO.AutoriKryesorId.Huaj ? (
                       <div className='rbt-modern-select bootstrap-select pt-2'>
                         <Select
                           showSearch
@@ -314,16 +328,46 @@ const SecondForm = () => {
                           onChange={(e) => {
                             setApplicationDTO({
                               ...applicationDTO,
-                              AutoriKryesorId: e,
-                              AutoriKorrespodentId: [],
-                              AplikimiBashkeAutorId: [],
+                              AutoriKryesorId: {
+                                ...applicationDTO.AutoriKryesorId,
+                                AutoriKryesorId: e,
+                                AutoriHuaj: 0,
+                              },
+                              AplikimiBashkeAutorId: {
+                                ...applicationDTO.AplikimiBashkeAutorId,
+                                AplikimiBashkeAutorId: [],
+                              },
+                              AutoriKorrespodentId: {
+                                ...applicationDTO.AutoriKorrespodentId,
+                                AutoriKorrespodentId: [],
+                              },
                             });
                           }}
                           options={professorsList}
                         />
                       </div>
                     ) : (
-                      <input type='text' placeholder='....' />
+                      <input
+                        type='text'
+                        placeholder='....'
+                        onChange={(e) => {
+                          setApplicationDTO({
+                            ...applicationDTO,
+                            AutoriKryesorId: {
+                              ...applicationDTO.AutoriKryesorId,
+                              AutoriHuaj: e.target.value,
+                            },
+                            AplikimiBashkeAutorId: {
+                              ...applicationDTO.AplikimiBashkeAutorId,
+                              AplikimiBashkeAutorId: [],
+                            },
+                            AutoriKorrespodentId: {
+                              ...applicationDTO.AutoriKorrespodentId,
+                              AutoriKorrespodentId: [],
+                            },
+                          });
+                        }}
+                      />
                     )}
                   </div>
                 </div>
@@ -333,7 +377,14 @@ const SecondForm = () => {
                   <div className='col-xxl-12 col-lg-12 col-sm-12'>
                     <Checkbox
                       onChange={(e) => {
-                        setForeign(e.target.checked);
+                        setApplicationDTO({
+                          ...applicationDTO,
+                          AutoriKorrespodentId: {
+                            ...applicationDTO.AutoriKorrespodentId,
+                            Huaj: e.target.checked,
+                            AutoriHuaj: 0,
+                          },
+                        });
                       }}
                     >
                       Autorë të huaj
@@ -341,7 +392,7 @@ const SecondForm = () => {
                   </div>
                   <div className='form-group'>
                     <label>{t("CorrespondingAuthor")}</label>
-                    {!foreign ? (
+                    {!applicationDTO.AutoriKorrespodentId.Huaj ? (
                       <div className='rbt-modern-select bootstrap-select pt-2'>
                         <Select
                           showSearch
@@ -354,24 +405,40 @@ const SecondForm = () => {
                           }
                           mode='multiple'
                           allowClear
-                          value={applicationDTO?.AutoriKorrespodentId}
+                          value={
+                            applicationDTO?.AutoriKorrespodentId
+                              .AutoriKorrespodentId
+                          }
                           style={{ width: "100%" }}
                           placeholder={t("Choose")}
                           onChange={(e) => {
-                            let newArray = [];
-                            e.map((obj) => {
-                              newArray.push(obj);
-                            });
                             setApplicationDTO({
                               ...applicationDTO,
-                              AutoriKorrespodentId: newArray,
+                              AutoriKorrespodentId: {
+                                ...applicationDTO.AutoriKorrespodentId,
+                                AutoriKorrespodentId: e,
+                                AutoriHuaj: 0,
+                              },
                             });
                           }}
                           options={correspondingAuthors}
                         />
                       </div>
                     ) : (
-                      <input type='text' placeholder='....' />
+                      <input
+                        type='text'
+                        placeholder='....'
+                        onChange={(e) => {
+                          setApplicationDTO({
+                            ...applicationDTO,
+                            AutoriKorrespodentId: {
+                              ...applicationDTO.AutoriKorrespodentId,
+                              AutoriHuaj: e.target.value,
+                              AutoriKorrespodentId: [],
+                            },
+                          });
+                        }}
+                      />
                     )}
                   </div>
                 </div>
@@ -381,7 +448,13 @@ const SecondForm = () => {
                   <div className='col-xxl-12 col-lg-12 col-sm-12 '>
                     <Checkbox
                       onChange={(e) => {
-                        setForeign(e.target.checked);
+                        setApplicationDTO({
+                          ...applicationDTO,
+                          AplikimiBashkeAutorId: {
+                            ...applicationDTO.AplikimiBashkeAutorId,
+                            Huaj: e.target.checked,
+                          },
+                        });
                       }}
                     >
                       Autorë të huaj
@@ -389,7 +462,7 @@ const SecondForm = () => {
                   </div>
                   <div className='form-group'>
                     <label>{t("Co-authors")}</label>
-                    {!foreign ? (
+                    {!applicationDTO.AplikimiBashkeAutorId.Huaj ? (
                       <div className='rbt-modern-select bootstrap-select pt-2'>
                         <Select
                           showSearch
@@ -400,7 +473,10 @@ const SecondForm = () => {
                               .toLowerCase()
                               .includes(input.toLowerCase())
                           }
-                          value={applicationDTO?.AplikimiBashkeAutorId}
+                          value={
+                            applicationDTO?.AplikimiBashkeAutorId
+                              .AplikimiBashkeAutorId
+                          }
                           mode='multiple'
                           allowClear
                           style={{ width: "100%" }}
@@ -408,14 +484,31 @@ const SecondForm = () => {
                           onChange={(e) => {
                             setApplicationDTO({
                               ...applicationDTO,
-                              AplikimiBashkeAutorId: e,
+                              AplikimiBashkeAutorId: {
+                                ...applicationDTO.AplikimiBashkeAutorId,
+                                AplikimiBashkeAutorId: e,
+                                AutoriHuaj: 0,
+                              },
                             });
                           }}
                           options={coAuthors}
                         />
                       </div>
                     ) : (
-                      <input type='text' placeholder='....' />
+                      <input
+                        type='text'
+                        placeholder='....'
+                        onChange={(e) => {
+                          setApplicationDTO({
+                            ...applicationDTO,
+                            AplikimiBashkeAutorId: {
+                              ...applicationDTO.AplikimiBashkeAutorId,
+                              AutoriHuaj: e.target.value,
+                              AplikimiBashkeAutorId: [],
+                            },
+                          });
+                        }}
+                      />
                     )}
                   </div>
                 </div>
@@ -431,7 +524,7 @@ const SecondForm = () => {
                       onChange={(e) => {
                         setApplicationDTO({
                           ...applicationDTO,
-                          AplikimiDekaniRaportiDocumentId: e.file.originFileObj,
+                          KonfirmimiBashkeAutoritDoc: e.file.originFileObj,
                         });
                       }}
                     >
@@ -449,7 +542,8 @@ const SecondForm = () => {
                       onChange={(e) => {
                         setApplicationDTO({
                           ...applicationDTO,
-                          AplikimiDekaniRaportiDocumentId: e.file.originFileObj,
+                          KonfirmimiAutoritKorrespodentDoc:
+                            e.file.originFileObj,
                         });
                       }}
                     >

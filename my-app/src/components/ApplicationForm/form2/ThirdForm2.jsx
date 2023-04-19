@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, DatePicker, Select, Upload } from "antd";
 import { toast } from "react-toastify";
 import { UploadOutlined } from "@mui/icons-material";
@@ -6,6 +6,10 @@ import { useTranslation } from "react-i18next";
 
 const ThirdForm = (props) => {
   const { t } = useTranslation();
+
+  useEffect(() => {
+    document.getElementById("thirdForm").scrollIntoView();
+  }, []);
 
   function DataEpranimit(date, dateString) {
     props.setApplicationDTO({
@@ -21,41 +25,8 @@ const ThirdForm = (props) => {
     { value: false, label: t("No") },
   ];
   function handleNextForm() {
-    const {
-      EmertimiNgjarjes,
-      VendiNgjarjes,
-      DataNgjarjes,
-      Organizatori,
-      FtesaProgrami,
-      TitulliPunimit,
-      Abstrakti,
-      KonfirmimiPranimitPunimit,
-      AutoretPunimit,
-      FolesKumtesPoster,
-      NgjarjeArtistikeSportive,
-      KryesusPanelist,
-      LinkuPublikimit,
-    } = props.applicationDTO.aplikimiDetajetAneks2;
-
-    if (
-      EmertimiNgjarjes &&
-      TitulliPunimit &&
-      VendiNgjarjes &&
-      DataNgjarjes &&
-      LinkuPublikimit &&
-      Organizatori &&
-      FtesaProgrami &&
-      Abstrakti &&
-      KonfirmimiPranimitPunimit &&
-      AutoretPunimit &&
-      // FolesKumtesPoster &&
-      // NgjarjeArtistikeSportive &&
-      KryesusPanelist
-    ) {
-      props.showForm4(true);
-    } else {
-      toast.error(t("FillDataAtForm") + " " + t("DetailsConferenc2"));
-    }
+    props.showForm4(true);
+    // toast.error(t("FillDataAtForm") + " " + t("DetailsConferenc2"));
   }
   return (
     <div className='rbt-card rbt-card-body mt-5 pt--50'>
@@ -64,7 +35,7 @@ const ThirdForm = (props) => {
           <span>2</span>
         </div>
         <div className='row'>
-          <div className='col-lg-12 mb-4'>
+          <div className='col-lg-12 mb-4' id='thirdForm'>
             <h1 className='page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0'>
               {t("DetailsConferenc2")}
             </h1>
@@ -277,10 +248,7 @@ const ThirdForm = (props) => {
                   onChange={(e) => {
                     props.setApplicationDTO({
                       ...props.applicationDTO,
-                      aplikimiDetajetAneks2: {
-                        ...props.applicationDTO.aplikimiDetajetAneks2,
-                        FtesaProgrami: e.file.originFileObj,
-                      },
+                      FtesaProgramiDoc: e.file.originFileObj,
                     });
                   }}
                 >
@@ -298,10 +266,8 @@ const ThirdForm = (props) => {
                   onChange={(e) => {
                     props.setApplicationDTO({
                       ...props.applicationDTO,
-                      aplikimiDetajetAneks2: {
-                        ...props.applicationDTO.aplikimiDetajetAneks2,
-                        Abstrakti: e.file.originFileObj,
-                      },
+
+                      AbstraktiDoc: e.file.originFileObj,
                     });
                   }}
                 >
@@ -319,10 +285,7 @@ const ThirdForm = (props) => {
                   onChange={(e) => {
                     props.setApplicationDTO({
                       ...props.applicationDTO,
-                      aplikimiDetajetAneks2: {
-                        ...props.applicationDTO.aplikimiDetajetAneks2,
-                        KonfirmimiPranimitPunimit: e.file.originFileObj,
-                      },
+                      KonfirmimiPranimitPunimitDoc: e.file.originFileObj,
                     });
                   }}
                 >

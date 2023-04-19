@@ -10,7 +10,7 @@ import FourthForm2 from "./FourthForm2";
 import { useTranslation } from "react-i18next";
 import { UploadOutlined } from "@mui/icons-material";
 
-const SecondForm = (props) => {
+const SecondForm = () => {
   const { id } = useParams();
   const decryptedId = atob(id);
   const profesor = JSON.parse(
@@ -23,7 +23,6 @@ const SecondForm = (props) => {
   const [applicationDTO, setapplicationDTO] = useState({
     Aplikimi: {
       FormulariId: decryptedId,
-      // DataAplikimit: new Date().toLocaleString(),
       ProfesoriId: profesor.profesoriID,
       Emri: profesor.emri,
       Mbiemri: profesor.mbiemri,
@@ -40,27 +39,34 @@ const SecondForm = (props) => {
       VendiNgjarjes: "",
       DataNgjarjes: "",
       Organizatori: "",
-      FtesaProgrami: "",
       TitulliPunimit: "",
-      Abstrakti: "",
-      KonfirmimiPranimitPunimit: "",
       AutoretPunimit: "",
       FolesKumtesPoster: false,
       NgjarjeArtistikeSportive: false,
       KryesusPanelist: "",
       LinkuPublikimit: "",
     },
+    AutoriKryesor: {
+      AutoriKryesorId: "",
+      Huaj: false,
+      AutoriHuaj: "",
+    },
+    Bashkeautoret: {
+      AplikimiBashkeAutorId: [],
+      AutoriHuaj: "",
+      Huaj: false,
+    },
     ThirrjaAkademikeEmri: "",
     ThirrjaShkencoreEmri: "",
-    AutoriKryesorId: "",
-    AplikimiBashkeAutorId: [],
     AplikimiDekaniRaportiDocumentId: "",
+    FtesaProgramiDoc: "",
+    AbstraktiDoc: "",
+    KonfirmimiPranimitPunimitDoc: "",
+    KonfirmimiAutoritKryesorDoc: "",
+    KonfirmimiBashkeAutoritDoc: "",
   });
   const [showForm3, setShowForm3] = useState(false);
   const [showForm4, setShowForm4] = useState(false);
-  const [showForm5, setShowForm5] = useState(false);
-  const [foreign, setForeign] = useState(false);
-
   useEffect(() => {
     Promise.all([
       CrudProvider.getItemById(
@@ -95,29 +101,34 @@ const SecondForm = (props) => {
 
   let coAuthors =
     professorsList &&
-    applicationDTO.AutoriKryesorId !== "" &&
     professorsList
       .filter(({ value }) => {
-        return value !== applicationDTO.AutoriKryesorId;
+        return value !== applicationDTO.AutoriKryesor.AutoriKryesorId;
       })
       .map(({ value, label }) => ({ value, label }));
 
   function handleNextForm() {
-    const { Aplikimi, AutoriKryesorId, AplikimiBashkeAutorId } = applicationDTO;
-
-    if (AutoriKryesorId && AplikimiBashkeAutorId?.length) {
-      setShowForm3(true);
-    } else {
-      toast.error(t("FillDataAtForm") + " " + t("RequestApplicant"));
-    }
+    setShowForm3(true);
+    window.scrollBy(0, 200);
   }
 
   async function handleSubmit() {
     const formData = new FormData();
     Object.keys(applicationDTO).forEach((key) => {
-      if (key === "Aplikimi" || key === "aplikimiDetajetAneks2") {
+      if (
+        key === "Aplikimi" ||
+        key === "aplikimiDetajetAneks2" ||
+        key === "AutoriKryesor" ||
+        key === "Bashkeautoret"
+      ) {
         Object.keys(applicationDTO[key]).forEach((subKey) => {
-          formData.append(`${key}.${subKey}`, applicationDTO[key][subKey]);
+          if (Array.isArray(applicationDTO[key][subKey])) {
+            applicationDTO[key][subKey].forEach((value) => {
+              formData.append(`${key}.${subKey}[]`, value.toString());
+            });
+          } else {
+            formData.append(`${key}.${subKey}`, applicationDTO[key][subKey]);
+          }
         });
       } else if (
         typeof applicationDTO[key] === "object" &&
@@ -150,6 +161,58 @@ const SecondForm = (props) => {
       }
     });
   }
+  // async function handleSubmit() {
+  //   const formData = new FormData();
+  //   const appendToFormData = (key, value) => {
+  //     if (Array.isArray(value)) {
+  //       value.forEach((v) => {
+  //         if (v instanceof File) {
+  //           formData.append(key, v); // append filename for file
+  //         } else {
+  //           formData.append(`${key}[]`, v.toString());
+  //         }
+  //       });
+  //     } else if (typeof value === "object" && value !== null) {
+  //       Object.entries(value).forEach(([subKey, subValue]) => {
+  //         appendToFormData(`${key}.${subKey}`, subValue);
+  //       });
+  //     } else if (Array.isArray(applicationDTO[key])) {
+  //       for (const value of applicationDTO[key]) {
+  //         if (typeof value === "object" && value !== null) {
+  //           for (const subKey in value) {
+  //             appendToFormData(`${key}[].${subKey}`, value[subKey]);
+  //           }
+  //         } else {
+  //           formData.append(`${key}[]`, value.toString());
+  //         }
+  //       }
+  //     } else {
+  //       formData.append(key, value);
+  //     }
+  //   };
+
+  //   Object.entries(applicationDTO).forEach(([key, value]) => {
+  //     appendToFormData(key, value);
+  //   });
+
+  //   await CrudProvider.createItemWithFile(
+  //     "AplikimiAPI/PostApplicationAneks2",
+  //     formData
+  //   ).then((res) => {
+  //     if (res) {
+  //       if (res.statusCode === 200) {
+  //         toast.success(t("DataSavedSuccessfully"));
+  //         navigate("/");
+  //       } else if (res.statusCode === 0) {
+  //         toast.error(t("ServerProblems"));
+  //       } else if (res.statusCode === 409) {
+  //         toast.error(t("YouHaveAppliedWithThisEmail"));
+  //       } else {
+  //         toast.error(t("ServerProblems"));
+  //       }
+  //     }
+  //   });
+  // }
 
   return (
     <>
@@ -213,7 +276,6 @@ const SecondForm = (props) => {
                       </div>
                     </div>
                   )}
-
                   <div className='col-lg-6 col-sm-12 col-md-10'>
                     <div className='form-group'>
                       <label>{t("ScientificCall")}</label>
@@ -241,7 +303,13 @@ const SecondForm = (props) => {
                           <div className='col-xxl-12 col-lg-12 col-sm-12'>
                             <Checkbox
                               onChange={(e) => {
-                                setForeign(e.target.checked);
+                                setapplicationDTO({
+                                  ...applicationDTO,
+                                  AutoriKryesor: {
+                                    ...applicationDTO.AutoriKryesor,
+                                    Huaj: e.target.checked,
+                                  },
+                                });
                               }}
                             >
                               Autorë të huaj
@@ -249,7 +317,7 @@ const SecondForm = (props) => {
                           </div>
                           <div className='form-group'>
                             <label>{t("LeadAuthor")}</label>
-                            {!foreign ? (
+                            {!applicationDTO.AutoriKryesor.Huaj ? (
                               <div className='rbt-modern-select bootstrap-select pt-2'>
                                 <Select
                                   showSearch
@@ -266,15 +334,39 @@ const SecondForm = (props) => {
                                   onChange={(e) => {
                                     setapplicationDTO({
                                       ...applicationDTO,
-                                      AutoriKryesorId: e,
-                                      AplikimiBashkeAutorId: [],
+                                      AutoriKryesor: {
+                                        ...applicationDTO.AutoriKryesor,
+                                        AutoriKryesorId: e,
+                                        AutoriHuaj: 0,
+                                      },
+                                      Bashkeautoret: {
+                                        ...applicationDTO.Bashkeautoret,
+                                        AplikimiBashkeAutorId: [],
+                                      },
                                     });
                                   }}
                                   options={professorsList}
                                 />
                               </div>
                             ) : (
-                              <input type='text' placeholder='....' />
+                              <input
+                                type='text'
+                                placeholder='....'
+                                onChange={(e) => {
+                                  setapplicationDTO({
+                                    ...applicationDTO,
+                                    AutoriKryesor: {
+                                      ...applicationDTO.AutoriKryesor,
+                                      AutoriKryesorId: 0,
+                                      AutoriHuaj: e.target.value,
+                                    },
+                                    Bashkeautoret: {
+                                      ...applicationDTO.Bashkeautoret,
+                                      AplikimiBashkeAutorId: [],
+                                    },
+                                  });
+                                }}
+                              />
                             )}
                           </div>
                         </div>
@@ -284,7 +376,13 @@ const SecondForm = (props) => {
                           <div className='col-xxl-12 col-lg-12 col-sm-12'>
                             <Checkbox
                               onChange={(e) => {
-                                setForeign(e.target.checked);
+                                setapplicationDTO({
+                                  ...applicationDTO,
+                                  Bashkeautoret: {
+                                    ...applicationDTO.Bashkeautoret,
+                                    Huaj: e.target.checked,
+                                  },
+                                });
                               }}
                             >
                               Autorë të huaj
@@ -292,7 +390,7 @@ const SecondForm = (props) => {
                           </div>
                           <div className='form-group'>
                             <label>{t("Co-authors")}</label>
-                            {!foreign ? (
+                            {!applicationDTO.Bashkeautoret.Huaj ? (
                               <div className='rbt-modern-select bootstrap-select pt-2'>
                                 <Select
                                   showSearch
@@ -311,14 +409,31 @@ const SecondForm = (props) => {
                                   onChange={(e) => {
                                     setapplicationDTO({
                                       ...applicationDTO,
-                                      AplikimiBashkeAutorId: e,
+                                      Bashkeautoret: {
+                                        ...applicationDTO.Bashkeautoret,
+                                        AutoriHuaj: 0,
+                                        AplikimiBashkeAutorId: e,
+                                      },
                                     });
                                   }}
                                   options={coAuthors}
                                 />
                               </div>
                             ) : (
-                              <input type='text' placeholder='....' />
+                              <input
+                                type='text'
+                                placeholder='....'
+                                onChange={(e) => {
+                                  setapplicationDTO({
+                                    ...applicationDTO,
+                                    Bashkeautoret: {
+                                      ...applicationDTO.Bashkeautoret,
+                                      AplikimiBashkeAutorId: [],
+                                      AutoriHuaj: e.target.value,
+                                    },
+                                  });
+                                }}
+                              />
                             )}
                           </div>
                         </div>
@@ -326,24 +441,48 @@ const SecondForm = (props) => {
                     </div>
                   </div>
                   <div className='col-xxl-12 col-lg-12 col-sm-12'>
-                    <div className='col-xxl-3 col-lg-3 col-sm-12 mt-3'>
-                      <Upload
-                        maxCount='1'
-                        accept='.png, .jpeg, . jpg ,.pdf'
-                        className='btn btn-danger btn-raporti w-100'
-                        multiple={false}
-                        onChange={(e) => {
-                          props.setApplicationDTO({
-                            ...props.applicationDTO,
-                            AplikimiDekaniRaportiDocumentId:
-                              e.file.originFileObj,
-                          });
-                        }}
-                      >
-                        <Button type='text' icon={<UploadOutlined />}>
-                          Konfirmimi i bashkautorëve
-                        </Button>
-                      </Upload>
+                    <div className='row'>
+                      {profesor &&
+                        profesor.profesoriID !=
+                          applicationDTO.AutoriKryesor.AutoriKryesorId && (
+                          <div className='col-xxl-3 col-lg-3 col-sm-12 mt-3'>
+                            <Upload
+                              maxCount='1'
+                              accept='.png, .jpeg, . jpg ,.pdf'
+                              className='btn btn-danger btn-raporti w-100'
+                              multiple={false}
+                              onChange={(e) => {
+                                setapplicationDTO({
+                                  ...applicationDTO,
+                                  KonfirmimiAutoritKryesorDoc:
+                                    e.file.originFileObj,
+                                });
+                              }}
+                            >
+                              <Button type='text' icon={<UploadOutlined />}>
+                                Konfirmimi i autorit kryesorë
+                              </Button>
+                            </Upload>
+                          </div>
+                        )}
+                      <div className='col-xxl-3 col-lg-3 col-sm-12 mt-3'>
+                        <Upload
+                          maxCount='1'
+                          accept='.png, .jpeg, . jpg ,.pdf'
+                          className='btn btn-danger btn-raporti w-100'
+                          multiple={false}
+                          onChange={(e) => {
+                            setapplicationDTO({
+                              ...applicationDTO,
+                              KonfirmimiBashkeAutoritDoc: e.file.originFileObj,
+                            });
+                          }}
+                        >
+                          <Button type='text' icon={<UploadOutlined />}>
+                            Konfirmimi i bashkautorëve
+                          </Button>
+                        </Upload>
+                      </div>
                     </div>
                   </div>
                 </div>

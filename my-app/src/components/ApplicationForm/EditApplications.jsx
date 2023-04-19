@@ -30,7 +30,6 @@ const EditApplications = () => {
   });
   const professorList = useSelector((state) => state.professorList.professors);
   const { t } = useTranslation();
-
   useEffect(() => {
     Promise.all([
       CrudProvider.getItemById(
@@ -134,7 +133,7 @@ const EditApplications = () => {
       {professorList.length > 0 ? (
         <div className='rbt-card'>
           <div className='rbt-card-body border-bottom'>
-            {Object.keys(applicant).length > 0 && (
+            {applicant && Object.keys(applicant).length > 0 && (
               <div className='row'>
                 {applicant.formulari.formulariId === 1 ? (
                   // Forma 1-----------------------
@@ -502,6 +501,138 @@ const EditApplications = () => {
                                       height='800px'
                                       src={CrudProvider.documentPath(
                                         applicant.raportiDekanitPath
+                                      )}
+                                    ></img>
+                                  )}
+                                </div>
+                                <div className='modal-footer'>
+                                  <button
+                                    type='button'
+                                    className='btn btn-primary btn-lg'
+                                    data-bs-dismiss='modal'
+                                  >
+                                    {t("Close")}
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className='col-xxl-2 col-lg-2'>
+                          <button
+                            type='button'
+                            className='btn btn-primary btn-lg'
+                            data-bs-toggle='modal'
+                            data-bs-target='#exampleModal_Autorpërkatës'
+                          >
+                            Konfirmimi autorëve përkatës
+                          </button>
+                          <div
+                            className='modal fade'
+                            id='exampleModal_Autorpërkatës'
+                            tabIndex='-1'
+                            aria-labelledby='exampleModalLabel'
+                            aria-hidden='true'
+                          >
+                            <div className='modal-dialog'>
+                              <div className='modal-content'>
+                                <div className='modal-header'>
+                                  <h5
+                                    className='modal-title'
+                                    id='exampleModalLabel'
+                                  >
+                                    Konfirmimi autorëve përkatës
+                                  </h5>
+                                  <button
+                                    type='button'
+                                    className='btn-close'
+                                    data-bs-dismiss='modal'
+                                    aria-label='Close'
+                                  ></button>
+                                </div>
+                                <div className='modal-body'>
+                                  {checkIsPDf(
+                                    applicant.konfirmimiAutoritKorrespodentPath
+                                  ) == true ? (
+                                    <iframe
+                                      src={CrudProvider.documentPath(
+                                        applicant.konfirmimiAutoritKorrespodentPath
+                                      )}
+                                      width='800px'
+                                      height='800px'
+                                    ></iframe>
+                                  ) : (
+                                    <img
+                                      width='800px'
+                                      height='800px'
+                                      src={CrudProvider.documentPath(
+                                        applicant.konfirmimiAutoritKorrespodentPath
+                                      )}
+                                    ></img>
+                                  )}
+                                </div>
+                                <div className='modal-footer'>
+                                  <button
+                                    type='button'
+                                    className='btn btn-primary btn-lg'
+                                    data-bs-dismiss='modal'
+                                  >
+                                    {t("Close")}
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className='col-xxl-2 col-lg-2'>
+                          <button
+                            type='button'
+                            className='btn btn-primary btn-lg'
+                            data-bs-toggle='modal'
+                            data-bs-target='#exampleModal_BashkAutorë'
+                          >
+                            Konfirmimi i bashkautorëve
+                          </button>
+                          <div
+                            className='modal fade'
+                            id='exampleModal_BashkAutorë'
+                            tabIndex='-1'
+                            aria-labelledby='exampleModalLabel'
+                            aria-hidden='true'
+                          >
+                            <div className='modal-dialog'>
+                              <div className='modal-content'>
+                                <div className='modal-header'>
+                                  <h5
+                                    className='modal-title'
+                                    id='exampleModalLabel'
+                                  >
+                                    Konfirmimi i bashkautorëve
+                                  </h5>
+                                  <button
+                                    type='button'
+                                    className='btn-close'
+                                    data-bs-dismiss='modal'
+                                    aria-label='Close'
+                                  ></button>
+                                </div>
+                                <div className='modal-body'>
+                                  {checkIsPDf(
+                                    applicant.konfirmimiBashkeAutoritPath
+                                  ) == true ? (
+                                    <iframe
+                                      src={CrudProvider.documentPath(
+                                        applicant.konfirmimiBashkeAutoritPath
+                                      )}
+                                      width='800px'
+                                      height='800px'
+                                    ></iframe>
+                                  ) : (
+                                    <img
+                                      width='800px'
+                                      height='800px'
+                                      src={CrudProvider.documentPath(
+                                        applicant.konfirmimiBashkeAutoritPath
                                       )}
                                     ></img>
                                   )}
@@ -896,43 +1027,11 @@ const EditApplications = () => {
                           </div>
                           <div className='col-xxl-4 col-lg-4'>
                             <div className='form-group'>
-                              <label>{t("InvitationAndProgram")}</label>
-                              <input
-                                type='text'
-                                readOnly
-                                defaultValue={applicant.ftesaProgrami || ""}
-                              />
-                            </div>
-                          </div>
-                          <div className='col-xxl-4 col-lg-4'>
-                            <div className='form-group'>
-                              <label>{t("TheAbstract")}</label>
-                              <input
-                                type='text'
-                                readOnly
-                                defaultValue={applicant.abstrakti || ""}
-                              />
-                            </div>
-                          </div>
-                          <div className='col-xxl-4 col-lg-4'>
-                            <div className='form-group'>
                               <label>{t("TitleOfPaper")}</label>
                               <input
                                 type='text'
                                 readOnly
                                 defaultValue={applicant.titulliPunimit || ""}
-                              />
-                            </div>
-                          </div>
-                          <div className='col-xxl-4 col-lg-4'>
-                            <div className='form-group'>
-                              <label>{t("ConfirmationOfAcceptanceWork")}</label>
-                              <input
-                                type='text'
-                                readOnly
-                                defaultValue={
-                                  applicant.konfirmimiPranimitPunimit || ""
-                                }
                               />
                             </div>
                           </div>
@@ -1059,6 +1158,333 @@ const EditApplications = () => {
                                       height='800px'
                                       src={CrudProvider.documentPath(
                                         applicant.raportiDekanitPath
+                                      )}
+                                    ></img>
+                                  )}
+                                </div>
+                                <div className='modal-footer'>
+                                  <button
+                                    type='button'
+                                    className='btn btn-primary btn-lg'
+                                    data-bs-dismiss='modal'
+                                  >
+                                    {t("Close")}
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className='col-xxl-2 col-lg-2'>
+                          <button
+                            type='button'
+                            className='btn btn-primary btn-lg'
+                            data-bs-toggle='modal'
+                            data-bs-target='#exampleModal_AutorKryesor'
+                          >
+                            Konfirmimi autorit kryesorë
+                          </button>
+                          <div
+                            className='modal fade'
+                            id='exampleModal_AutorKryesor'
+                            tabIndex='-1'
+                            aria-labelledby='exampleModalLabel'
+                            aria-hidden='true'
+                          >
+                            <div className='modal-dialog'>
+                              <div className='modal-content'>
+                                <div className='modal-header'>
+                                  <h5
+                                    className='modal-title'
+                                    id='exampleModalLabel'
+                                  >
+                                    Konfirmimi autorëve përkatës
+                                  </h5>
+                                  <button
+                                    type='button'
+                                    className='btn-close'
+                                    data-bs-dismiss='modal'
+                                    aria-label='Close'
+                                  ></button>
+                                </div>
+                                <div className='modal-body'>
+                                  {checkIsPDf(
+                                    applicant.konfirmimiAutoritKryesorPath
+                                  ) == true ? (
+                                    <iframe
+                                      src={CrudProvider.documentPath(
+                                        applicant.konfirmimiAutoritKryesorPath
+                                      )}
+                                      width='800px'
+                                      height='800px'
+                                    ></iframe>
+                                  ) : (
+                                    <img
+                                      width='800px'
+                                      height='800px'
+                                      src={CrudProvider.documentPath(
+                                        applicant.konfirmimiAutoritKryesorPath
+                                      )}
+                                    ></img>
+                                  )}
+                                </div>
+                                <div className='modal-footer'>
+                                  <button
+                                    type='button'
+                                    className='btn btn-primary btn-lg'
+                                    data-bs-dismiss='modal'
+                                  >
+                                    {t("Close")}
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className='col-xxl-2 col-lg-2'>
+                          <button
+                            type='button'
+                            className='btn btn-primary btn-lg'
+                            data-bs-toggle='modal'
+                            data-bs-target='#exampleModal_BashkAutorë'
+                          >
+                            Konfirmimi i bashkautorëve
+                          </button>
+                          <div
+                            className='modal fade'
+                            id='exampleModal_BashkAutorë'
+                            tabIndex='-1'
+                            aria-labelledby='exampleModalLabel'
+                            aria-hidden='true'
+                          >
+                            <div className='modal-dialog'>
+                              <div className='modal-content'>
+                                <div className='modal-header'>
+                                  <h5
+                                    className='modal-title'
+                                    id='exampleModalLabel'
+                                  >
+                                    Konfirmimi i bashkautorëve
+                                  </h5>
+                                  <button
+                                    type='button'
+                                    className='btn-close'
+                                    data-bs-dismiss='modal'
+                                    aria-label='Close'
+                                  ></button>
+                                </div>
+                                <div className='modal-body'>
+                                  {checkIsPDf(
+                                    applicant.konfirmimiBashkeAutoritPath
+                                  ) == true ? (
+                                    <iframe
+                                      src={CrudProvider.documentPath(
+                                        applicant.konfirmimiBashkeAutoritPath
+                                      )}
+                                      width='800px'
+                                      height='800px'
+                                    ></iframe>
+                                  ) : (
+                                    <img
+                                      width='800px'
+                                      height='800px'
+                                      src={CrudProvider.documentPath(
+                                        applicant.konfirmimiBashkeAutoritPath
+                                      )}
+                                    ></img>
+                                  )}
+                                </div>
+                                <div className='modal-footer'>
+                                  <button
+                                    type='button'
+                                    className='btn btn-primary btn-lg'
+                                    data-bs-dismiss='modal'
+                                  >
+                                    {t("Close")}
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className='col-xxl-2 col-lg-2'>
+                          <button
+                            type='button'
+                            className='btn btn-primary btn-lg'
+                            data-bs-toggle='modal'
+                            data-bs-target='#exampleModal_FtesaDheProgrami'
+                          >
+                            {t("InvitationAndProgram")}
+                          </button>
+                          <div
+                            className='modal fade'
+                            id='exampleModal_FtesaDheProgrami'
+                            tabIndex='-1'
+                            aria-labelledby='exampleModalLabel'
+                            aria-hidden='true'
+                          >
+                            <div className='modal-dialog'>
+                              <div className='modal-content'>
+                                <div className='modal-header'>
+                                  <h5
+                                    className='modal-title'
+                                    id='exampleModalLabel'
+                                  >
+                                    {t("InvitationAndProgram")}
+                                  </h5>
+                                  <button
+                                    type='button'
+                                    className='btn-close'
+                                    data-bs-dismiss='modal'
+                                    aria-label='Close'
+                                  ></button>
+                                </div>
+                                <div className='modal-body'>
+                                  {checkIsPDf(applicant.ftesaProgrami) ==
+                                  true ? (
+                                    <iframe
+                                      src={CrudProvider.documentPath(
+                                        applicant.ftesaProgrami
+                                      )}
+                                      width='800px'
+                                      height='800px'
+                                    ></iframe>
+                                  ) : (
+                                    <img
+                                      width='800px'
+                                      height='800px'
+                                      src={CrudProvider.documentPath(
+                                        applicant.ftesaProgrami
+                                      )}
+                                    ></img>
+                                  )}
+                                </div>
+                                <div className='modal-footer'>
+                                  <button
+                                    type='button'
+                                    className='btn btn-primary btn-lg'
+                                    data-bs-dismiss='modal'
+                                  >
+                                    {t("Close")}
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className='col-xxl-2 col-lg-2'>
+                          <button
+                            type='button'
+                            className='btn btn-primary btn-lg'
+                            data-bs-toggle='modal'
+                            data-bs-target='#exampleModal_Abstrakti'
+                          >
+                            {t("TheAbstract")}
+                          </button>
+                          <div
+                            className='modal fade'
+                            id='exampleModal_Abstrakti'
+                            tabIndex='-1'
+                            aria-labelledby='exampleModalLabel'
+                            aria-hidden='true'
+                          >
+                            <div className='modal-dialog'>
+                              <div className='modal-content'>
+                                <div className='modal-header'>
+                                  <h5
+                                    className='modal-title'
+                                    id='exampleModalLabel'
+                                  >
+                                    {t("TheAbstract")}
+                                  </h5>
+                                  <button
+                                    type='button'
+                                    className='btn-close'
+                                    data-bs-dismiss='modal'
+                                    aria-label='Close'
+                                  ></button>
+                                </div>
+                                <div className='modal-body'>
+                                  {checkIsPDf(applicant.abstrakti) == true ? (
+                                    <iframe
+                                      src={CrudProvider.documentPath(
+                                        applicant.abstrakti
+                                      )}
+                                      width='800px'
+                                      height='800px'
+                                    ></iframe>
+                                  ) : (
+                                    <img
+                                      width='800px'
+                                      height='800px'
+                                      src={CrudProvider.documentPath(
+                                        applicant.abstrakti
+                                      )}
+                                    ></img>
+                                  )}
+                                </div>
+                                <div className='modal-footer'>
+                                  <button
+                                    type='button'
+                                    className='btn btn-primary btn-lg'
+                                    data-bs-dismiss='modal'
+                                  >
+                                    {t("Close")}
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className='col-xxl-2 col-lg-2'>
+                          <button
+                            type='button'
+                            className='btn btn-primary btn-lg'
+                            data-bs-toggle='modal'
+                            data-bs-target='#exampleModal_KonfirmimiPunimit'
+                          >
+                            {t("ConfirmationOfAcceptanceWork")}
+                          </button>
+                          <div
+                            className='modal fade'
+                            id='exampleModal_KonfirmimiPunimit'
+                            tabIndex='-1'
+                            aria-labelledby='exampleModalLabel'
+                            aria-hidden='true'
+                          >
+                            <div className='modal-dialog'>
+                              <div className='modal-content'>
+                                <div className='modal-header'>
+                                  <h5
+                                    className='modal-title'
+                                    id='exampleModalLabel'
+                                  >
+                                    {t("ConfirmationOfAcceptanceWork")}
+                                  </h5>
+                                  <button
+                                    type='button'
+                                    className='btn-close'
+                                    data-bs-dismiss='modal'
+                                    aria-label='Close'
+                                  ></button>
+                                </div>
+                                <div className='modal-body'>
+                                  {checkIsPDf(
+                                    applicant.konfirmimiPranimitPunimit
+                                  ) == true ? (
+                                    <iframe
+                                      src={CrudProvider.documentPath(
+                                        applicant.konfirmimiPranimitPunimit
+                                      )}
+                                      width='800px'
+                                      height='800px'
+                                    ></iframe>
+                                  ) : (
+                                    <img
+                                      width='800px'
+                                      height='800px'
+                                      src={CrudProvider.documentPath(
+                                        applicant.konfirmimiPranimitPunimit
                                       )}
                                     ></img>
                                   )}

@@ -12,6 +12,7 @@ const ThirdForm = (props) => {
     CrudProvider.getAll("RevistaAPI").then((res) => {
       setMagazines(res.result);
     });
+    document.getElementById("form3").scrollIntoView();
   }, []);
 
   let options =
@@ -62,33 +63,8 @@ const ThirdForm = (props) => {
   }, [props.applicationDTO.AplikimiDetajetPublikimi.RevistaId]);
 
   function handleNextForm() {
-    const {
-      PerkatesiaAutorit,
-      TitulliPunimit,
-      DOI,
-      ShtepiaBotuese,
-      RevistaId,
-      ImpaktFaktori,
-      DataPranimit,
-      LinkuPublikimit,
-      DataPublikimit,
-    } = props.applicationDTO.AplikimiDetajetPublikimi;
-
-    if (
-      PerkatesiaAutorit &&
-      TitulliPunimit &&
-      DOI &&
-      ShtepiaBotuese &&
-      RevistaId &&
-      ImpaktFaktori &&
-      DataPranimit &&
-      LinkuPublikimit &&
-      DataPublikimit
-    ) {
-      props.showForm4(true);
-    } else {
-      toast.error(t("FillDataAtForm") + " " + t("PublicationDetails"));
-    }
+    props.showForm4(true);
+    // toast.error(t("FillDataAtForm") + " " + t("PublicationDetails"));
   }
   return (
     <div className='rbt-card rbt-card-body mt-5 pt--50'>
@@ -98,7 +74,10 @@ const ThirdForm = (props) => {
         </div>
         <div className='row'>
           <div className='col-lg-12 mb-4'>
-            <h1 className='page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0'>
+            <h1
+              className='page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0'
+              id='form3'
+            >
               {t("PublicationDetails")}
             </h1>
           </div>

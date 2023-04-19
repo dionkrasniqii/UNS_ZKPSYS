@@ -6,7 +6,9 @@ const FourthForm = (props) => {
   const { t } = useTranslation();
   const professoriID = props.professor.profesoriID;
   const leadAuthorId = props.applicationDTO.AutoriKryesorId;
-
+  useEffect(() => {
+    document.getElementById("bankDetails").scrollIntoView();
+  }, []);
   useEffect(() => {
     professoriID == leadAuthorId
       ? props.setApplicationDTO({
@@ -47,7 +49,10 @@ const FourthForm = (props) => {
         </div>
         <div className='row'>
           <div className='col-lg-12 mb-5'>
-            <h1 className='page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0'>
+            <h1
+              className='page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0'
+              id='bankDetails'
+            >
               {t("BeneficiarysBankDetails")}
             </h1>
           </div>

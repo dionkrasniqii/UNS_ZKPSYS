@@ -11,6 +11,9 @@ const FourthForm = (props) => {
     { value: true, label: t("Yes") },
     { value: false, label: t("No") },
   ];
+  useEffect(() => {
+    document.getElementById("form4").scrollIntoView();
+  }, []);
 
   function handleNextForm() {
     const { Konference, NjesiAkademike, SqaroMenyrenPrezantimit } =
@@ -35,7 +38,10 @@ const FourthForm = (props) => {
         </div>
         <div className='row mb-5'>
           <div className='col-lg-12 mb-4'>
-            <h1 className='page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0'>
+            <h1
+              className='page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0'
+              id='form4'
+            >
               {t("PresentationAcademicUnit")} ({t("AttachTestimony")})
             </h1>
           </div>
@@ -138,7 +144,7 @@ const FourthForm = (props) => {
           <div className='col-xxl-3 col-sm-12 pb-5'>
             <Upload
               maxCount='1'
-              accept='.png, .jpeg, . jpg ,.pdf'
+              accept='.png, .jpeg, .jpg ,.pdf'
               className='btn btn-danger btn-raporti w-100'
               multiple={false}
               onChange={(e) => {
