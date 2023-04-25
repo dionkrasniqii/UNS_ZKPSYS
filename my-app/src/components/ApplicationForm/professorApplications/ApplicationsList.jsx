@@ -169,7 +169,7 @@ export default function ApplicationsList(props) {
 
   return (
     <div className='container'>
-      <div className='rbt-card-body'>
+      <div className='rbt-card-body '>
         <Table columns={columns} rowKey='aplikimiId' dataSource={data} />
       </div>
     </div>
