@@ -8745,6 +8745,10 @@ textarea:-ms-input-placeholder {
     font-weight: 900 !important;
 }
 
+.bg-theme-gradient {
+    background: linear-gradient(90deg, #C70202, #181414);
+}
+
 .theme-sems {
     background: linear-gradient(90deg, var(--color-sems), var(--color-pinterest));
     -webkit-background-clip: text;
@@ -9890,7 +9894,7 @@ input[type=radio]~label::after {
 }
 
 .form-group input:focus {
-    border-color: var(--color-sems);
+    border-color: var(--color-secondary);
 }
 
 .form-group textarea {
@@ -14181,24 +14185,34 @@ a:active {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
-    top: 8px;
+    top: 15px;
 }
 
 .nav-item-langage a {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    height: 60px !important;
+    width: 60px !important;
+    height: 50px !important;
+    padding: 0px !important;
 }
 
-.nav-item-langage a {
-    width: 45px;
-    height: 50px !important;
+.copyright-area {
+    position: relative !important;
+    bottom: 0px !important;
+}
+
+.h-100vh {
+    height: 100vh !important;
 }
 
 .nav-item-langage a img {
-    width: 33px;
-    height: 25px;
+    /* width: 33px; */
+    height: 30px;
+}
+
+.btnFleg:hover {
+    border-bottom: 3px solid #f4282d;
 }
 
 .language-mobile {
@@ -15113,6 +15127,12 @@ Button Area
 
 .rbt-btn.rounded-player span {
     display: inline-block;
+}
+
+@media only screen and (max-device-width: 1200px) {
+    .nav-item-langage {
+        position: inherit;
+    }
 }
 
 .rbt-btn.rounded-player span i {
