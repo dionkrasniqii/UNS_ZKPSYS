@@ -9016,11 +9016,7 @@ input[type=radio]~label::after {
 }
 
 .form-group input:focus {
-<<<<<<< HEAD
     border-color: var(--color-secondary);
-=======
-    border-color: #C70202;
->>>>>>> 7fac477 (.)
 }
 
 .form-group textarea {
