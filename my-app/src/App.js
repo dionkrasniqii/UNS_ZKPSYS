@@ -11,9 +11,8 @@ import jwtDecode from "jwt-decode";
 import CrudProvider from "./provider/CrudProvider";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { setProfessors } from "./store/actions";
-import store from "./store/store";
 import { useTranslation } from "react-i18next";
-import Footer from "./components/Home/Footer";
+import BackToTop from "./components/Home/BackToTop";
 
 function App() {
   const dispatch = useDispatch();
@@ -51,6 +50,7 @@ function App() {
       });
     }
   }, [authState]);
+
   function handleLogin(res) {
     localStorage.setItem("token", res.token);
     let profesor = Encryption.Encrypt(JSON.stringify(res.result));
@@ -64,6 +64,12 @@ function App() {
     setAuthState({ isAuthenticated: false, token: null });
     toast.warning(t("YoureLoggedOut"));
   };
+  const arrowUp = (
+    <path
+      d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"
+      style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 209.016;"
+    ></path>
+  );
   return (
     <>
       <div className="App">
@@ -79,11 +85,11 @@ function App() {
           pauseOnHover
           theme="light"
           style={{ fontSize: "14px" }}
-        />{" "}
-        <Navbar logout={handleLogout} isAuth={authState} />{" "}
-        <AppRoutes login={handleLogin} />{" "}
-      </div>{" "}
-      <Footer />
+        />
+        <Navbar logout={handleLogout} isAuth={authState} />
+        <AppRoutes login={handleLogin} />
+        <BackToTop />
+      </div>
     </>
   );
 }

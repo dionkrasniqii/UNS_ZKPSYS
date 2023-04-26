@@ -44,55 +44,79 @@ const Login = (props) => {
     }
   }
   return (
-    <div className='container'>
-      <div className='h-100vh'>
-        <div className='row d-flex justify-content-center align-items-center'>
-          <div className='col-lg-12 text-center my-5'>
-            {/* <img src={logoUP} alt="" className="login-img" /> */}
+    <div className="container">
+      <div className="h-100vh">
+        <div className="row d-flex justify-content-center align-items-center">
+          <div className="col-lg-12 text-center my-5">
+            <img src={logoUP} alt="" className="login-img" />
           </div>
-          <div className='col-lg-5'>
-            <div className='rbt-contact-form contact-form-style-1 w-100'>
-              <h3 className='title fw-bold mb-3'>{t("Login")}</h3>
-              <form className='max-width-auto' onSubmit={handleLogin}>
-                <div className='form-group'>
-                  <input name='username' type='text' autoComplete='off' />
-                  <label>{t("Username")}</label>
-                  <span className='focus-border' />
+          <div className="col-lg-5 d-flex justify-content-center align-items-center">
+            <div className="rbt-contact-form contact-form-style-1 w-100">
+              <h3 className="title fw-bold mb-3">{t("Login")}</h3>
+              <form className="max-width-auto" onSubmit={handleLogin}>
+                <div className="form-group mt-5">
+                  <input name="username" type="text" autoComplete="off" />
+                  <label className="mb-1">{t("Username")}</label>
+                  <span className="focus-border" />
                 </div>
-                <div className='form-group'>
-                  <input name='password' autoComplete='off' type='password' />
-                  <label>{t("Password")}</label>
-                  <span className='focus-border' />
+                <div className="form-group">
+                  <input name="password" autoComplete="off" type="password" />
+                  <label className="mb-1">{t("Password")}</label>
+                  <span className="focus-border" />
                 </div>
-                <div className='form-submit-group'>
+                <div className="form-submit-group">
                   {showLoad === false ? (
                     <button
-                      type='submit'
-                      className='rbt-btn btn-md btn-gradient btn-gradient-4 hover-icon-reverse w-100'
+                      type="submit"
+                      className="rbt-btn btn-md btn-gradient btn-gradient-4 hover-icon-reverse w-100"
                     >
-                      <span className='icon-reverse-wrapper'>
-                        <span className='btn-text'>Log In</span>
-                        <span className='btn-icon'>
-                          <i className='feather-arrow-right' />
+                      <span className="icon-reverse-wrapper">
+                        <span className="btn-text">Identifikimi</span>
+                        <span className="btn-icon">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            class="bi bi-arrow-right-short"
+                            viewBox="0 0 16 16"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                            />
+                          </svg>
                         </span>
-                        <span className='btn-icon'>
-                          <i className='feather-arrow-right' />
+                        <span className="btn-icon">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            class="bi bi-arrow-right-short"
+                            viewBox="0 0 16 16"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                            />
+                          </svg>
                         </span>
                       </span>
                     </button>
                   ) : (
-                    <div className='col-xxl-12 col-lg-12 col-sm-12 d-flex justify-content-center align-items-center'>
+                    <div className="col-xxl-12 col-lg-12 col-sm-12 d-flex justify-content-center align-items-center">
                       <LineWave
-                        height='100'
-                        width='100'
-                        color='red'
-                        ariaLabel='line-wave'
+                        height="100"
+                        width="100"
+                        color="red"
+                        ariaLabel="line-wave"
                         wrapperStyle={{}}
-                        wrapperClass=''
+                        wrapperClass=""
                         visible={true}
-                        firstLineColor=''
-                        middleLineColor=''
-                        lastLineColor=''
+                        firstLineColor=""
+                        middleLineColor=""
+                        lastLineColor=""
                       />
                     </div>
                   )}
