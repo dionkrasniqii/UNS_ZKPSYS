@@ -57,8 +57,8 @@ export default function ProfessorApplications() {
 
   return (
     <div className='container mt-5'>
-      <div className='rbt-card '>
-        <div className='rbt-card-body'>
+      <div className='rbt-card  rbt-border-dashed rbt-radius border-1'>
+        <div className='rbt-card-body  '>
           <div className='col-xxl-2 col-md-3 col-lg-2 col-sm-12'>
             <Select
               placeholder='Zgjedhni formularin'
