@@ -7,9 +7,7 @@ import Encryption from "../../Auth/Encryption";
 import photo1 from "../../assets/images/icons/counter-03.png";
 import CrudProvider from "../../provider/CrudProvider.js";
 import { useTranslation } from "react-i18next";
-import IconRevista from "../../assets/images/icons/IconeRevista.png";
-import ImagesRevista from "../../assets/images/icons/ImageRevista.png";
-import { LocalDrink } from "@mui/icons-material";
+
 const Magazine = () => {
   const [data, setData] = useState([]);
   const { t } = useTranslation();
@@ -33,90 +31,119 @@ const Magazine = () => {
     });
   }
   return (
-    <div className="container-fluid p-0">
-      <div className="rbt-buy-now-area rbt-section-gap bg-gradient-1 header-transperent-spacer px-5">
-        <div className="px--40">
-          <div className="row">
-            <div className="col-lg-10">
-              <div className=" title-wrapper">
-                <h1 className="title mb--0">Të gjitha revistat shkencore</h1>
-              </div>
-              <p className="description mt-1">
-                Revistat shkencore paraqesin artikuj që përfshijnë rezultate të
-                reja të kërkimeve shkencore dhe teori mbi fusha të caktuara.
-              </p>
+    <div className='container'>
+      <div className='row'>
+        <div className='col-lg-12'>
+          <div className='row'>
+            <div className='col-lg-10 col-sm-12 d-flex justify-content-start'>
+              <span className='fs-1'>{t("Magazines")}</span>
             </div>
-            <div className="col-lg-2">
-              <Link className="rbt-btn btn-gradient" to="/magazine/create">
-                Shto revisten
+            <div className='col-lg-2 col-sm-12 d-flex justify-content-end'>
+              <Link
+                className='rbt-btn btn-sm btn-border radius-round'
+                to={"/magazine/create"}
+              >
+                {t("Add")}
               </Link>
             </div>
           </div>
         </div>
-      </div>
-      <div className="container rbt-buy-now-area top-news">
-        <div className="row">
-          {data.length > 0 ? (
-            data.map((obj, index) => (
-              <div
-                className="col-lg-4 col-xl-4 col-xxl-4 col-md-6 col-sm-6 col-12 mb-5 px-5 pe-auto"
-                key={index}
-              >
-                <div className="service-card service-card-5 service-card-onhover">
-                  <div className="inner">
-                    <div class="icon">
-                      <img src={ImagesRevista} alt="Shape Images" />
-                    </div>
-                    <div className="content">
-                      <h6 className="title">
-                        <Link to={`/magazine/edit/${btoa(obj.revistaId)}`}>
-                          {" "}
-                          {obj.revistaPershkrimi}
-                        </Link>
-                      </h6>
-                      <p className="description">
+
+        {data.length > 0 ? (
+          data.map((obj, index) => (
+            <div
+              className='col-lg-3 col-md-6 mt--20 px-2 col-sm-6 col-12'
+              key={index}
+            >
+              <div className='rbt-cat-box rbt-cat-box-1 variation-2 text-center'>
+                <div className='inner'>
+                  <div className='row'>
+                    <div className='col-lg-10'>
+                      <div className='icons'>
+                        <img src={photo1} alt='Icons Images' />
+                      </div>
+                      <div className='content'>
+                        <div className=''>
+                          <span className='rbt-card-title fs-3'>
+                            {obj.revistaPershkrimi}
+                          </span>
+                        </div>
                         {obj.aktiv === true ? (
                           <span
-                            className=" fs-5 text-uppercase"
+                            className=' fs-5 text-uppercase'
                             style={{ color: "green" }}
                           >
                             {t("Active")}
                           </span>
                         ) : (
                           <span
-                            className=" fs-5 text-uppercase"
+                            className=' fs-5 text-uppercase'
                             style={{ color: "red" }}
                           >
                             {t("NotActive")}
                           </span>
                         )}
-                      </p>
+                      </div>
+                    </div>
+                    <div className='col-md-2'>
+                      <div className='row'>
+                        <div className='d-flex justify-content-center align-items-center'>
+                          <div className='col-md-1 text-end text-danger pe-4'>
+                            <svg
+                              xmlns='http://www.w3.org/2000/svg'
+                              width={16}
+                              height={16}
+                              fill='currentColor'
+                              className='bi bi-trash'
+                              onClick={(e) => {
+                                handleDelete(obj.revistaId);
+                              }}
+                              viewBox='0 0 16 16'
+                            >
+                              <path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z' />
+                              <path
+                                fillRule='evenodd'
+                                d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z'
+                              />
+                            </svg>
+                          </div>
+                          <div className='col-md-1'>
+                            <Link
+                              className='transparent-button ps-1'
+                              to={`/magazine/edit/${btoa(obj.revistaId)}`}
+                            >
+                              <svg
+                                width={17}
+                                height={12}
+                                xmlns='http://www.w3.org/2000/svg'
+                              >
+                                <g
+                                  stroke='#27374D'
+                                  fill='none'
+                                  fillRule='evenodd'
+                                >
+                                  <path d='M10.614 0l5.629 5.629-5.63 5.629' />
+                                  <path
+                                    strokeLinecap='square'
+                                    d='M.663 5.572h14.594'
+                                  />
+                                </g>
+                              </svg>
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <Link
-                    class="delete-icon"
-                    onClick={(e) => {
-                      handleDelete(obj.revistaId);
-                    }}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="white"
-                      class="bi bi-trash3"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"></path>
-                    </svg>
-                  </Link>
                 </div>
               </div>
-            ))
-          ) : (
-            <Alert severity="info" className="fs-3">
-              {t("NoData")}
-            </Alert>
-          )}
-        </div>
+            </div>
+          ))
+        ) : (
+          <Alert severity='info' className='fs-3'>
+            {t("NoData")}
+          </Alert>
+        )}
       </div>
     </div>
   );

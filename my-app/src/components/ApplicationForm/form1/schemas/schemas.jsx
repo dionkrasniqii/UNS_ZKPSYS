@@ -1,6 +1,11 @@
 import * as Yup from "yup";
 
-export const schemaForm2 = Yup.object().shape({
+export const schemaForm2_1 = Yup.object().shape({
+  AutorKryesor: Yup.mixed().required("Autori kryesor duhet të plotësohet"),
+  AutoretKorrespodent: Yup.mixed().required(
+    "Autorët përkatës duhet të plotësohen"
+  ),
+  BashkeAutoret: Yup.mixed().required("Bashkautorët duhet të plotësohen"),
   KonfirmimiBashkeAutorve: Yup.mixed().required(
     "Konfirmimi i bashkautorëve duhet të plotësohet"
   ),

@@ -10,6 +10,8 @@ import ThirdForm from "./ThirdForm";
 import FourthForm from "./FourthForm";
 import FifthForm from "./FifthForm";
 import { UploadOutlined } from "@mui/icons-material";
+import { useFormik } from "formik";
+import { schemaForm2, schemaForm2_1 } from "./schemas/schemas";
 
 const SecondForm = () => {
   const { id } = useParams();
@@ -207,10 +209,23 @@ const SecondForm = () => {
     });
   }, []);
 
-  function handleNextForm() {
-    setShowForm3(true);
-    // toast.error(t("FillDataAtForm") + " " + t("RequestApplicant"));
-  }
+  const formik = useFormik({
+    initialValues: {
+      KonfirmimiBashkeAutorve: "",
+      AutoriKryesor: "",
+    },
+    validationSchema: schemaForm2_1,
+    onSubmit: (values, actions) => {
+      if (
+        applicationDTO.AutoriKryesor.AutoriKryesorId !== "" &&
+        applicationDTO.Bashkeautoret.AplikimiBashkeAutorId.length > 0
+      ) {
+        setShowForm3(true);
+      } else {
+        toast.error("Mbushni të dhënat e kërkuara tek parashtruesi kërkesës");
+      }
+    },
+  });
 
   return (
     <div className='col-xxl-12 col-lg-10 col-sm-12 d-flex justify-content-center mt-4 mb-4 '>
@@ -230,74 +245,75 @@ const SecondForm = () => {
           <h1 className='text-center text-uppercase fs-2 my-3 mb-5'>
             {t("ApplicationFormFundingScientificPublication")}
           </h1>
-          <div className='row'>
-            <div className='col-xxl-12 col-lg-10 col-sm-12 rbt-border-dashed rbt-radius border-1 px-5 pt-3 position-relative'>
-              <div className='box'>
-                <span>1</span>
-              </div>
-              <div className='row mt-4 mb-4'>
-                <div className='col-lg-12 mb-4'>
-                  <h1 className='page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0'>
-                    {t("RequestApplicant")}
-                  </h1>
+          <form onSubmit={formik.handleSubmit}>
+            <div className='row'>
+              <div className='col-xxl-12 col-lg-10 col-sm-12 rbt-border-dashed rbt-radius border-1 px-5 pt-3 position-relative'>
+                <div className='box'>
+                  <span>1</span>
                 </div>
-                <div className='col-lg-3 col-sm-12 col-md-10'>
-                  <div className='form-group'>
-                    <label> {t("Name")}</label>
-                    <input
-                      type='text'
-                      defaultValue={applicationDTO.Aplikimi.Emri}
-                      readOnly
-                    />
+                <div className='row mt-4 mb-4'>
+                  <div className='col-lg-12 mb-4'>
+                    <h1 className='page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0'>
+                      {t("RequestApplicant")}
+                    </h1>
                   </div>
-                </div>
-                <div className='col-lg-3 col-sm-12 col-md-10'>
-                  <div className='form-group'>
-                    <label> {t("Surname")}</label>
-                    <input
-                      type='text'
-                      defaultValue={applicationDTO.Aplikimi.Mbiemri}
-                      readOnly
-                    />
-                  </div>
-                </div>
-                {Object.keys(faculty).length > 0 && (
-                  <div className='col-lg-6 col-sm-12 col-md-10'>
+                  <div className='col-lg-3 col-sm-12 col-md-10'>
                     <div className='form-group'>
-                      <label>{t("AcademicUnit")}</label>
+                      <label> {t("Name")}</label>
                       <input
                         type='text'
-                        defaultValue={faculty.fakultetiPershkrimi}
+                        defaultValue={applicationDTO.Aplikimi.Emri}
                         readOnly
                       />
                     </div>
                   </div>
-                )}
-
-                <div className='col-lg-6 col-sm-12 col-md-10'>
-                  <div className='form-group'>
-                    <label>{t("ScientificCall")}</label>
-                    <input
-                      type='text'
-                      defaultValue={applicationDTO.ThirrjaShkencoreEmri}
-                      readOnly
-                    />
+                  <div className='col-lg-3 col-sm-12 col-md-10'>
+                    <div className='form-group'>
+                      <label> {t("Surname")}</label>
+                      <input
+                        type='text'
+                        defaultValue={applicationDTO.Aplikimi.Mbiemri}
+                        readOnly
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className='col-lg-6 col-sm-12 col-md-10'>
-                  <div className='form-group'>
-                    <label>{t("AcademicCall")}</label>
-                    <input
-                      type='text'
-                      defaultValue={applicationDTO.ThirrjaAkademikeEmri}
-                      readOnly
-                    />
-                  </div>
-                </div>
+                  {Object.keys(faculty).length > 0 && (
+                    <div className='col-lg-6 col-sm-12 col-md-10'>
+                      <div className='form-group'>
+                        <label>{t("AcademicUnit")}</label>
+                        <input
+                          type='text'
+                          defaultValue={faculty.fakultetiPershkrimi}
+                          readOnly
+                        />
+                      </div>
+                    </div>
+                  )}
 
-                <div className='col-lg-4'>
-                  <div className='row'>
-                    {/* <div className='col-xxl-12 col-lg-12 col-sm-12'>
+                  <div className='col-lg-6 col-sm-12 col-md-10'>
+                    <div className='form-group'>
+                      <label>{t("ScientificCall")}</label>
+                      <input
+                        type='text'
+                        defaultValue={applicationDTO.ThirrjaShkencoreEmri}
+                        readOnly
+                      />
+                    </div>
+                  </div>
+                  <div className='col-lg-6 col-sm-12 col-md-10'>
+                    <div className='form-group'>
+                      <label>{t("AcademicCall")}</label>
+                      <input
+                        type='text'
+                        defaultValue={applicationDTO.ThirrjaAkademikeEmri}
+                        readOnly
+                      />
+                    </div>
+                  </div>
+
+                  <div className='col-lg-4'>
+                    <div className='row'>
+                      {/* <div className='col-xxl-12 col-lg-12 col-sm-12'>
                     <Checkbox
                       onChange={(e) => {
                         setApplicationDTO({
@@ -312,29 +328,54 @@ const SecondForm = () => {
                       Autorë të huaj
                     </Checkbox>
                   </div> */}
-                    <div className='form-group'>
-                      <label>{t("LeadAuthor")}</label>
-                      {!applicationDTO.AutoriKryesorId.Huaj ? (
-                        <div className='rbt-modern-select bootstrap-select pt-2'>
-                          <Select
-                            showSearch
-                            optionFilterProp='children'
-                            filterOption={(input, option) =>
-                              (option?.label ?? "")
-                                .toLowerCase()
-                                .includes(input.toLowerCase())
-                            }
-                            mode='single'
-                            allowClear
-                            style={{ width: "100%" }}
-                            placeholder={t("Choose")}
+                      <div className='form-group'>
+                        <label>{t("LeadAuthor")}</label>
+                        {!applicationDTO.AutoriKryesorId.Huaj ? (
+                          <div className='rbt-modern-select bootstrap-select pt-2'>
+                            <Select
+                              showSearch
+                              optionFilterProp='children'
+                              filterOption={(input, option) =>
+                                (option?.label ?? "")
+                                  .toLowerCase()
+                                  .includes(input.toLowerCase())
+                              }
+                              mode='single'
+                              allowClear
+                              style={{ width: "100%" }}
+                              placeholder={t("Choose")}
+                              onChange={(e) => {
+                                setApplicationDTO({
+                                  ...applicationDTO,
+                                  AutoriKryesorId: {
+                                    ...applicationDTO.AutoriKryesorId,
+                                    AutoriKryesorId: e,
+                                    AutoriHuaj: 0,
+                                  },
+                                  AplikimiBashkeAutorId: {
+                                    ...applicationDTO.AplikimiBashkeAutorId,
+                                    AplikimiBashkeAutorId: [],
+                                  },
+                                  AutoriKorrespodentId: {
+                                    ...applicationDTO.AutoriKorrespodentId,
+                                    AutoriKorrespodentId: [],
+                                  },
+                                });
+                                formik.setFieldValue("AutoriKryesor", e);
+                              }}
+                              options={professorsList}
+                            />
+                          </div>
+                        ) : (
+                          <input
+                            type='text'
+                            placeholder='....'
                             onChange={(e) => {
                               setApplicationDTO({
                                 ...applicationDTO,
                                 AutoriKryesorId: {
                                   ...applicationDTO.AutoriKryesorId,
-                                  AutoriKryesorId: e,
-                                  AutoriHuaj: 0,
+                                  AutoriHuaj: e.target.value,
                                 },
                                 AplikimiBashkeAutorId: {
                                   ...applicationDTO.AplikimiBashkeAutorId,
@@ -346,229 +387,217 @@ const SecondForm = () => {
                                 },
                               });
                             }}
-                            options={professorsList}
                           />
-                        </div>
-                      ) : (
-                        <input
-                          type='text'
-                          placeholder='....'
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  <div className='col-lg-4'>
+                    <div className='row'>
+                      <div className='col-xxl-12 col-lg-12 col-sm-12'>
+                        <Checkbox
                           onChange={(e) => {
                             setApplicationDTO({
                               ...applicationDTO,
-                              AutoriKryesorId: {
-                                ...applicationDTO.AutoriKryesorId,
-                                AutoriHuaj: e.target.value,
-                              },
-                              AplikimiBashkeAutorId: {
-                                ...applicationDTO.AplikimiBashkeAutorId,
-                                AplikimiBashkeAutorId: [],
-                              },
                               AutoriKorrespodentId: {
                                 ...applicationDTO.AutoriKorrespodentId,
-                                AutoriKorrespodentId: [],
+                                Huaj: e.target.checked,
+                                AutoriHuaj: 0,
                               },
                             });
                           }}
-                        />
-                      )}
-                    </div>
-                  </div>
-                </div>
-                <div className='col-lg-4'>
-                  <div className='row'>
-                    <div className='col-xxl-12 col-lg-12 col-sm-12'>
-                      <Checkbox
-                        onChange={(e) => {
-                          setApplicationDTO({
-                            ...applicationDTO,
-                            AutoriKorrespodentId: {
-                              ...applicationDTO.AutoriKorrespodentId,
-                              Huaj: e.target.checked,
-                              AutoriHuaj: 0,
-                            },
-                          });
-                        }}
-                      >
-                        Autorë të huaj
-                      </Checkbox>
-                    </div>
-                    <div className='form-group'>
-                      <label>{t("CorrespondingAuthor")}</label>
-                      {!applicationDTO.AutoriKorrespodentId.Huaj ? (
-                        <div className='rbt-modern-select bootstrap-select pt-2'>
-                          <Select
-                            showSearch
-                            maxTagCount='responsive'
-                            optionFilterProp='children'
-                            filterOption={(input, option) =>
-                              (option?.label ?? "")
-                                .toLowerCase()
-                                .includes(input.toLowerCase())
-                            }
-                            mode='multiple'
-                            allowClear
-                            value={
-                              applicationDTO?.AutoriKorrespodentId
-                                .AutoriKorrespodentId
-                            }
-                            style={{ width: "100%" }}
-                            placeholder={t("Choose")}
+                        >
+                          Autorë të huaj
+                        </Checkbox>
+                      </div>
+                      <div className='form-group'>
+                        <label>{t("CorrespondingAuthor")}</label>
+                        {!applicationDTO.AutoriKorrespodentId.Huaj ? (
+                          <div className='rbt-modern-select bootstrap-select pt-2'>
+                            <Select
+                              showSearch
+                              maxTagCount='responsive'
+                              optionFilterProp='children'
+                              filterOption={(input, option) =>
+                                (option?.label ?? "")
+                                  .toLowerCase()
+                                  .includes(input.toLowerCase())
+                              }
+                              mode='multiple'
+                              allowClear
+                              value={
+                                applicationDTO?.AutoriKorrespodentId
+                                  .AutoriKorrespodentId
+                              }
+                              style={{ width: "100%" }}
+                              placeholder={t("Choose")}
+                              onChange={(e) => {
+                                setApplicationDTO({
+                                  ...applicationDTO,
+                                  AutoriKorrespodentId: {
+                                    ...applicationDTO.AutoriKorrespodentId,
+                                    AutoriKorrespodentId: e,
+                                    AutoriHuaj: 0,
+                                  },
+                                });
+                              }}
+                              options={correspondingAuthors}
+                            />
+                          </div>
+                        ) : (
+                          <input
+                            type='text'
+                            placeholder='....'
                             onChange={(e) => {
                               setApplicationDTO({
                                 ...applicationDTO,
                                 AutoriKorrespodentId: {
                                   ...applicationDTO.AutoriKorrespodentId,
-                                  AutoriKorrespodentId: e,
-                                  AutoriHuaj: 0,
+                                  AutoriHuaj: e.target.value,
+                                  AutoriKorrespodentId: [],
                                 },
                               });
                             }}
-                            options={correspondingAuthors}
                           />
-                        </div>
-                      ) : (
-                        <input
-                          type='text'
-                          placeholder='....'
-                          onChange={(e) => {
-                            setApplicationDTO({
-                              ...applicationDTO,
-                              AutoriKorrespodentId: {
-                                ...applicationDTO.AutoriKorrespodentId,
-                                AutoriHuaj: e.target.value,
-                                AutoriKorrespodentId: [],
-                              },
-                            });
-                          }}
-                        />
-                      )}
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className='col-lg-4'>
-                  <div className='row'>
-                    <div className='col-xxl-12 col-lg-12 col-sm-12 '>
-                      <Checkbox
-                        onChange={(e) => {
-                          setApplicationDTO({
-                            ...applicationDTO,
-                            AplikimiBashkeAutorId: {
-                              ...applicationDTO.AplikimiBashkeAutorId,
-                              Huaj: e.target.checked,
-                            },
-                          });
-                        }}
-                      >
-                        Autorë të huaj
-                      </Checkbox>
-                    </div>
-                    <div className='form-group'>
-                      <label>{t("Co-authors")}</label>
-                      {!applicationDTO.AplikimiBashkeAutorId.Huaj ? (
-                        <div className='rbt-modern-select bootstrap-select pt-2'>
-                          <Select
-                            showSearch
-                            maxTagCount='responsive'
-                            optionFilterProp='children'
-                            filterOption={(input, option) =>
-                              (option?.label ?? "")
-                                .toLowerCase()
-                                .includes(input.toLowerCase())
-                            }
-                            value={
-                              applicationDTO?.AplikimiBashkeAutorId
-                                .AplikimiBashkeAutorId
-                            }
-                            mode='multiple'
-                            allowClear
-                            style={{ width: "100%" }}
-                            placeholder={t("Choose")}
-                            onChange={(e) => {
-                              setApplicationDTO({
-                                ...applicationDTO,
-                                AplikimiBashkeAutorId: {
-                                  ...applicationDTO.AplikimiBashkeAutorId,
-                                  AplikimiBashkeAutorId: e,
-                                  AutoriHuaj: 0,
-                                },
-                              });
-                            }}
-                            options={coAuthors}
-                          />
-                        </div>
-                      ) : (
-                        <input
-                          type='text'
-                          placeholder='....'
+                  <div className='col-lg-4'>
+                    <div className='row'>
+                      <div className='col-xxl-12 col-lg-12 col-sm-12 '>
+                        <Checkbox
                           onChange={(e) => {
                             setApplicationDTO({
                               ...applicationDTO,
                               AplikimiBashkeAutorId: {
                                 ...applicationDTO.AplikimiBashkeAutorId,
-                                AutoriHuaj: e.target.value,
-                                AplikimiBashkeAutorId: [],
+                                Huaj: e.target.checked,
                               },
                             });
                           }}
-                        />
-                      )}
+                        >
+                          Autorë të huaj
+                        </Checkbox>
+                      </div>
+                      <div className='form-group'>
+                        <label>{t("Co-authors")}</label>
+                        {!applicationDTO.AplikimiBashkeAutorId.Huaj ? (
+                          <div className='rbt-modern-select bootstrap-select pt-2'>
+                            <Select
+                              showSearch
+                              maxTagCount='responsive'
+                              optionFilterProp='children'
+                              filterOption={(input, option) =>
+                                (option?.label ?? "")
+                                  .toLowerCase()
+                                  .includes(input.toLowerCase())
+                              }
+                              value={
+                                applicationDTO?.AplikimiBashkeAutorId
+                                  .AplikimiBashkeAutorId
+                              }
+                              mode='multiple'
+                              allowClear
+                              style={{ width: "100%" }}
+                              placeholder={t("Choose")}
+                              onChange={(e) => {
+                                setApplicationDTO({
+                                  ...applicationDTO,
+                                  AplikimiBashkeAutorId: {
+                                    ...applicationDTO.AplikimiBashkeAutorId,
+                                    AplikimiBashkeAutorId: e,
+                                    AutoriHuaj: 0,
+                                  },
+                                });
+                              }}
+                              options={coAuthors}
+                            />
+                            {formik.errors && (
+                              <span className='title color-pink'>
+                                {formik.errors.KonfirmimiBashkeAutorve}
+                              </span>
+                            )}
+                          </div>
+                        ) : (
+                          <input
+                            type='text'
+                            placeholder='....'
+                            onChange={(e) => {
+                              setApplicationDTO({
+                                ...applicationDTO,
+                                AplikimiBashkeAutorId: {
+                                  ...applicationDTO.AplikimiBashkeAutorId,
+                                  AutoriHuaj: e.target.value,
+                                  AplikimiBashkeAutorId: [],
+                                },
+                              });
+                            }}
+                          />
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className='col-xxl-12 col-lg-12 col-sm-12'>
-                  <div className='row'>
-                    <div className='col-xxl-3 col-lg-3 col-sm-12 mt-3'>
-                      <Upload
-                        maxCount='1'
-                        accept='.png, .jpeg, . jpg ,.pdf'
-                        className='btn btn-danger btn-raporti w-100'
-                        multiple={false}
-                        onChange={(e) => {
-                          setApplicationDTO({
-                            ...applicationDTO,
-                            KonfirmimiBashkeAutoritDoc: e.file.originFileObj,
-                          });
-                        }}
-                      >
-                        <Button type='text' icon={<UploadOutlined />}>
-                          Konfirmimi i bashkautorëve
-                        </Button>
-                      </Upload>
-                    </div>
-                    <div className='col-xxl-3 col-lg-3 col-sm-12 mt-3'>
-                      <Upload
-                        maxCount='1'
-                        accept='.png, .jpeg, . jpg ,.pdf'
-                        className='btn btn-danger btn-raporti w-100'
-                        multiple={false}
-                        onChange={(e) => {
-                          setApplicationDTO({
-                            ...applicationDTO,
-                            KonfirmimiAutoritKorrespodentDoc:
-                              e.file.originFileObj,
-                          });
-                        }}
-                      >
-                        <Button type='text' icon={<UploadOutlined />}>
-                          Konfirmimi i autorëve përkatës
-                        </Button>
-                      </Upload>
+                  <div className='col-xxl-12 col-lg-12 col-sm-12'>
+                    <div className='row'>
+                      <div className='col-xxl-3 col-lg-3 col-sm-12 mt-3'>
+                        <Upload
+                          name='KonfirmimiBashkeAutorve'
+                          maxCount='1'
+                          accept='.png, .jpeg, . jpg ,.pdf'
+                          className='btn btn-danger btn-raporti w-100'
+                          multiple={false}
+                          onChange={(e) => {
+                            setApplicationDTO({
+                              ...applicationDTO,
+                              KonfirmimiBashkeAutoritDoc: e.file.originFileObj,
+                            });
+                            formik.setFieldValue(
+                              "KonfirmimiBashkeAutorve",
+                              e.file.originFileObj
+                            );
+                          }}
+                        >
+                          <Button type='text' icon={<UploadOutlined />}>
+                            Konfirmimi i bashkautorëve
+                          </Button>
+                        </Upload>
+                        {formik.errors && (
+                          <span className='title color-pink'>
+                            {formik.errors.KonfirmimiBashkeAutorve}
+                          </span>
+                        )}
+                      </div>
+                      <div className='col-xxl-3 col-lg-3 col-sm-12 mt-3'>
+                        <Upload
+                          maxCount='1'
+                          accept='.png, .jpeg, . jpg ,.pdf'
+                          className='btn btn-danger btn-raporti w-100'
+                          multiple={false}
+                          onChange={(e) => {
+                            setApplicationDTO({
+                              ...applicationDTO,
+                              KonfirmimiAutoritKorrespodentDoc:
+                                e.file.originFileObj,
+                            });
+                          }}
+                        >
+                          <Button type='text' icon={<UploadOutlined />}>
+                            Konfirmimi i autorëve përkatës
+                          </Button>
+                        </Upload>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className='col-xxl-12 col-lg-12 col-sm-12 mt-5 text-end'>
-            <a
-              className='btn btn-danger fs-5 px-5 py-4'
-              onClick={handleNextForm}
-              type='button'
-            >
-              {t("PublicationDetails")}
-            </a>
-          </div>
+            <div className='col-xxl-12 col-lg-12 col-sm-12 mt-5 text-end'>
+              <a className='btn btn-danger fs-5 px-5 py-4' type='submit'>
+                {t("PublicationDetails")}
+              </a>
+            </div>
+          </form>
         </div>
         <div className='col-xxl-12 col-lg-10 col-sm-12  d-flex justify-content-center mt-4'>
           {showForm3 === true ? (

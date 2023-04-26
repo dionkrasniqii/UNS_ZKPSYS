@@ -9,9 +9,8 @@ import { useTranslation } from "react-i18next";
 import { UploadOutlined } from "@mui/icons-material";
 import ThirdForm3 from "./ThirdForm3";
 import FourthForm3 from "./FourthForm3";
-import { schemaForm2 } from "./schemas/schemas";
 import { useFormik } from "formik";
-import e from "express";
+import { schemaForm2 } from "./schemas/schemas";
 
 const SecondForm3 = () => {
   const { id } = useParams();
@@ -154,11 +153,23 @@ const SecondForm3 = () => {
       }
     });
   }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    setShowForm3(true);
-  }
+  const { handleSubmit, errors, values, handleChange, setFieldValue } =
+    useFormik({
+      initialValues: {
+        KonfirmimiBashkeAutorve: "",
+      },
+      validationSchema: schemaForm2,
+      onSubmit: (values, actions) => {
+        if (
+          applicationDTO.AutoriKryesor.AutoriKryesorId !== "" &&
+          applicationDTO.Bashkeautoret.AplikimiBashkeAutorId.length > 0
+        ) {
+          setShowForm3(true);
+        } else {
+          toast.error("Mbushni të dhënat e kërkuara tek parashtruesi kërkesës");
+        }
+      },
+    });
   return (
     <>
       <div className='col-xxl-12 col-lg-10 col-sm-12 d-flex justify-content-center mt-4 mb-4 '>
@@ -178,7 +189,7 @@ const SecondForm3 = () => {
 
           <div className='rbt-card col-xxl-12 col-lg-12 col-sm-12 mt-5'>
             <h1 className='text-center text-uppercase fs-2 my-3 mb-5'>
-              {t("Applicant")}
+              {t("RequestApplicant")}
             </h1>
             <form onSubmit={handleSubmit}>
               <div className='row'>
@@ -303,6 +314,10 @@ const SecondForm3 = () => {
                                       });
                                     }}
                                     options={professorsList}
+                                    value={
+                                      applicationDTO.AutoriKryesor
+                                        .AutoriKryesorId || null
+                                    }
                                   />
                                 </div>
                               ) : (
@@ -324,6 +339,10 @@ const SecondForm3 = () => {
                                       },
                                     });
                                   }}
+                                  value={
+                                    applicationDTO.AutoriKryesor.AutoriHuaj ||
+                                    ""
+                                  }
                                 />
                               )}
                             </div>
@@ -426,6 +445,7 @@ const SecondForm3 = () => {
                         <div className='col-xxl-3 col-lg-3 col-sm-12 mt-3'>
                           <Upload
                             maxCount='1'
+                            name='KonfirmimiBashkeAutorve'
                             accept='.png, .jpeg, . jpg ,.pdf'
                             className='btn btn-danger btn-raporti w-100'
                             multiple={false}
@@ -435,12 +455,21 @@ const SecondForm3 = () => {
                                 KonfirmimiBashkeAutoritDoc:
                                   e.file.originFileObj,
                               });
+                              setFieldValue(
+                                "KonfirmimiBashkeAutorve",
+                                e.file.originFileObj
+                              );
                             }}
                           >
                             <Button type='text' icon={<UploadOutlined />}>
                               Konfirmimi i bashkautorëve
                             </Button>
                           </Upload>
+                          {errors.KonfirmimiBashkeAutorve && (
+                            <span className='title color-pink'>
+                              {errors.KonfirmimiBashkeAutorve}
+                            </span>
+                          )}
                         </div>
                       </div>
                     </div>

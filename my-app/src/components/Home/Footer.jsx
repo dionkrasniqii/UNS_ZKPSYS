@@ -20,13 +20,13 @@ class Footer extends Component {
           </div>
         </div> */}
 
-        <div class="copyright-area copyright-style-1 ptb--20 bg-theme-gradient">
-          <div class="container">
-            <div class="row align-items-center">
-              <div class="col-12">
-                <p class="rbt-link-hover text-center color-white-off">
+        <div className="copyright-area copyright-style-1 ptb--20 bg-theme-gradient">
+          <div className="container">
+            <div className="row align-items-center">
+              <div className="col-12">
+                <p className="rbt-link-hover text-center color-white-off">
                   Copyright © {currentYear} |{" "}
-                  <Link to="/" class="color-white">
+                  <Link to="/" className="color-white">
                     Universiteti i Prishtinës
                   </Link>{" "}
                   | All Rights Reserved.

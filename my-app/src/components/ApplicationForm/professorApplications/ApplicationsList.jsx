@@ -28,12 +28,6 @@ export default function ApplicationsList(props) {
       onFilter: (value, record) =>
         record.titulliPunimit.toLowerCase().includes(value.toLowerCase()),
     },
-    // {
-    //   title: "DOI",
-    //   dataIndex: "doi",
-    //   key: "aplikimiId",
-    //   width: "20%",
-    // },
     {
       title: t("Status"),
       dataIndex: "statusiKerkesesId",

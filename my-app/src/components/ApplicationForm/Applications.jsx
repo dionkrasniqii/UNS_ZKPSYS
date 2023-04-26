@@ -4,7 +4,6 @@ import jwtDecode from "jwt-decode";
 import CrudProvider from "../../provider/CrudProvider";
 import ApplicationsList from "./ApplicationsList";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 
 const Applications = () => {
   const [faculties, setFaculties] = useState([]);
@@ -111,78 +110,61 @@ const Applications = () => {
     }
   }
   return (
-    <div className="container-fluid p-0">
-      <div className="rbt-buy-now-area rbt-section-gap bg-gradient-1 header-transperent-spacer px-5 mb-5">
-        <div className="px--40">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className=" title-wrapper">
-                <h1 className="title mb--0">Kërkoni punimin shkencorë</h1>
-              </div>
-              <p className="description mt-1">
-                Mundësoni kërkimi përmes fakultetit si dhe llojin e formularit
-              </p>
-            </div>
+    <div className='container mt-5'>
+      <div className='rbt-card rbt-card-body '>
+        <div className='row'>
+          <div className='col-lg-3 col-sm-12 mt-2'>
+            <Select
+              placeholder={t("ChooseFaculty")}
+              style={{ width: "100%" }}
+              mode='single'
+              showSearch
+              optionFilterProp='children'
+              filterOption={(input, option) =>
+                (option?.label ?? "")
+                  .toLowerCase()
+                  .includes(input.toLowerCase())
+              }
+              options={facultiesList}
+              // defaultValue={selectValFaculty}
+              onChange={(e) => {
+                setFacultyId(e);
+                // saveSelectValueFacultyOnSessionStorage(e);
+              }}
+            />
+          </div>
+          <div className='col-lg-3 col-sm-12 mt-2'>
+            <Select
+              placeholder={t("ChooseForm")}
+              style={{ width: "100%" }}
+              mode='single'
+              showSearch
+              optionFilterProp='children'
+              filterOption={(input, option) =>
+                (option?.label ?? "")
+                  .toLowerCase()
+                  .includes(input.toLowerCase())
+              }
+              options={formsList}
+              // defaultValue={selectValForm}
+              onChange={(e) => {
+                setFormId(e);
+                // saveSelectValueFormOnSessionStorage(e);
+              }}
+            />
+          </div>
+          <div className='col-lg-3 col-sm-12 d-flex justify-content-start'>
+            <a
+              className='rbt-btn btn-sm btn-border radius-round'
+              onClick={Submit}
+            >
+              {t("Search")}
+            </a>
           </div>
         </div>
       </div>
-
-      <div className="container rbt-buy-now-area top-news">
-        <div className="rbt-card rbt-card-body">
-          <div className="row">
-            <div className="col-lg-3 col-sm-12 mt-2">
-              <Select
-                placeholder={t("ChooseFaculty")}
-                style={{ width: "100%" }}
-                mode="single"
-                showSearch
-                optionFilterProp="children"
-                filterOption={(input, option) =>
-                  (option?.label ?? "")
-                    .toLowerCase()
-                    .includes(input.toLowerCase())
-                }
-                options={facultiesList}
-                // defaultValue={selectValFaculty}
-                onChange={(e) => {
-                  setFacultyId(e);
-                  // saveSelectValueFacultyOnSessionStorage(e);
-                }}
-              />
-            </div>
-            <div className="col-lg-3 col-sm-12 mt-2">
-              <Select
-                placeholder={t("ChooseForm")}
-                style={{ width: "100%" }}
-                mode="single"
-                showSearch
-                optionFilterProp="children"
-                filterOption={(input, option) =>
-                  (option?.label ?? "")
-                    .toLowerCase()
-                    .includes(input.toLowerCase())
-                }
-                options={formsList}
-                // defaultValue={selectValForm}
-                onChange={(e) => {
-                  setFormId(e);
-                  // saveSelectValueFormOnSessionStorage(e);
-                }}
-              />
-            </div>
-            <div className="col-lg-3 col-sm-12">
-              <a
-                className="rbt-btn btn-sm btn-border radius-round"
-                onClick={Submit}
-              >
-                {t("Search")}
-              </a>
-            </div>
-          </div>
-        </div>
-        <div className="rbt-card rbt-card-body  mt-3">
-          <ApplicationsList data={data} />
-        </div>
+      <div className='rbt-card rbt-card-body  mt-3'>
+        <ApplicationsList data={data} />
       </div>
     </div>
   );

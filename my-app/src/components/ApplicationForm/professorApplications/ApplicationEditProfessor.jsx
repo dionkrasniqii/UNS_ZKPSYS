@@ -11,9 +11,6 @@ const ApplicationEditProfessor = () => {
   const { id } = useParams();
   const decryptedId = atob(id);
   const [applicant, setApplicant] = useState({});
-  const user = JSON.parse(Encryption.Decrypt(localStorage.getItem("profesor")));
-  const [revistat, setRevistat] = useState([]);
-  const navigate = useNavigate();
   const professorList = useSelector((state) => state.professorList.professors);
 
   useEffect(() => {
@@ -22,6 +19,7 @@ const ApplicationEditProfessor = () => {
         "AplikimiShqyrtimiAPI/GetAplikiminById",
         decryptedId
       ).then((res) => {
+        console.log(res);
         if (res) {
           if (res.statusCode === 200) {
             setApplicant(res.result[0]);
@@ -36,9 +34,9 @@ const ApplicationEditProfessor = () => {
         <>
           {applicant?.formulari?.formulariId === 1 ? (
             <ApplicationEditProfessorForm1 />
-          ) : (
+          ) : applicant.formulari.formulariId === 2 ? (
             <ApplicationEditProfessorForm2 />
-          )}
+          ) : null}
         </>
       ) : (
         <div className='d-flex justify-content-center align-items-center'>

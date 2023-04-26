@@ -386,7 +386,7 @@ export default function ApplicationEditProfessorForm2() {
                       />
                     </div>
                   </div>
-                  <div className='col-xxl-3 col-lg-3'>
+                  {/* <div className='col-xxl-3 col-lg-3'>
                     <div className='form-group'>
                       <label>{t("InvitationAndProgram")}</label>
                       <input
@@ -415,7 +415,7 @@ export default function ApplicationEditProfessorForm2() {
                         defaultValue={applicant.abstrakti || ""}
                       />
                     </div>
-                  </div>
+                  </div> */}
                   <div className='col-xxl-3 col-lg-3'>
                     <div className='form-group'>
                       <label>{t("TitleOfPaper")}</label>
@@ -967,29 +967,6 @@ export default function ApplicationEditProfessorForm2() {
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className='col-xxl-12'>
-                    <div className='row'>
-                      <div className='col-xxl-2 col-lg-2 col-sm-10'>
-                        <div className='form-group'>
-                          <Upload
-                            maxCount='1'
-                            accept='.png, .jpeg, . jpg ,.pdf'
-                            onChange={(e) => {
-                              setModel({
-                                ...newModel,
-                                RaportiDekanit: e.file.originFileObj,
-                                ChangeDekaniDoc: true,
-                              });
-                            }}
-                          >
-                            <Button type='text' icon={<UploadOutlined />}>
-                              {t("Upload")}
-                            </Button>
-                          </Upload>
                         </div>
                       </div>
                     </div>
