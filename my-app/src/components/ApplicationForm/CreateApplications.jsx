@@ -19,7 +19,7 @@ const CreateApplications = () => {
   const decryptedId = atob(id);
 
   return (
-    <div className='container mt-5'>
+    <div className="container mt-5">
       {decryptedId && decryptedId == 1 && <SecondForm />}
       {decryptedId && decryptedId == 2 && <SecondForm2 />}
       {decryptedId && decryptedId == 3 && <SecondForm3 />}

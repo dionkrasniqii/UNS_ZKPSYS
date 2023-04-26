@@ -88,11 +88,11 @@ const Navbar = (props) => {
 
   return (
     <>
-      <header className="rbt-header rbt-header-10 ">
+      <header className="rbt-header rbt-header-10 fixed-top">
         <div className="rbt-sticky-placeholder" />
         <div className="rbt-header-wrapper header-sticky">
           <div className="container-fluid">
-            <div className="mainbar-row rbt-navigation-center align-items-center  header-space-betwween">
+            <div className="mainbar-row rbt-navigation-center align-items-center  header-space-between">
               <div className="header-left rbt-header-content">
                 <div className="header-info">
                   <div className="logo">

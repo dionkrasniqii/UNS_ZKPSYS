@@ -657,6 +657,101 @@ body {
     -webkit-line-clamp: 3;
 }
 
+.back-to-top {
+    position: fixed;
+    right: 4rem;
+    bottom: 4rem;
+    background: linear-gradient(to bottom, #C70202, #181414);
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    opacity: 0.9;
+    transition: opacity 0.3s ease-in-out;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--shadow-11);
+    z-index: 22 !important;
+}
+
+.back-to-top:hover {
+    opacity: 1 !important;
+}
+
+.ant-radio-button-wrapper:first-child {
+    border: none !important;
+    border-start-start-radius: 0px;
+    border-end-start-radius: 0px;
+}
+
+.ant-radio-button-wrapper:not(:first-child)::before {
+    background-color: none !important;
+}
+
+.ant-radio-button-wrapper {
+    border: none !important;
+}
+
+.ant-radio-group {
+    /* border: 2px solid red; */
+    background: var(--color-white);
+    border-radius: 500px;
+    padding: 16px 20px;
+    display: inline-block;
+    box-shadow: var(--shadow-1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+}
+
+.ant-radio-group-solid :where(.css-dev-only-do-not-override-1vtf12y).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+    color: #fff;
+    background: none;
+    border-color: none;
+}
+
+.ant-radio-button-inner {
+    display: none !important;
+}
+
+.ant-radio-button-wrapper span {
+    height: 60px;
+    font-weight: 500;
+    font-size: 20px;
+    color: var(--color-heading);
+    border: 0 none;
+    background: transparent;
+    padding: 0 35px;
+    border-radius: 500px;
+    transition: var(--transition);
+    background-size: 300% 100%;
+    background-image: linear-gradient(to right, var(--color-primary), var(--color-secondary), var(--color-secondary), var(--color-primary));
+    color: var(--color-white);
+    height: 50px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -10px;
+}
+
+.progress-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background-color: #222;
+    transition: width 0.3s ease-in-out;
+}
+
 .client-info .title {
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -1876,6 +1971,35 @@ ul.rbt-dropdown-menu li a {
     max-width: inherit !important;
 }
 
+.max-width-auto .form-group label {
+    top: -12px !important;
+}
+
+.max-width-auto .form-group input {
+    font-size: 16px !important;
+    top: 15px;
+    position: relative;
+    height: auto !important;
+    padding: 0px;
+}
+
+.fixed-top {
+    position: fixed !important;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+}
+
+.rbt-main-wrapper {
+    min-height: 100vh !important;
+    max-height: 100% !important;
+}
+
+.nav-item-langage a {
+    left: 0 !important;
+}
+
 .edu_bounce_loop {
     will-change: transform;
     -webkit-animation-name: edu_bounce_loop;
@@ -2838,15 +2962,33 @@ textarea:-ms-input-placeholder {
 }
 
 .btn-danger {
-    background: linear-gradient(90deg, #C70202, #1814143a);
+    background: linear-gradient(90deg, #1814143a, #1814143a);
     color: #fff;
-    box-shadow: 0 4px 9px -4px #C70202;
+    box-shadow: 0 4px 9px -4px #1814143a;
     cursor: pointer !important;
 }
 
+.btn-danger2 {
+    background: linear-gradient(90deg, #C70202, #131313) !important;
+    color: #fff !important;
+    box-shadow: 0 4px 9px -4px #1814143a;
+    cursor: pointer !important;
+    transition: .5;
+}
+
+.btn-danger2:hover {
+    background: linear-gradient(90deg, #131313, #C70202) !important;
+    color: #fff !important;
+}
+
 .btn-danger:hover {
-    background: #C70202 !important;
-    box-shadow: 0 4px 15px -4px #C70202 !important;
+    background: #610202 !important;
+    box-shadow: 0 4px 15px -4px #1814143a !important;
+}
+
+.btn-danger {
+    background-color: #181414 !important;
+    cursor: pointer;
 }
 
 .box span {
@@ -12378,6 +12520,11 @@ a:active {
     padding-left: 0;
 }
 
+.rbt-header .mainmenu-nav .mainmenu a:first-child {
+    position: relative;
+    left: -55px;
+}
+
 .rbt-header .mainmenu-nav .mainmenu li:last-child a {
     padding-right: 0;
 }
@@ -13319,6 +13466,7 @@ a:active {
 
 @media only screen and (max-width: 767px) {
     .nav-item-langage {
+        position: relative;
         left: -6px;
         display: flex;
         justify-content: start;
@@ -13326,6 +13474,90 @@ a:active {
     }
     .costume-width {
         width: 100% !important;
+    }
+}
+
+
+/* Phone */
+
+@media only screen and (max-width: 480px) {
+    nav-item-langage {
+        position: relative;
+        left: -6px;
+        display: flex;
+        justify-content: start;
+        top: -5px;
+    }
+    .costume-width {
+        width: 100% !important;
+    }
+}
+
+
+/* Tablet  */
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+    .nav-item-langage {
+        position: relative;
+        left: -6px;
+        display: flex;
+        justify-content: start;
+        top: -5px;
+    }
+    .costume-width {
+        width: 100% !important;
+    }
+}
+
+
+/* Tablet  */
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+    .nav-item-langage {
+        position: relative;
+        left: -6px;
+        display: flex;
+        justify-content: start;
+        top: -5px;
+    }
+    .costume-width {
+        width: 100% !important;
+    }
+}
+
+
+/* Monitor devices */
+
+@media only screen and (min-width: 1025px) and (max-width: 1200px) {
+    .nav-item-langage {
+        position: relative;
+        left: -6px;
+        display: flex;
+        justify-content: start;
+        top: -5px;
+    }
+    .costume-width {
+        width: 100% !important;
+    }
+}
+
+@media only screen and (min-width: 1201px) {
+    .nav-item-langage {
+        position: absolute;
+        right: 140px;
+        display: flex;
+        justify-content: end;
+        top: 15px;
+    }
+}
+
+@media only screen and (min-width: 1600) {
+    .nav-item-langage {
+        position: absolute;
+        right: 200px;
+        display: flex;
+        justify-content: end;
+        top: 15px;
     }
 }
 
@@ -14048,7 +14280,7 @@ Button Area
 }
 
 .rbt-btn.btn-gradient.btn-gradient-4 {
-    background-image: linear-gradient(to right, var(--color-pinterest), var(--color-youtube), var(--color-coral), var(--color-pinterest));
+    background-image: linear-gradient(to right, #C70202, #451414, #451414, #C70202);
 }
 
 .rbt-btn.btn-gradient:hover {

@@ -9,6 +9,7 @@ import smlogo from "../../assets/images/logo/sm-logo.png";
 import CrudProvider from "../../provider/CrudProvider";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import Footer from "../Home/Footer";
 
 const Landing = () => {
   const [news, setNews] = useState([]);

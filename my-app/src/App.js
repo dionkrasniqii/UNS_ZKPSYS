@@ -13,6 +13,7 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 import { setProfessors } from "./store/actions";
 import store from "./store/store";
 import { useTranslation } from "react-i18next";
+import BackToTop from "./components/Home/BackToTop";
 import Footer from "./components/Home/Footer";
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
       });
     }
   }, [authState]);
+
   function handleLogin(res) {
     localStorage.setItem("token", res.token);
     let profesor = Encryption.Encrypt(JSON.stringify(res.result));
@@ -80,10 +82,12 @@ function App() {
           theme="light"
           style={{ fontSize: "14px" }}
         />{" "}
-        <Navbar logout={handleLogout} isAuth={authState} />{" "}
-        <AppRoutes login={handleLogin} />{" "}
+        <main className="rbt-main-wrapper">
+          <Navbar logout={handleLogout} isAuth={authState} />{" "}
+          <AppRoutes login={handleLogin} /> <BackToTop />
+        </main>{" "}
+        <Footer />
       </div>{" "}
-      <Footer />
     </>
   );
 }

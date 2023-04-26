@@ -216,91 +216,91 @@ const SecondForm = () => {
 
   return (
     <>
-      <div className='col-xxl-12 col-lg-10 col-sm-12 d-flex justify-content-center mt-4 mb-4 '>
-        <div className='mt-5'>
-          <h1 className='page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0 text-uppercase'>
+      <div className="col-xxl-12 col-lg-10 col-sm-12 d-flex justify-content-center mt-4 mb-4 ">
+        <div className="mt-5">
+          <h1 className="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0 text-uppercase">
             {t("SecondAnnex")}
           </h1>
-          <div className='d-flex mt-1'>
-            <a className='fs-5 fw-bold text-danger'> {t("Home")}</a>
-            <div className='mx-1 fs-5 fw-bold text-dark'>/</div>
-            <div className='breadcrumb-item text-muted fs-5'>
+          <div className="d-flex mt-1">
+            <a className="fs-5 fw-bold text-danger"> {t("Home")}</a>
+            <div className="mx-1 fs-5 fw-bold text-dark">/</div>
+            <div className="breadcrumb-item text-muted fs-5">
               {t("SecondAnnex")}
             </div>
           </div>
 
-          <div className='rbt-card col-xxl-12 col-lg-12 col-sm-12 mt-5'>
-            <h1 className='text-center text-uppercase fs-2 my-3 mb-5'>
+          <div className="rbt-card col-xxl-12 col-lg-12 col-sm-12 mt-5">
+            <h1 className="text-center text-uppercase fs-2 my-3 mb-5">
               {t("SecondAnnexDescription")}
             </h1>
-            <div className='row'>
-              <div className='col-xxl-12 col-lg-10 col-sm-12 rbt-border-dashed rbt-radius border-1 px-5 pt-3 position-relative'>
-                <div className='box'>
+            <div className="row">
+              <div className="col-xxl-12 col-lg-10 col-sm-12 rbt-border-dashed rbt-radius border-1 px-5 pt-3 position-relative">
+                <div className="box">
                   <span>1</span>
                 </div>
-                <div className='row mt-4 mb-4'>
-                  <div className='col-lg-12 mb-4'>
-                    <h1 className='page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0'>
+                <div className="row mt-4 mb-4">
+                  <div className="col-lg-12 mb-4">
+                    <h1 className="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
                       {t("RequestApplicant")}
                     </h1>
                   </div>
-                  <div className='col-lg-3 col-sm-12 col-md-10'>
-                    <div className='form-group'>
+                  <div className="col-lg-3 col-sm-12 col-md-10">
+                    <div className="form-group">
                       <label> {t("Name")}</label>
                       <input
-                        type='text'
+                        type="text"
                         defaultValue={applicationDTO.Aplikimi.Emri}
                         readOnly
                       />
                     </div>
                   </div>
-                  <div className='col-lg-3 col-sm-12 col-md-10'>
-                    <div className='form-group'>
+                  <div className="col-lg-3 col-sm-12 col-md-10">
+                    <div className="form-group">
                       <label> {t("Surname")}</label>
                       <input
-                        type='text'
+                        type="text"
                         defaultValue={applicationDTO.Aplikimi.Mbiemri}
                         readOnly
                       />
                     </div>
                   </div>
                   {Object.keys(faculty).length > 0 && (
-                    <div className='col-lg-6 col-sm-12 col-md-10'>
-                      <div className='form-group'>
+                    <div className="col-lg-6 col-sm-12 col-md-10">
+                      <div className="form-group">
                         <label>{t("AcademicUnit")}</label>
                         <input
-                          type='text'
+                          type="text"
                           defaultValue={faculty.fakultetiPershkrimi}
                           readOnly
                         />
                       </div>
                     </div>
                   )}
-                  <div className='col-lg-6 col-sm-12 col-md-10'>
-                    <div className='form-group'>
+                  <div className="col-lg-6 col-sm-12 col-md-10">
+                    <div className="form-group">
                       <label>{t("ScientificCall")}</label>
                       <input
-                        type='text'
+                        type="text"
                         defaultValue={applicationDTO.ThirrjaShkencoreEmri}
                         readOnly
                       />
                     </div>
                   </div>
-                  <div className='col-lg-6 col-sm-12 col-md-10'>
-                    <div className='form-group'>
+                  <div className="col-lg-6 col-sm-12 col-md-10">
+                    <div className="form-group">
                       <label>{t("AcademicCall")}</label>
                       <input
-                        type='text'
+                        type="text"
                         defaultValue={applicationDTO.ThirrjaAkademikeEmri}
                         readOnly
                       />
                     </div>
                   </div>
-                  <div className='col-xxl-12 col-lg-12 col-sm-12'>
-                    <div className='row'>
-                      <div className='col-lg-4'>
-                        <div className='row'>
-                          <div className='col-xxl-12 col-lg-12 col-sm-12'>
+                  <div className="col-xxl-12 col-lg-12 col-sm-12">
+                    <div className="row">
+                      <div className="col-lg-4">
+                        <div className="row">
+                          <div className="col-xxl-12 col-lg-12 col-sm-12">
                             <Checkbox
                               onChange={(e) => {
                                 setapplicationDTO({
@@ -315,19 +315,19 @@ const SecondForm = () => {
                               Autorë të huaj
                             </Checkbox>
                           </div>
-                          <div className='form-group'>
+                          <div className="form-group">
                             <label>{t("LeadAuthor")}</label>
                             {!applicationDTO.AutoriKryesor.Huaj ? (
-                              <div className='rbt-modern-select bootstrap-select pt-2'>
+                              <div className="rbt-modern-select bootstrap-select pt-2">
                                 <Select
                                   showSearch
-                                  optionFilterProp='children'
+                                  optionFilterProp="children"
                                   filterOption={(input, option) =>
                                     (option?.label ?? "")
                                       .toLowerCase()
                                       .includes(input.toLowerCase())
                                   }
-                                  mode='single'
+                                  mode="single"
                                   allowClear
                                   style={{ width: "100%" }}
                                   placeholder={t("Choose")}
@@ -350,8 +350,8 @@ const SecondForm = () => {
                               </div>
                             ) : (
                               <input
-                                type='text'
-                                placeholder='....'
+                                type="text"
+                                placeholder="...."
                                 onChange={(e) => {
                                   setapplicationDTO({
                                     ...applicationDTO,
@@ -371,9 +371,9 @@ const SecondForm = () => {
                           </div>
                         </div>
                       </div>
-                      <div className='col-lg-4'>
-                        <div className='row'>
-                          <div className='col-xxl-12 col-lg-12 col-sm-12'>
+                      <div className="col-lg-4">
+                        <div className="row">
+                          <div className="col-xxl-12 col-lg-12 col-sm-12">
                             <Checkbox
                               onChange={(e) => {
                                 setapplicationDTO({
@@ -388,20 +388,20 @@ const SecondForm = () => {
                               Autorë të huaj
                             </Checkbox>
                           </div>
-                          <div className='form-group'>
+                          <div className="form-group">
                             <label>{t("Co-authors")}</label>
                             {!applicationDTO.Bashkeautoret.Huaj ? (
-                              <div className='rbt-modern-select bootstrap-select pt-2'>
+                              <div className="rbt-modern-select bootstrap-select pt-2">
                                 <Select
                                   showSearch
-                                  maxTagCount='responsive'
-                                  optionFilterProp='children'
+                                  maxTagCount="responsive"
+                                  optionFilterProp="children"
                                   filterOption={(input, option) =>
                                     (option?.label ?? "")
                                       .toLowerCase()
                                       .includes(input.toLowerCase())
                                   }
-                                  mode='multiple'
+                                  mode="multiple"
                                   allowClear
                                   value={applicationDTO.AplikimiBashkeAutorId}
                                   style={{ width: "100%" }}
@@ -421,8 +421,8 @@ const SecondForm = () => {
                               </div>
                             ) : (
                               <input
-                                type='text'
-                                placeholder='....'
+                                type="text"
+                                placeholder="...."
                                 onChange={(e) => {
                                   setapplicationDTO({
                                     ...applicationDTO,
@@ -440,16 +440,16 @@ const SecondForm = () => {
                       </div>
                     </div>
                   </div>
-                  <div className='col-xxl-12 col-lg-12 col-sm-12'>
-                    <div className='row'>
+                  <div className="col-xxl-12 col-lg-12 col-sm-12">
+                    <div className="row">
                       {profesor &&
                         profesor.profesoriID !=
                           applicationDTO.AutoriKryesor.AutoriKryesorId && (
-                          <div className='col-xxl-3 col-lg-3 col-sm-12 mt-3'>
+                          <div className="col-xxl-3 col-lg-3 col-sm-12 mt-3">
                             <Upload
-                              maxCount='1'
-                              accept='.png, .jpeg, . jpg ,.pdf'
-                              className='btn btn-danger btn-raporti w-100'
+                              maxCount="1"
+                              accept=".png, .jpeg, . jpg ,.pdf"
+                              className="btn btn-danger btn-raporti w-100"
                               multiple={false}
                               onChange={(e) => {
                                 setapplicationDTO({
@@ -459,17 +459,17 @@ const SecondForm = () => {
                                 });
                               }}
                             >
-                              <Button type='text' icon={<UploadOutlined />}>
+                              <Button type="text" icon={<UploadOutlined />}>
                                 Konfirmimi i autorit kryesorë
                               </Button>
                             </Upload>
                           </div>
                         )}
-                      <div className='col-xxl-3 col-lg-3 col-sm-12 mt-3'>
+                      <div className="col-xxl-3 col-lg-3 col-sm-12 mt-3">
                         <Upload
-                          maxCount='1'
-                          accept='.png, .jpeg, . jpg ,.pdf'
-                          className='btn btn-danger btn-raporti w-100'
+                          maxCount="1"
+                          accept=".png, .jpeg, . jpg ,.pdf"
+                          className="btn btn-danger btn-raporti w-100"
                           multiple={false}
                           onChange={(e) => {
                             setapplicationDTO({
@@ -478,7 +478,7 @@ const SecondForm = () => {
                             });
                           }}
                         >
-                          <Button type='text' icon={<UploadOutlined />}>
+                          <Button type="text" icon={<UploadOutlined />}>
                             Konfirmimi i bashkautorëve
                           </Button>
                         </Upload>
@@ -488,11 +488,11 @@ const SecondForm = () => {
                 </div>
               </div>
             </div>
-            <div className='col-xxl-12 col-lg-12 col-sm-12 mt-5 text-end'>
+            <div className="col-xxl-12 col-lg-12 col-sm-12 mt-5 text-end">
               <a
-                className='btn btn-danger fs-5 px-5 py-4'
+                className="btn btn-danger2 fs-5 px-5 py-4"
                 onClick={handleNextForm}
-                type='button'
+                type="button"
               >
                 {t("ConferencDetails")}
               </a>
@@ -500,7 +500,7 @@ const SecondForm = () => {
           </div>
         </div>
       </div>
-      <div className='col-xxl-12 col-lg-10 col-sm-12  d-flex justify-content-center mt-4'>
+      <div className="col-xxl-12 col-lg-10 col-sm-12  d-flex justify-content-center mt-4">
         {showForm3 === true ? (
           <ThirdForm2
             applicationDTO={applicationDTO}
@@ -511,7 +511,7 @@ const SecondForm = () => {
           <p></p>
         )}
       </div>
-      <div className='col-xxl-12 col-lg-10 col-sm-12  d-flex justify-content-center mt-4'>
+      <div className="col-xxl-12 col-lg-10 col-sm-12  d-flex justify-content-center mt-4">
         {showForm4 === true ? (
           <FourthForm2
             applicationDTO={applicationDTO}

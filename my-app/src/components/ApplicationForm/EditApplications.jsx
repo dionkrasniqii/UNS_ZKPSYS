@@ -169,8 +169,8 @@ const EditApplications = () => {
           <div className="col-lg-12">
             {professorList.length > 0 ? (
               <div className="rbt-card">
-                <div className="rbt-card-body border-bottom">
-                  {applicant && Object.keys(applicant).length > 0 && (
+                {applicant && Object.keys(applicant).length > 0 && (
+                  <div className="rbt-card-body border-bottom">
                     <div className="row">
                       {applicant.formulari.formulariId === 1 ? (
                         // Forma 1-----------------------
@@ -980,20 +980,6 @@ const EditApplications = () => {
                                   />
                                 </div>
                               </div>
-                              {/* <div className='col-xxl-4 col-lg-4'>
-                          <div className='form-group'>
-                            <label>Autore korrespodent</label>
-                            <input
-                              type='text'
-                              readOnly
-                              defaultValue={
-                                CorrespondingAuthors.map(
-                                  (obj) => obj.EmriDheMbiemri
-                                ) || ""
-                                }
-                            />
-                          </div>
-                        </div> */}
                               <div className="col-xxl-4 col-lg-4">
                                 <div className="form-group">
                                   <label>{t("Co-authors")}</label>
@@ -1615,10 +1601,10 @@ const EditApplications = () => {
                         </div>
                       )}
                     </div>
-                  )}
-                </div>
-                <div className="col-xxl-12 mt-3">
-                  <div className="row d-flex justify-content-end">
+                  </div>
+                )}
+                <div className="rbt-card-body border-bottom">
+                  <div className="row">
                     <div className="col-xxl-3 col-lg-3 d-flex align-items-center">
                       <Radio.Group
                         options={statusList}
@@ -1633,7 +1619,7 @@ const EditApplications = () => {
                       />
                     </div>
                     {model.StatusiKerkesesId == 2 && (
-                      <div className="col-xxl-3 col-lg-3">
+                      <div className="col-xxl-12 col-lg-12">
                         <div className="rbt-card-body">
                           <div className="form-group">
                             <label>{t("Remark")}</label>
@@ -1650,7 +1636,7 @@ const EditApplications = () => {
                         </div>
                       </div>
                     )}
-                    <div className="col-xxl-2 col-lg-2 d-flex align-items-center">
+                    <div className="col-xxl-12 col-lg-12">
                       <button
                         className="rbt-btn  btn-primary radius-round btn-sm"
                         onClick={handleSubmit}
