@@ -1363,6 +1363,11 @@ ul.rbt-dropdown-menu li:hover .sub-menu {
     transition: clip 0.6s linear, opacity 0.4s linear;
 }
 
+.mainmenu-nav ul li a:first-child {
+    position: relative;
+    left: -55px;
+}
+
 
 /*-----------------------------
     Rbt Background Gradient
@@ -7914,6 +7919,14 @@ textarea:-ms-input-placeholder {
     border-radius: var(--radius);
 }
 
+.max-width-auto label {
+    top: -12px;
+}
+
+.max-width-auto .form-group input {
+    font-size: 18px !important;
+}
+
 
 /*------------------------------
     Rbt Slider Gutter
@@ -13266,12 +13279,30 @@ a:active {
 }
 
 .nav-item-langage a {
+    position: relative;
+    left: 0px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     width: 60px !important;
     height: 50px !important;
     padding: 0px !important;
+}
+
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 5px;
+    background-color: #ccc;
+    z-index: 9999;
+    transition: width 0.2s ease-in-out;
+}
+
+.back-to-top {
+    position: fixed;
+    right: 80px;
+    bottom: 50px;
 }
 
 .copyright-area {
@@ -14048,7 +14079,8 @@ Button Area
 }
 
 .rbt-btn.btn-gradient.btn-gradient-4 {
-    background-image: linear-gradient(to right, var(--color-pinterest), var(--color-youtube), var(--color-coral), var(--color-pinterest));
+    /* background: linear-gradient(90deg, #C70202, #181414); */
+    background-image: linear-gradient(to right, #C70202, #451414, #451414, #C70202);
 }
 
 .rbt-btn.btn-gradient:hover {
@@ -14056,6 +14088,11 @@ Button Area
     background-position: 102% 0;
     transition: all 0.4s ease-in-out;
     color: white !important;
+}
+
+.btn-icon svg {
+    width: 30px;
+    height: 30px;
 }
 
 .rbt-btn.btn-gradient-submit:hover {
