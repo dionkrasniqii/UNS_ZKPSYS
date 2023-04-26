@@ -11,6 +11,7 @@ import ThirdForm3 from "./ThirdForm3";
 import FourthForm3 from "./FourthForm3";
 import { schemaForm2 } from "./schemas/schemas";
 import { useFormik } from "formik";
+import e from "express";
 
 const SecondForm3 = () => {
   const { id } = useParams();
@@ -154,21 +155,10 @@ const SecondForm3 = () => {
     });
   }
 
-  const { handleSubmit, errors, values, handleChange, setFieldValue } =
-    useFormik({
-      initialValues: {
-        AutoriKryesorId: "",
-        Huaj: "",
-        AutoriHuaj: "",
-        AplikimiBashkeAutorId: "",
-        Huaj2: "",
-        AutoriHuaj2: "",
-      },
-      validationSchema: schemaForm2,
-      onSubmit: (values, actions) => {
-        setShowForm3(true);
-      },
-    });
+  function handleSubmit(e) {
+    e.preventDefault();
+    setShowForm3(true);
+  }
   return (
     <>
       <div className='col-xxl-12 col-lg-10 col-sm-12 d-flex justify-content-center mt-4 mb-4 '>
@@ -311,19 +301,9 @@ const SecondForm3 = () => {
                                           AplikimiBashkeAutorId: [],
                                         },
                                       });
-                                      setFieldValue("AutoriKryesorId", e);
                                     }}
                                     options={professorsList}
-                                    value={
-                                      applicationDTO.AutoriKryesor
-                                        .AutoriKryesorId || null
-                                    }
                                   />
-                                  {errors.AutoriKryesor && (
-                                    <span className='title color-pink'>
-                                      {errors.AutoriKryesorId}
-                                    </span>
-                                  )}
                                 </div>
                               ) : (
                                 <input
@@ -343,22 +323,8 @@ const SecondForm3 = () => {
                                         AplikimiBashkeAutorId: [],
                                       },
                                     });
-                                    setFieldValue("AutoriHuaj", e.target.value);
                                   }}
-                                  value={
-                                    applicationDTO.AutoriKryesor.AutoriHuaj ||
-                                    ""
-                                  }
                                 />
-                              )}
-                              {errors.AutoriHuaj && (
-                                <span className='title color-pink'>
-                                  {errors.AutoriHuaj && (
-                                    <span className='title color-pink'>
-                                      {errors.AutoriHuaj}
-                                    </span>
-                                  )}
-                                </span>
                               )}
                             </div>
                           </div>
@@ -482,7 +448,7 @@ const SecondForm3 = () => {
                 </div>
               </div>
               <div className='col-xxl-12 col-lg-12 col-sm-12 mt-5 text-end'>
-                <button className='btn btn-danger fs-5 px-5 py-4' type='button'>
+                <button className='btn btn-danger fs-5 px-5 py-4' type='submit'>
                   {t("ConferencDetails")}
                 </button>
               </div>

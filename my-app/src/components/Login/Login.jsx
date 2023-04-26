@@ -64,16 +64,6 @@ const Login = (props) => {
                   <label>{t("Password")}</label>
                   <span className='focus-border' />
                 </div>
-                <div className='form-group'>
-                  <input name='username' type='text' autoComplete='off' />
-                  <label>{t("Username")}</label>
-                  <span className='focus-border' />
-                </div>
-                <div className='form-group'>
-                  <input name='password' autoComplete='off' type='password' />
-                  <label>{t("Password")}</label>
-                  <span className='focus-border' />
-                </div>
                 <div className='form-submit-group'>
                   {showLoad === false ? (
                     <button
